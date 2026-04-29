@@ -1,7 +1,6 @@
 import type { StorybookConfig } from "@storybook/angular";
-import type { StorybookConfigVite } from "@storybook/builder-vite";
 
-const config: StorybookConfig & StorybookConfigVite = {
+const config: StorybookConfig = {
   stories: [
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
@@ -18,14 +17,6 @@ const config: StorybookConfig & StorybookConfigVite = {
   },
   core: {
     builder: "@storybook/builder-vite",
-  },
-  async viteFinal(config) {
-    const { mergeConfig } = await import("vite");
-    return mergeConfig(config, {
-      define: {
-        STORYBOOK_ANGULAR_OPTIONS: JSON.stringify({ experimentalZoneless: false }),
-      },
-    });
   },
   staticDirs: [
     { from: "../src/lib/icons", to: "/icons" },
