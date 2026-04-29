@@ -2,9 +2,66 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "pnpm"
+    "packageManager": "pnpm",
+    "analytics": "e4a826f3-7f96-4d65-90fa-10b4003bedb3"
   },
   "newProjectRoot": "projects",
   "projects": {
+    "hestia-ui": {
+      "projectType": "library",
+      "root": "projects/hestia-ui",
+      "sourceRoot": "projects/hestia-ui/src",
+      "prefix": "h",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/hestia-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/hestia-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/hestia-ui/tsconfig.spec.json"
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": "projects/hestia-ui/.storybook",
+            "browserTarget": "hestia-ui:build",
+            "compodoc": false,
+            "port": 6006,
+            "styles": [
+              "projects/hestia-ui/src/lib/tokens/design-tokens.css"
+            ]
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": "projects/hestia-ui/.storybook",
+            "browserTarget": "hestia-ui:build",
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/hestia-ui"
+            ],
+            "outputDir": "dist/storybook/hestia-ui",
+            "styles": [
+              "projects/hestia-ui/src/lib/tokens/design-tokens.css"
+            ]
+          }
+        }
+      }
+    }
   }
 }

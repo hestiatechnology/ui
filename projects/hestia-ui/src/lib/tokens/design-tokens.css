@@ -1,0 +1,250 @@
+/* ==========================================================================
+   HESTIA TECHNOLOGY · DESIGN TOKENS  v2 (industrial)
+   ========================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap");
+
+@font-face {
+  font-family: "Geist";
+  src: url("Geist-VariableFont_wght.ttf") format("truetype-variations"),
+       url("Geist-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Brand */
+  --h-blue:      #003DA5;
+  --h-blue-hi:   #5B7BD9;
+  --h-blue-deep: #060E24;
+  --h-blue-tint: #E5EBF6;
+
+  /* Surface */
+  --h-background:           oklch(0.985 0.003 80);
+  --h-foreground:           oklch(0.10  0.01  255);
+  --h-card:                 #ffffff;
+  --h-card-foreground:      oklch(0.10  0.01  255);
+  --h-popover:              #ffffff;
+  --h-popover-foreground:   oklch(0.10  0.01  255);
+
+  /* Thread palette — sparingly: footer, empty states, never on actions */
+  --h-thread-cotton: #F5EFE2;
+  --h-thread-linen:  #E8DFCB;
+  --h-thread-flax:   #D8C9A7;
+  --h-thread-jute:   #B89968;
+
+  /* Semantic */
+  --h-primary:              #003DA5;
+  --h-primary-foreground:   #ffffff;
+  --h-secondary:            oklch(0.96 0.003 80);
+  --h-secondary-foreground: oklch(0.18 0.01  255);
+  --h-muted:                oklch(0.96 0.003 80);
+  --h-muted-foreground:     oklch(0.42 0.01  255);
+  --h-accent:               oklch(0.96 0.003 80);
+  --h-accent-foreground:    oklch(0.18 0.01  255);
+  --h-destructive:          #B42318;
+  --h-destructive-foreground: #ffffff;
+
+  /* Status palette — shop-floor states, colour-blind safe */
+  --h-status-running:        #118D57;
+  --h-status-running-bg:     #E6F4EC;
+  --h-status-running-border: #B5DBC5;
+  --h-status-idle:           #B76E00;
+  --h-status-idle-bg:        #FAEFD9;
+  --h-status-idle-border:    #ECC785;
+  --h-status-error:          #B42318;
+  --h-status-error-bg:       #FBE9E7;
+  --h-status-error-border:   #F1B8AE;
+  --h-status-maintenance:    #475467;
+  --h-status-maintenance-bg: #EAECF0;
+  --h-status-maintenance-border: #C7CCD4;
+  --h-status-hold:           #6941C6;
+  --h-status-hold-bg:        #EDE9FB;
+  --h-status-hold-border:    #CFC2F1;
+
+  /* Lines & focus */
+  --h-border:        oklch(0.905 0.003 80);
+  --h-border-strong: oklch(0.84  0.003 80);
+  --h-input:         oklch(0.905 0.003 80);
+  --h-ring:          #003DA5;
+
+  /* Charts */
+  --h-chart-1: #003DA5;
+  --h-chart-2: oklch(0.52 0.18 255);
+  --h-chart-3: oklch(0.42 0.18 255);
+  --h-chart-4: oklch(0.32 0.18 255);
+  --h-chart-5: oklch(0.22 0.18 255);
+
+  /* Radius */
+  --h-radius:    0.75rem;
+  --h-radius-sm: calc(var(--h-radius) - 4px);
+  --h-radius-md: calc(var(--h-radius) - 2px);
+  --h-radius-lg: var(--h-radius);
+  --h-radius-xl: calc(var(--h-radius) + 4px);
+  --h-radius-2xl: 1.25rem;
+  --h-radius-pill: 9999px;
+
+  /* Shadows */
+  --h-shadow-2xs: 0 1px 2px 0 oklch(0 0 0 / 0.04);
+  --h-shadow-xs:  0 1px 3px 0 oklch(0 0 0 / 0.05);
+  --h-shadow-sm:  0 1px 3px 0 oklch(0 0 0 / 0.08), 0 1px 2px -1px oklch(0 0 0 / 0.06);
+  --h-shadow:     0 4px 8px -2px oklch(0 0 0 / 0.08), 0 2px 4px -2px oklch(0 0 0 / 0.06);
+  --h-shadow-md:  0 6px 12px -3px oklch(0 0 0 / 0.08), 0 3px 6px -3px oklch(0 0 0 / 0.06);
+  --h-shadow-lg:  0 12px 24px -6px oklch(0 0 0 / 0.10), 0 6px 10px -5px oklch(0 0 0 / 0.06);
+  --h-shadow-xl:  0 24px 40px -8px oklch(0 0 0 / 0.12), 0 10px 16px -8px oklch(0 0 0 / 0.07);
+  --h-shadow-2xl: 0 40px 64px -12px oklch(0 0 0 / 0.18);
+
+  /* Touch targets */
+  --h-touch-min:     36px;
+  --h-touch-default: 40px;
+  --h-touch-comfort: 44px;
+  --h-touch-large:   52px;
+
+  /* Typography */
+  --h-font-sans:    "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --h-font-heading: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --h-font-mono:    "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Type scale (marketing) */
+  --h-text-xs:   0.75rem;
+  --h-text-sm:   0.875rem;
+  --h-text-base: 1rem;
+  --h-text-lg:   1.125rem;
+  --h-text-xl:   1.25rem;
+  --h-text-2xl:  1.5rem;
+  --h-text-3xl:  1.875rem;
+  --h-text-4xl:  2.25rem;
+
+  /* Eyebrow */
+  --h-eyebrow-size:     12px;
+  --h-eyebrow-weight:   700;
+  --h-eyebrow-tracking: 0.18em;
+  --h-eyebrow-color:    var(--h-primary);
+
+  /* Motion — marketing: narrative; product: instant */
+  --h-motion-marketing-quick:     200ms;
+  --h-motion-marketing-base:      400ms;
+  --h-motion-marketing-narrative: 700ms;
+  --h-motion-marketing-ease:      cubic-bezier(0.16, 1, 0.3, 1);
+  --h-motion-product-instant:     80ms;
+  --h-motion-product-quick:       120ms;
+  --h-motion-product-base:        150ms;
+  --h-motion-product-ease:        cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Operations theme — factory floor: larger type, AA contrast, bigger touch targets */
+[data-theme="operations"], .h-theme-operations {
+  --h-text-xs:   0.8125rem;
+  --h-text-sm:   0.9375rem;
+  --h-text-base: 1.125rem;
+  --h-text-lg:   1.25rem;
+  --h-text-xl:   1.4375rem;
+  --h-text-2xl:  1.75rem;
+  --h-text-3xl:  2.125rem;
+  --h-eyebrow-size:       13px;
+  --h-muted-foreground:   oklch(0.32 0.01 255);
+  --h-border:             oklch(0.86 0.003 80);
+  --h-touch-default:      44px;
+  --h-touch-comfort:      52px;
+}
+
+/* Dark mode */
+.dark, [data-theme="dark"] {
+  color-scheme: dark;
+  --h-background:           oklch(0.085 0.018 255);
+  --h-foreground:           oklch(0.97  0.005 255);
+  --h-card:                 oklch(0.155 0.020 255);
+  --h-card-foreground:      oklch(0.97  0.005 255);
+  --h-popover:              oklch(0.18  0.020 255);
+  --h-popover-foreground:   oklch(0.97  0.005 255);
+  --h-primary:              #5B7BD9;
+  --h-primary-foreground:   #ffffff;
+  --h-secondary:            oklch(0.20 0.020 255);
+  --h-secondary-foreground: oklch(0.97 0.005 255);
+  --h-muted:                oklch(0.19 0.020 255);
+  --h-muted-foreground:     oklch(0.72 0.012 255);
+  --h-accent:               oklch(0.20 0.020 255);
+  --h-accent-foreground:    oklch(0.97 0.005 255);
+  --h-destructive:          #F04438;
+  --h-border:               oklch(0.30 0.020 255);
+  --h-border-strong:        oklch(0.42 0.022 255);
+  --h-input:                oklch(0.30 0.020 255);
+  --h-ring:                 #5B7BD9;
+  --h-status-running:        #3CCB7F;
+  --h-status-running-bg:     oklch(0.22 0.06 150);
+  --h-status-running-border: oklch(0.32 0.07 150);
+  --h-status-idle:           #F5B544;
+  --h-status-idle-bg:        oklch(0.24 0.06 70);
+  --h-status-idle-border:    oklch(0.36 0.08 70);
+  --h-status-error:          #F04438;
+  --h-status-error-bg:       oklch(0.24 0.07 25);
+  --h-status-error-border:   oklch(0.36 0.10 25);
+  --h-status-maintenance:    #98A2B3;
+  --h-status-maintenance-bg: oklch(0.20 0.01 255);
+  --h-status-maintenance-border: oklch(0.32 0.01 255);
+  --h-status-hold:           #B692F6;
+  --h-status-hold-bg:        oklch(0.22 0.06 290);
+  --h-status-hold-border:    oklch(0.34 0.10 290);
+}
+
+/* Element defaults */
+*, *::before, *::after { box-sizing: border-box; }
+
+.h-root {
+  font-family: var(--h-font-sans);
+  font-feature-settings: "rlig" 1, "calt" 1, "tnum" 1;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  color: var(--h-foreground);
+  background: var(--h-background);
+}
+
+/* Status pill */
+.h-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--h-radius-pill);
+  font-family: var(--h-font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.h-status-pill::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 9999px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.h-status-pill--running     { color: var(--h-status-running);     background: var(--h-status-running-bg);     border-color: var(--h-status-running-border); }
+.h-status-pill--idle        { color: var(--h-status-idle);        background: var(--h-status-idle-bg);        border-color: var(--h-status-idle-border); }
+.h-status-pill--error       { color: var(--h-status-error);       background: var(--h-status-error-bg);       border-color: var(--h-status-error-border); }
+.h-status-pill--maintenance { color: var(--h-status-maintenance); background: var(--h-status-maintenance-bg); border-color: var(--h-status-maintenance-border); }
+.h-status-pill--hold        { color: var(--h-status-hold);        background: var(--h-status-hold-bg);        border-color: var(--h-status-hold-border); }
+
+/* ID / mono utility */
+.h-id, .h-lot-code, .h-sku, .h-machine-id {
+  font-family: var(--h-font-mono);
+  font-feature-settings: "ss01" 1, "tnum" 1;
+  letter-spacing: 0;
+}
+
+/* Weave texture — dark surfaces only */
+.h-weave {
+  background-image:
+    repeating-linear-gradient(0deg,   rgba(255,255,255,0.025) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(90deg,  rgba(255,255,255,0.020) 0 1px, transparent 1px 8px);
+}
+
+/* Focus ring — global override for library elements */
+.h-focus-ring:focus-visible {
+  outline: 2px solid var(--h-ring);
+  outline-offset: 2px;
+}
