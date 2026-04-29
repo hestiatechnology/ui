@@ -7,12 +7,12 @@
   "author": "Hestia Technology <devops@hestiatechnology.pt>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hestiatechnology/ui-kit.git"
+    "url": "git+https://github.com/hestiatechnology/ui.git"
   },
   "bugs": {
-    "url": "https://github.com/hestiatechnology/ui-kit/issues"
+    "url": "https://github.com/hestiatechnology/ui/issues"
   },
-  "homepage": "https://github.com/hestiatechnology/ui-kit#readme",
+  "homepage": "https://github.com/hestiatechnology/ui#readme",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0"
