@@ -30,7 +30,7 @@ jobs:
 
       - run: pnpm build
 
-      - run: npm publish dist/hestia-ui --access public --provenance
+      - run: npm publish ./dist/hestia-ui --access public --provenance
 
       - name: Commit version bump
         run: |
