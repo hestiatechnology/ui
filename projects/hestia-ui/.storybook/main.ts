@@ -18,6 +18,14 @@ const config: StorybookConfig = {
   core: {
     builder: "@storybook/builder-vite",
   },
+  async viteFinal(config) {
+    const { mergeConfig } = await import("vite");
+    return mergeConfig(config, {
+      define: {
+        STORYBOOK_ANGULAR_OPTIONS: JSON.stringify({ experimentalZoneless: false }),
+      },
+    });
+  },
   staticDirs: [
     { from: "../src/lib/icons", to: "/icons" },
   ],
