@@ -1,6 +1,7 @@
 import type { StorybookConfig } from "@storybook/angular";
+import type { StorybookConfigVite } from "@storybook/builder-vite";
 
-const config: StorybookConfig = {
+const config: StorybookConfig & StorybookConfigVite = {
   stories: [
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
