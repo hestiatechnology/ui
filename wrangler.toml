@@ -1,5 +1,8 @@
 name = "hestia-ui-kit"
 compatibility_date = "2025-04-01"
 
+[build]
+command = "pnpm install && pnpm build-storybook"
+
 [assets]
 directory = "./dist/storybook/hestia-ui"
