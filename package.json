@@ -41,11 +41,13 @@
     "@storybook/addon-onboarding": "^10.3.5",
     "@storybook/addon-themes": "^10.3.6",
     "@storybook/angular": "^10.3.5",
+    "@storybook/builder-vite": "^10.3.6",
     "@types/node": "^25.6.0",
     "ng-packagr": "^21.2.0",
     "prettier": "^3.8.1",
     "storybook": "^10.3.5",
     "typescript": "~5.9.2",
+    "vite": "^8.0.10",
     "vitest": "^4.0.8",
     "wrangler": "^4.86.0"
   }
