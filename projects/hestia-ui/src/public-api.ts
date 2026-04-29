@@ -9,12 +9,16 @@
 export * from './lib/button/button.component';
 export * from './lib/icon-button/icon-button.component';
 export * from './lib/input/input.component';
+export * from './lib/textarea/textarea.component';
 export * from './lib/field/field.component';
 export * from './lib/checkbox/checkbox.component';
 export * from './lib/radio/radio.component';
 export * from './lib/switch/switch.component';
 export * from './lib/segmented/segmented.component';
 export * from './lib/select/select.component';
+export * from './lib/object-select/object-select.component';
+export * from './lib/autocomplete/autocomplete.component';
+export * from './lib/chip-input/chip-input.component';
 export * from './lib/slider/slider.component';
 
 // Navigation / disclosure
@@ -35,6 +39,8 @@ export * from './lib/confirm-dialog/confirm-dialog.component';
 export * from './lib/tooltip/tooltip.directive';
 export * from './lib/drawer/drawer.component';
 export * from './lib/popover/popover.component';
+export * from './lib/modal-service/modal-ref';
+export * from './lib/modal-service/modal.service';
 
 // Feedback
 export * from './lib/alert/alert.component';
@@ -67,4 +73,8 @@ export * from './lib/dpp-lockup/dpp-lockup.component';
 export * from './lib/icons/textile-icon.component';
 export * from './lib/timeline/timeline.component';
 export * from './lib/date-picker/date-picker.component';
+export * from './lib/date-input/date-input.component';
+export * from './lib/time-picker/time-picker.component';
+export * from './lib/time-input/time-input.component';
+export * from './lib/data-table/data-table.component';
 export * from './lib/upload/upload.component';

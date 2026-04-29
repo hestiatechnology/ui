@@ -3,5 +3,12 @@
   "dest": "../../dist/hestia-ui",
   "lib": {
     "entryFile": "src/public-api.ts"
-  }
+  },
+  "assets": [
+    {
+      "input": "src/lib/tokens",
+      "glob": "design-tokens.css",
+      "output": "./tokens"
+    }
+  ]
 }

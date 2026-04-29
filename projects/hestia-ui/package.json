@@ -13,12 +13,20 @@
     "url": "https://github.com/hestiatechnology/ui/issues"
   },
   "homepage": "https://github.com/hestiatechnology/ui#readme",
+  "exports": {
+    "./tokens": "./tokens/design-tokens.css"
+  },
   "peerDependencies": {
     "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0"
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/cdk": "^21.2.0",
+    "@angular/aria": "^21.2.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": [
+    "tokens/design-tokens.css"
+  ]
 }
