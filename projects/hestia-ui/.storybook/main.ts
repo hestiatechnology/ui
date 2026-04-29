@@ -15,9 +15,6 @@ const config: StorybookConfig = {
     name: "@storybook/angular",
     options: {},
   },
-  core: {
-    builder: "@storybook/builder-vite",
-  },
   staticDirs: [
     { from: "../src/lib/icons", to: "/icons" },
   ],
