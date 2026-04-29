@@ -1,6 +1,18 @@
 {
-  "name": "hestia-ui",
+  "name": "@hestiatechnology/ui",
   "version": "0.0.1",
+  "description": "Hestia Technology UI component library for Angular",
+  "keywords": ["angular", "components", "ui", "hestia"],
+  "license": "MIT",
+  "author": "Hestia Technology <devops@hestiatechnology.pt>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hestiatechnology/ui-kit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hestiatechnology/ui-kit/issues"
+  },
+  "homepage": "https://github.com/hestiatechnology/ui-kit#readme",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0"

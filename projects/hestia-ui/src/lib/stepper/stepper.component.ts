@@ -65,7 +65,7 @@ export type StepState = 'done' | 'active' | 'todo';
     }
   `,
   styles: [`
-    :host { display: block; }
+    :host { display: block; font-family: var(--h-font-sans); }
 
     /* ---- Horizontal ---- */
     .h-stepper--horizontal {

@@ -1,0 +1,188 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+<div style={{fontFamily: 'var(--h-font-sans)', color: 'var(--h-foreground)', maxWidth: 900}}>
+
+<div style={{marginBottom: 48}}>
+  <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16}}>
+    <div style={{
+      width: 36, height: 36, borderRadius: 8,
+      background: 'var(--h-primary)',
+      display: 'grid', placeItems: 'center',
+    }}>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    </div>
+    <span style={{fontFamily: 'var(--h-font-mono)', fontSize: 12, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--h-muted-foreground)'}}>Hestia Technology</span>
+  </div>
+
+  <h1 style={{fontSize: 32, fontWeight: 700, margin: '0 0 12px', lineHeight: 1.15, letterSpacing: '-0.02em'}}>Hestia UI</h1>
+  <p style={{fontSize: 15, color: 'var(--h-muted-foreground)', margin: 0, maxWidth: 560, lineHeight: 1.65}}>
+    Component library and design system for Hestia Technology's manufacturing operations platform.
+    Built for the factory floor — accessible, performant, and optimised for dense data interfaces.
+  </p>
+</div>
+
+---
+
+## Component categories
+
+<div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 16, margin: '24px 0 48px'}}>
+
+{[
+  { group: 'Form',       count: 8,  desc: 'Button, Checkbox, Field, Radio, Segmented, Select, Slider, Switch' },
+  { group: 'Display',    count: 7,  desc: 'Avatar, Badge, Card, Def List, Status Pill, User Chip' },
+  { group: 'Navigation', count: 9,  desc: 'Accordion, Breadcrumbs, Command Palette, Filter Bar, Pagination, Sidebar, Stepper, Tabs, Top Bar' },
+  { group: 'Data',       count: 3,  desc: 'KPI, Skeleton, Table' },
+  { group: 'Charts',     count: 3,  desc: 'Bar Mini, Donut, Sparkline' },
+  { group: 'Feedback',   count: 4,  desc: 'Alert, Progress, Ring Progress, Toast' },
+  { group: 'Overlays',   count: 4,  desc: 'Confirm Dialog, Drawer, Modal, Popover' },
+  { group: 'Domain',     count: 5,  desc: 'Date Picker, DPP Lockup, Machine Tile, Timeline, Upload' },
+  { group: 'Overview',   count: 1,  desc: 'Full dashboard composition with all components in context' },
+].map(({ group, count, desc }) => (
+  <div key={group} style={{
+    background: 'var(--h-card)', border: '1px solid var(--h-border)',
+    borderRadius: 10, padding: '16px 18px',
+  }}>
+    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6}}>
+      <span style={{fontWeight: 600, fontSize: 14}}>{group}</span>
+      <span style={{fontFamily: 'var(--h-font-mono)', fontSize: 11, color: 'var(--h-muted-foreground)',
+        background: 'var(--h-muted)', borderRadius: 4, padding: '1px 6px'}}>{count}</span>
+    </div>
+    <p style={{fontSize: 12, color: 'var(--h-muted-foreground)', margin: 0, lineHeight: 1.6}}>{desc}</p>
+  </div>
+))}
+
+</div>
+
+---
+
+## Colour palette
+
+### Brand
+
+<div style={{display: 'flex', gap: 12, flexWrap: 'wrap', margin: '20px 0 32px'}}>
+
+{[
+  { name: 'Blue',      var: '--h-blue',       hex: '#003DA5' },
+  { name: 'Blue Hi',   var: '--h-blue-hi',    hex: '#5B7BD9' },
+  { name: 'Blue Deep', var: '--h-blue-deep',  hex: '#060E24' },
+  { name: 'Blue Tint', var: '--h-blue-tint',  hex: '#E5EBF6' },
+].map(({ name, var: v, hex }) => (
+  <div key={v} style={{width: 120}}>
+    <div style={{height: 56, borderRadius: 8, background: hex, border: '1px solid rgba(0,0,0,0.06)', marginBottom: 8}} />
+    <div style={{fontSize: 12, fontWeight: 500}}>{name}</div>
+    <div style={{fontFamily: 'var(--h-font-mono)', fontSize: 11, color: 'var(--h-muted-foreground)'}}>{hex}</div>
+  </div>
+))}
+
+</div>
+
+### Status
+
+<div style={{display: 'flex', gap: 12, flexWrap: 'wrap', margin: '20px 0 32px'}}>
+
+{[
+  { name: 'Running',     bg: '#E6F4EC', border: '#B5DBC5', fg: '#118D57' },
+  { name: 'Idle',        bg: '#FAEFD9', border: '#ECC785', fg: '#B76E00' },
+  { name: 'Error',       bg: '#FBE9E7', border: '#F1B8AE', fg: '#B42318' },
+  { name: 'Maintenance', bg: '#EAECF0', border: '#C7CCD4', fg: '#475467' },
+  { name: 'Hold',        bg: '#EDE9FB', border: '#CFC2F1', fg: '#6941C6' },
+].map(({ name, bg, border, fg }) => (
+  <div key={name} style={{width: 120}}>
+    <div style={{height: 56, borderRadius: 8, background: bg, border: `1px solid ${border}`, marginBottom: 8,
+      display: 'grid', placeItems: 'center'}}>
+      <span style={{fontSize: 12, fontWeight: 600, color: fg,
+        display: 'inline-flex', alignItems: 'center', gap: 5}}>
+        <span style={{width: 6, height: 6, borderRadius: '50%', background: fg, flexShrink: 0}} />
+        {name}
+      </span>
+    </div>
+    <div style={{fontSize: 12, fontWeight: 500}}>{name}</div>
+    <div style={{fontFamily: 'var(--h-font-mono)', fontSize: 11, color: 'var(--h-muted-foreground)'}}>{fg}</div>
+  </div>
+))}
+
+</div>
+
+### Semantic surfaces
+
+<div style={{display: 'flex', gap: 12, flexWrap: 'wrap', margin: '20px 0 32px'}}>
+
+{[
+  { name: 'Background', style: {background: 'var(--h-background)', border: '1px solid var(--h-border)'} },
+  { name: 'Card',       style: {background: 'var(--h-card)',       border: '1px solid var(--h-border)'} },
+  { name: 'Muted',      style: {background: 'var(--h-muted)',      border: '1px solid var(--h-border)'} },
+  { name: 'Border',     style: {background: 'var(--h-border)'} },
+  { name: 'Primary',    style: {background: 'var(--h-primary)'} },
+  { name: 'Destructive',style: {background: '#B42318'} },
+].map(({ name, style }) => (
+  <div key={name} style={{width: 120}}>
+    <div style={{height: 56, borderRadius: 8, marginBottom: 8, ...style}} />
+    <div style={{fontSize: 12, fontWeight: 500, color: 'var(--h-foreground)'}}>{name}</div>
+    <div style={{fontFamily: 'var(--h-font-mono)', fontSize: 11, color: 'var(--h-muted-foreground)'}}>{`var(--h-${name.toLowerCase().replace(' ', '-')})`}</div>
+  </div>
+))}
+
+</div>
+
+---
+
+## Typography
+
+<div style={{
+  background: 'var(--h-card)', border: '1px solid var(--h-border)',
+  borderRadius: 10, padding: '24px 28px', margin: '20px 0 32px'
+}}>
+
+{[
+  { label: '2xl / 700',  size: 24, weight: 700, sample: 'Production dashboard' },
+  { label: 'xl / 600',   size: 20, weight: 600, sample: 'Machine status overview' },
+  { label: 'lg / 500',   size: 18, weight: 500, sample: 'Lot LOT-2A-0094 details' },
+  { label: 'base / 400', size: 16, weight: 400, sample: 'Knitting machine L7-KNIT-03 is currently running at 94% OEE.' },
+  { label: 'sm / 400',   size: 14, weight: 400, sample: 'Last updated 5 minutes ago · Quality check passed' },
+  { label: 'xs / 400',   size: 12, weight: 400, sample: 'Apr 28, 2025 · Shift A · Operator: D. Pereira', color: 'var(--h-muted-foreground)' },
+].map(({ label, size, weight, sample, color }) => (
+  <div key={label} style={{display: 'flex', alignItems: 'baseline', gap: 24, padding: '10px 0',
+    borderBottom: '1px solid var(--h-border)'}}>
+    <div style={{fontFamily: 'var(--h-font-mono)', fontSize: 11, color: 'var(--h-muted-foreground)',
+      width: 80, flexShrink: 0}}>{label}</div>
+    <div style={{fontFamily: 'var(--h-font-sans)', fontSize: size, fontWeight: weight,
+      color: color ?? 'var(--h-foreground)', lineHeight: 1.4}}>{sample}</div>
+  </div>
+))}
+
+<div style={{display: 'flex', alignItems: 'baseline', gap: 24, padding: '10px 0'}}>
+  <div style={{fontFamily: 'var(--h-font-mono)', fontSize: 11, color: 'var(--h-muted-foreground)', width: 80, flexShrink: 0}}>mono / 500</div>
+  <div style={{fontFamily: 'var(--h-font-mono)', fontSize: 13, fontWeight: 500, color: 'var(--h-foreground)'}}>LOT-2A-0094 · L7-KNIT-03 · LIN-180-NAT · 4,200 m</div>
+</div>
+
+</div>
+
+---
+
+## Themes
+
+<div style={{display: 'flex', gap: 16, flexWrap: 'wrap', margin: '20px 0 32px'}}>
+
+<div style={{flex: 1, minWidth: 200, background: 'var(--h-card)', border: '1px solid var(--h-border)', borderRadius: 10, padding: '18px 20px'}}>
+  <div style={{fontWeight: 600, marginBottom: 6}}>Light (default)</div>
+  <div style={{fontSize: 13, color: 'var(--h-muted-foreground)', lineHeight: 1.6}}>Default theme for desktop and office environments. Use the toolbar at the top of the canvas to switch themes.</div>
+</div>
+
+<div style={{flex: 1, minWidth: 200, background: 'var(--h-card)', border: '1px solid var(--h-border)', borderRadius: 10, padding: '18px 20px'}}>
+  <div style={{fontWeight: 600, marginBottom: 6}}>Dark</div>
+  <div style={{fontSize: 13, color: 'var(--h-muted-foreground)', lineHeight: 1.6}}>For control-room and low-light factory environments. Toggle via the <strong>Themes</strong> addon in the toolbar.</div>
+</div>
+
+<div style={{flex: 1, minWidth: 200, background: 'var(--h-card)', border: '1px solid var(--h-border)', borderRadius: 10, padding: '18px 20px'}}>
+  <div style={{fontWeight: 600, marginBottom: 6}}>Operations</div>
+  <div style={{fontSize: 13, color: 'var(--h-muted-foreground)', lineHeight: 1.6}}>Larger type scale and increased touch targets for shop-floor tablets and kiosk displays. Apply with <code style={{fontFamily: 'var(--h-font-mono)', fontSize: 12}}>data-theme="operations"</code>.</div>
+</div>
+
+</div>
+
+</div>

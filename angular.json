@@ -31,12 +31,26 @@
             "tsConfig": "projects/hestia-ui/tsconfig.spec.json"
           }
         },
+        "compodoc": {
+          "builder": "@compodoc/compodoc:build",
+          "options": {
+            "tsConfig": "projects/hestia-ui/tsconfig.lib.json",
+            "output": "dist/compodoc/hestia-ui",
+            "exportFormat": "json"
+          }
+        },
         "storybook": {
           "builder": "@storybook/angular:start-storybook",
           "options": {
             "configDir": "projects/hestia-ui/.storybook",
             "browserTarget": "hestia-ui:build",
-            "compodoc": false,
+            "compodoc": true,
+            "compodocArgs": [
+              "-e",
+              "json",
+              "-d",
+              "projects/hestia-ui"
+            ],
             "port": 6006,
             "styles": [
               "projects/hestia-ui/src/lib/tokens/design-tokens.css"

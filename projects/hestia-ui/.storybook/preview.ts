@@ -1,5 +1,9 @@
 import type { Preview } from "@storybook/angular";
+import { setCompodocJson } from "@storybook/addon-docs/angular";
 import { withThemeByClassName } from "@storybook/addon-themes";
+import docJson from "../documentation.json";
+
+setCompodocJson(docJson);
 
 // Make html/body track the active theme background so the canvas flips correctly.
 // .sbdocs-preview override is needed because the Docs page uses its own Storybook
@@ -44,6 +48,11 @@ const preview: Preview = {
       matchers: {
         color: /(background|color)$/i,
         date: /Date$/i,
+      },
+    },
+    options: {
+      storySort: {
+        order: ['Introduction', 'Overview', 'Form', 'Display', 'Navigation', 'Data', 'Charts', 'Feedback', 'Overlays', 'Domain'],
       },
     },
   },

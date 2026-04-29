@@ -109,47 +109,45 @@ export const LotsTable: Story = {
 export const MachinesTable: Story = {
   render: () => ({
     template: `
-      <div hTableWrapper>
-        <table hTable>
-          <thead>
-            <tr>
-              <th hTh>Machine</th>
-              <th hTh>Type</th>
-              <th hTh>Lot</th>
-              <th hTh>Status</th>
-              <th hTh align="right">OEE</th>
-              <th hTh align="right">Cycle</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td hTd><span style="font-family:var(--h-font-mono)">L7-KNIT-03</span></td>
-              <td hTd>Loom</td>
-              <td hTd><span style="font-family:var(--h-font-mono);color:var(--h-primary)">LOT-2A-0094</span></td>
-              <td hTd><h-status-pill status="running">Running</h-status-pill></td>
-              <td hTd align="right"><span style="font-family:var(--h-font-mono)">94%</span></td>
-              <td hTd align="right"><span style="font-family:var(--h-font-mono)">12.4s</span></td>
-            </tr>
-            <tr>
-              <td hTd><span style="font-family:var(--h-font-mono)">DB-02</span></td>
-              <td hTd>Dye bath</td>
-              <td hTd><span style="font-family:var(--h-font-mono);color:var(--h-muted-foreground)">—</span></td>
-              <td hTd><h-status-pill status="idle">Idle</h-status-pill></td>
-              <td hTd align="right"><span style="font-family:var(--h-font-mono)">61%</span></td>
-              <td hTd align="right"><span style="font-family:var(--h-font-mono)">—</span></td>
-            </tr>
-            <tr>
-              <td hTd><span style="font-family:var(--h-font-mono)">CUT-11</span></td>
-              <td hTd>Cut</td>
-              <td hTd><span style="font-family:var(--h-font-mono);color:var(--h-muted-foreground)">—</span></td>
-              <td hTd><h-status-pill status="maintenance">Maint.</h-status-pill></td>
-              <td hTd align="right"><span style="font-family:var(--h-font-mono)">—</span></td>
-              <td hTd align="right"><span style="font-family:var(--h-font-mono)">—</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <h-table>
+        <thead>
+          <tr>
+            <th hTh>Machine</th>
+            <th hTh>Type</th>
+            <th hTh>Lot</th>
+            <th hTh>Status</th>
+            <th hTh align="right">OEE</th>
+            <th hTh align="right">Cycle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td hTd><span style="font-family:var(--h-font-mono)">L7-KNIT-03</span></td>
+            <td hTd>Loom</td>
+            <td hTd><span style="font-family:var(--h-font-mono);color:var(--h-primary)">LOT-2A-0094</span></td>
+            <td hTd><h-status-pill status="running">Running</h-status-pill></td>
+            <td hTd align="right"><span style="font-family:var(--h-font-mono)">94%</span></td>
+            <td hTd align="right"><span style="font-family:var(--h-font-mono)">12.4s</span></td>
+          </tr>
+          <tr>
+            <td hTd><span style="font-family:var(--h-font-mono)">DB-02</span></td>
+            <td hTd>Dye bath</td>
+            <td hTd><span style="font-family:var(--h-font-mono);color:var(--h-muted-foreground)">—</span></td>
+            <td hTd><h-status-pill status="idle">Idle</h-status-pill></td>
+            <td hTd align="right"><span style="font-family:var(--h-font-mono)">61%</span></td>
+            <td hTd align="right"><span style="font-family:var(--h-font-mono)">—</span></td>
+          </tr>
+          <tr>
+            <td hTd><span style="font-family:var(--h-font-mono)">CUT-11</span></td>
+            <td hTd>Cut</td>
+            <td hTd><span style="font-family:var(--h-font-mono);color:var(--h-muted-foreground)">—</span></td>
+            <td hTd><h-status-pill status="maintenance">Maint.</h-status-pill></td>
+            <td hTd align="right"><span style="font-family:var(--h-font-mono)">—</span></td>
+            <td hTd align="right"><span style="font-family:var(--h-font-mono)">—</span></td>
+          </tr>
+        </tbody>
+      </h-table>
     `,
-    moduleMetadata: { imports: [HTableDirective, HTableWrapperDirective, HThDirective, HTdDirective, HStatusPillComponent] },
+    moduleMetadata: { imports: [HTableComponent, HThDirective, HTdDirective, HStatusPillComponent] },
   }),
 };
