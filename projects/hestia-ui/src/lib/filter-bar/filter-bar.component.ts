@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { LucideX } from '@lucide/angular';
 
 @Component({
   selector: 'h-filter-chip',
   standalone: true,
+  imports: [LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span class="h-filter-chip">
@@ -13,7 +15,7 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
         [attr.aria-label]="'Remove filter'"
         (click)="removed.emit()"
       >
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        <svg lucideX [size]="11" aria-hidden="true"></svg>
       </button>
     </span>
   `,

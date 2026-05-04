@@ -9,6 +9,7 @@ import {
   output,
   viewChild,
 } from '@angular/core';
+import { LucideSearch } from '@lucide/angular';
 
 export interface HCommandItem {
   label: string;
@@ -25,6 +26,7 @@ export interface HCommandGroup {
 @Component({
   selector: 'h-command-palette',
   standalone: true,
+  imports: [LucideSearch],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <dialog
@@ -35,7 +37,7 @@ export interface HCommandGroup {
     >
       <div class="h-command-content" (click)="$event.stopPropagation()">
         <div class="h-command-search-row">
-          <svg class="h-command-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <svg lucideSearch class="h-command-search-icon" [size]="15" aria-hidden="true"></svg>
           <input
             #searchInput
             class="h-command-input"

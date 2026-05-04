@@ -34,10 +34,7 @@ export interface UploadFile {
       (drop)="onDrop($event)"
     >
       <div class="h-dropzone-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
-        </svg>
+        <svg lucideUpload [size]="20" aria-hidden="true"></svg>
       </div>
       <div class="h-dropzone-text">
         Drop files or
@@ -61,11 +58,7 @@ export interface UploadFile {
         @for (f of files(); track f.name) {
           <div class="h-dropzone-file">
             <div class="h-dropzone-file-icon">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
-              </svg>
+              <svg lucideFile [size]="15" aria-hidden="true"></svg>
             </div>
             <div class="h-dropzone-file-body">
               <div class="h-dropzone-file-meta">
@@ -86,10 +79,7 @@ export interface UploadFile {
               (click)="removeFile(f)"
               [attr.aria-label]="'Remove ' + f.name"
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M18 6 6 18M6 6l12 12"/>
-              </svg>
+              <svg lucideX [size]="13" aria-hidden="true"></svg>
             </button>
           </div>
         }

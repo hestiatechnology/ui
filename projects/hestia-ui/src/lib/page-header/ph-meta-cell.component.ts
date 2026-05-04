@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="h-meta-cell" 
+    <div class="h-meta-cell"
          [class.h-meta-cell--clickable]="clickable()"
          (click)="cellClick.emit()"
          tabindex="0"
@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
           {{ value() }}
         </span>
         @if (clickable()) {
-          <svg class="h-meta-chevron" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+          <svg lucideChevronDown class="h-meta-chevron" [size]="13" aria-hidden="true"></svg>
         }
       </div>
       <ng-content />
@@ -28,7 +28,7 @@ import { CommonModule } from '@angular/common';
   styles: [`
     :host { display: block; flex: 1; min-width: 0; border-right: 1px solid var(--h-border); }
     :host(:last-child) { border-right: none; }
-    
+
     .h-meta-cell {
       padding: 12px 20px;
       height: 100%;
@@ -54,7 +54,7 @@ import { CommonModule } from '@angular/common';
       margin-bottom: 5px;
       white-space: nowrap;
     }
-    
+
     .h-meta-val-wrap {
       display: flex;
       align-items: center;
@@ -62,7 +62,7 @@ import { CommonModule } from '@angular/common';
       white-space: nowrap;
       overflow: hidden;
     }
-    
+
     .h-meta-val {
       font-size: 14px;
       font-weight: 500;
@@ -84,6 +84,6 @@ export class HPageHeaderMetaCellComponent {
   readonly value = input<string>('—');
   readonly clickable = input(false);
   readonly mono = input(false);
-  
+
   readonly cellClick = output<void>();
 }

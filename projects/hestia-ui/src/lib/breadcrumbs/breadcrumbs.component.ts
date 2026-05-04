@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { LucideChevronRight } from '@lucide/angular';
 
 export interface HBreadcrumbItem {
   label: string;
@@ -9,6 +10,7 @@ export interface HBreadcrumbItem {
 @Component({
   selector: 'h-breadcrumbs',
   standalone: true,
+  imports: [LucideChevronRight],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nav class="h-breadcrumbs" [attr.aria-label]="ariaLabel()">
@@ -32,9 +34,7 @@ export interface HBreadcrumbItem {
                 </span>
               }
               <span class="h-breadcrumbs-sep" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="m9 18 6-6-6-6"/>
-                </svg>
+                <svg lucideChevronRight [size]="14"></svg>
               </span>
             } @else {
               <span class="h-breadcrumbs-current" [attr.aria-current]="'page'">

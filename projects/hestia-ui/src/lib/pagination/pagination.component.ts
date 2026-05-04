@@ -47,10 +47,7 @@ import { HOptionComponent } from '../select/option.component';
             [attr.aria-label]="'First page'"
             (click)="goTo(1)"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m11 17-5-5 5-5"/>
-              <path d="m18 17-5-5 5-5"/>
-            </svg>
+            <svg lucideChevronsLeft [size]="14" aria-hidden="true"></svg>
           </button>
         }
 
@@ -61,9 +58,7 @@ import { HOptionComponent } from '../select/option.component';
           [attr.aria-label]="'Previous page'"
           (click)="goTo(currentPage() - 1)"
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
+          <svg lucideArrowLeft [size]="14" aria-hidden="true"></svg>
           @if (showLabels()) {
             <span>Previous</span>
           }
@@ -94,9 +89,7 @@ import { HOptionComponent } from '../select/option.component';
           @if (showLabels()) {
             <span>Next</span>
           }
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m9 18 6-6-6-6"/>
-          </svg>
+          <svg lucideArrowRight [size]="14" aria-hidden="true"></svg>
         </button>
 
         @if (showFirstLast()) {
@@ -107,10 +100,7 @@ import { HOptionComponent } from '../select/option.component';
             [attr.aria-label]="'Last page'"
             (click)="goTo(totalPageCount())"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m6 17 5-5-5-5"/>
-              <path d="m13 17 5-5-5-5"/>
-            </svg>
+            <svg lucideChevronsRight [size]="14" aria-hidden="true"></svg>
           </button>
         }
         </div>

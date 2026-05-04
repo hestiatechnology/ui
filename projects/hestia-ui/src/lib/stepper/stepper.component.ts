@@ -20,9 +20,7 @@ export type StepState = 'done' | 'active' | 'todo';
             <div class="h-stepper-indicator">
               <span class="h-stepper-dot">
                 @if (getState(i) === 'done') {
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M20 6 9 17l-5-5"/>
-                  </svg>
+                  <svg lucideCheck [size]="13" aria-hidden="true"></svg>
                 } @else {
                   {{ i + 1 }}
                 }
@@ -42,9 +40,7 @@ export type StepState = 'done' | 'active' | 'todo';
             <div class="h-stepper-vcol">
               <span class="h-stepper-dot">
                 @if (getState(i) === 'done') {
-                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M20 6 9 17l-5-5"/>
-                  </svg>
+                  <svg lucideCheck [size]="10" aria-hidden="true"></svg>
                 } @else if (getState(i) === 'active') {
                   <span class="h-stepper-dot-inner"></span>
                 }

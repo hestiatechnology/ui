@@ -61,12 +61,7 @@ function parseTime(s: string): HTimeValue | null {
       [class.h-ti-wrap--lg]="size() === 'lg'"
     >
       <!-- Clock icon -->
-      <svg class="h-ti-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-           aria-hidden="true">
-        <circle cx="12" cy="12" r="10"/>
-        <polyline points="12 6 12 12 16 14"/>
-      </svg>
+      <svg lucideClock class="h-ti-icon" [size]="14" aria-hidden="true"></svg>
 
       <input
         #inputEl
@@ -91,10 +86,7 @@ function parseTime(s: string): HTimeValue | null {
 
       @if (value() !== null && !disabled()) {
         <button type="button" class="h-ti-clear" (click)="clear()" aria-label="Clear time" tabindex="-1">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M18 6 6 18M6 6l12 12"/>
-          </svg>
+          <svg lucideX [size]="12" aria-hidden="true"></svg>
         </button>
       }
     </div>

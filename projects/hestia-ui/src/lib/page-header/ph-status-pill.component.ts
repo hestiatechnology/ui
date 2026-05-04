@@ -12,7 +12,7 @@ import { StatusPillStatus } from '../status-pill/status-pill.component';
     <button class="h-ph-status-btn" [class]="pillClasses" (click)="click.emit()">
       <span class="h-ph-status-dot"></span>
       {{ label() }}
-      <svg class="h-ph-status-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+      <svg lucideChevronDown class="h-ph-status-chevron" [size]="12" aria-hidden="true"></svg>
     </button>
   `,
   styles: [`
@@ -33,14 +33,14 @@ import { StatusPillStatus } from '../status-pill/status-pill.component';
     }
     .h-ph-status-btn:hover { filter: brightness(0.95); }
     .h-ph-status-btn:focus-visible { box-shadow: 0 0 0 2px var(--h-card), 0 0 0 4px var(--h-ring); }
-    
+
     .h-ph-status-dot {
       width: 6px;
       height: 6px;
       border-radius: 9999px;
       background: currentColor;
     }
-    
+
     .h-status-idle    { background: var(--h-status-idle-bg);    border-color: var(--h-status-idle-border);    color: var(--h-status-idle); }
     .h-status-running { background: var(--h-status-running-bg); border-color: var(--h-status-running-border); color: var(--h-status-running); }
     .h-status-error   { background: var(--h-status-error-bg);   border-color: var(--h-status-error-border);   color: var(--h-status-error); }

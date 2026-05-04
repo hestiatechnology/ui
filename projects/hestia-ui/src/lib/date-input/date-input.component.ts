@@ -18,6 +18,7 @@ import {
 import { ConnectedPosition, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { FormValueControl, ValidationError } from '@angular/forms/signals';
+import { LucideCalendar, LucideX } from '@lucide/angular';
 import { H_FORM_FIELD_CONTROL, HFormFieldControl } from '../field/field.component';
 import { HDatePickerComponent, DateRange } from '../date-picker/date-picker.component';
 import { HTimePickerComponent, HTimeValue } from '../time-picker/time-picker.component';
@@ -71,7 +72,7 @@ function parsePtDate(s: string, withTime = false): Date | null {
 @Component({
   selector: 'h-date-input',
   standalone: true,
-  imports: [HDatePickerComponent, HTimePickerComponent],
+  imports: [HDatePickerComponent, HTimePickerComponent, LucideCalendar, LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: HDateInputComponent }],
   template: `
@@ -82,14 +83,7 @@ function parsePtDate(s: string, withTime = false): Date | null {
       [class.h-di-wrap--sm]="size() === 'sm'"
       [class.h-di-wrap--lg]="size() === 'lg'"
     >
-      <svg class="h-di-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-           aria-hidden="true">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-        <line x1="16" y1="2" x2="16" y2="6"/>
-        <line x1="8"  y1="2" x2="8"  y2="6"/>
-        <line x1="3"  y1="10" x2="21" y2="10"/>
-      </svg>
+      <svg lucideCalendar class="h-di-icon" [size]="14" aria-hidden="true"></svg>
       <input
         #inputEl
         [id]="nativeId()"
@@ -112,10 +106,7 @@ function parsePtDate(s: string, withTime = false): Date | null {
       />
       @if (_hasValue() && !disabled()) {
         <button type="button" class="h-di-clear" (click)="clear()" aria-label="Clear date" tabindex="-1">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M18 6 6 18M6 6l12 12"/>
-          </svg>
+          <svg lucideX [size]="12" aria-hidden="true"></svg>
         </button>
       }
     </div>

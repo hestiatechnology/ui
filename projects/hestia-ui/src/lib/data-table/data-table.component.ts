@@ -12,6 +12,7 @@ import {
   signal,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { LucideChevronsUpDown, LucideCheck, LucideX, LucidePencil, LucideTrash2 } from '@lucide/angular';
 import { HAutocompleteComponent } from '../autocomplete/autocomplete.component';
 
 // ── Column definition ─────────────────────────────────────────────────────────
@@ -72,7 +73,7 @@ export interface SortState {
 @Component({
   selector: 'h-data-table',
   standalone: true,
-  imports: [HDtCellDirective, NgTemplateOutlet, HAutocompleteComponent],
+  imports: [HDtCellDirective, NgTemplateOutlet, HAutocompleteComponent, LucideChevronsUpDown, LucideCheck, LucideX, LucidePencil, LucideTrash2],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'h-dt-host' },
   template: `
@@ -103,9 +104,7 @@ export interface SortState {
                   {{ col.header }}
                   @if (col.sortable) {
                     <span class="h-dt-sort-icon" [class.h-dt-sort-icon--asc]="_sortKey() === col.key && _sortDir() === 'asc'" [class.h-dt-sort-icon--desc]="_sortKey() === col.key && _sortDir() === 'desc'">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/>
-                      </svg>
+                      <svg lucideChevronsUpDown [size]="12" aria-hidden="true"></svg>
                     </span>
                   }
                 </span>
@@ -210,18 +209,18 @@ export interface SortState {
                   <td class="h-dt-td h-dt-td--actions" (click)="$event.stopPropagation()">
                     @if (_editingIdx() === idx) {
                       <button type="button" class="h-dt-action h-dt-action--save" (click)="_commitEdit(idx)" aria-label="Save">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                        <svg lucideCheck [size]="14" aria-hidden="true"></svg>
                       </button>
                       <button type="button" class="h-dt-action h-dt-action--cancel" (click)="_cancelEdit()" aria-label="Cancel">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                        <svg lucideX [size]="14" aria-hidden="true"></svg>
                       </button>
                     } @else {
                       <button type="button" class="h-dt-action h-dt-action--edit" (click)="_startEdit(idx, row)" aria-label="Edit row">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
+                        <svg lucidePencil [size]="14" aria-hidden="true"></svg>
                       </button>
                       @if (deletable()) {
                         <button type="button" class="h-dt-action h-dt-action--delete" (click)="rowDelete.emit(row)" aria-label="Delete row">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+                          <svg lucideTrash2 [size]="14" aria-hidden="true"></svg>
                         </button>
                       }
                     }

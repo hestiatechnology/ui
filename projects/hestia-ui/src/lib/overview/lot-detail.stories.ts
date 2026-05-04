@@ -207,7 +207,7 @@ export const Default: Story = {
 
         <!-- Row 2: Icon -->
         <h-icon-tile hPageHeaderIcon tone="primary" [size]="40">
-           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+           <svg lucideServer [size]="20"></svg>
         </h-icon-tile>
 
         <!-- Row 2: Status -->
@@ -241,7 +241,7 @@ export const Default: Story = {
 
       <!-- PADDED BODY CONTENT -->
       <div style="padding:24px;display:flex;flex-direction:column;gap:20px">
-      
+
         <!-- STEPPER — production stages -->
       <h-card>
         <div style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--h-muted-foreground);margin-bottom:16px">Production stages</div>

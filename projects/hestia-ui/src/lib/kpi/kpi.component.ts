@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { LucideArrowUp, LucideArrowDown } from '@lucide/angular';
 
 @Component({
   selector: 'h-kpi',
   standalone: true,
+  imports: [LucideArrowUp, LucideArrowDown],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'h-kpi-host' },
   template: `
@@ -12,15 +14,11 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
         <span class="h-kpi-value">{{ value() }}</span>
         @if (delta()) {
           <span class="h-kpi-delta" [attr.data-positive]="isPositive()">
-            <svg class="h-kpi-delta-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 aria-hidden="true">
-              @if (trend() === 'up') {
-                <path d="M12 19V5M5 12l7-7 7 7"/>
-              } @else {
-                <path d="M12 5v14M5 12l7 7 7-7"/>
-              }
-            </svg>
+            @if (trend() === 'up') {
+              <svg lucideArrowUp class="h-kpi-delta-arrow" [size]="11" aria-hidden="true"></svg>
+            } @else {
+              <svg lucideArrowDown class="h-kpi-delta-arrow" [size]="11" aria-hidden="true"></svg>
+            }
             {{ delta() }}
           </span>
         }

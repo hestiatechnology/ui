@@ -10,10 +10,12 @@ import {
   output,
   viewChild,
 } from '@angular/core';
+import { LucideX } from '@lucide/angular';
 
 @Component({
   selector: 'h-drawer',
   standalone: true,
+  imports: [LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (open()) {
@@ -51,10 +53,7 @@ import {
               (click)="close()"
               aria-label="Close drawer"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M18 6 6 18M6 6l12 12"/>
-              </svg>
+              <svg lucideX [size]="14" aria-hidden="true"></svg>
             </button>
           }
         </div>

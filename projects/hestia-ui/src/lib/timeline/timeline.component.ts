@@ -23,10 +23,7 @@ export interface TimelineEvent {
             @if (event.icon) {
               <span [innerHTML]="event.icon" aria-hidden="true"></span>
             } @else {
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="4"/>
-              </svg>
+              <svg lucideCircle [size]="12" aria-hidden="true"></svg>
             }
           </span>
           <div class="h-timeline-body">

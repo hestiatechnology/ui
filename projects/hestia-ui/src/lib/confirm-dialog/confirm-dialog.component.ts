@@ -9,12 +9,14 @@ import {
   output,
   viewChild,
 } from '@angular/core';
+import { LucideAlertTriangle, LucideAlertCircle, LucideInfo } from '@lucide/angular';
 
 export type ConfirmDialogTone = 'error' | 'idle' | 'primary';
 
 @Component({
   selector: 'h-confirm-dialog',
   standalone: true,
+  imports: [LucideAlertTriangle, LucideAlertCircle, LucideInfo],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <dialog
@@ -28,13 +30,13 @@ export type ConfirmDialogTone = 'error' | 'idle' | 'primary';
           <div class="h-confirm-icon" [class]="iconClass">
             @switch (tone()) {
               @case ('error') {
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m10.29 3.86-8.27 14.34A1.7 1.7 0 0 0 3.46 21h17.08a1.7 1.7 0 0 0 1.44-2.8L13.7 3.86a2 2 0 0 0-3.41 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+                <svg lucideAlertTriangle [size]="18" aria-hidden="true"></svg>
               }
               @case ('idle') {
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                <svg lucideAlertCircle [size]="18" aria-hidden="true"></svg>
               }
               @default {
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                <svg lucideInfo [size]="18" aria-hidden="true"></svg>
               }
             }
           </div>

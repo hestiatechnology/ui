@@ -5,11 +5,13 @@ import {
   input,
   model,
 } from '@angular/core';
+import { LucideCheck } from '@lucide/angular';
 import { FormCheckboxControl, ValidationError } from '@angular/forms/signals';
 
 @Component({
   selector: 'h-checkbox',
   standalone: true,
+  imports: [LucideCheck],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <label class="h-checkbox-label" [class.h-checkbox-label--disabled]="disabled()">
@@ -28,7 +30,7 @@ import { FormCheckboxControl, ValidationError } from '@angular/forms/signals';
           (blur)="touched.set(true)"
           class="h-checkbox-native">
         @if (checked() && !indeterminate()) {
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          <svg lucideCheck [size]="11" [strokeWidth]="3" stroke="white" aria-hidden="true"></svg>
         }
         @if (indeterminate()) {
           <span class="h-checkbox-dash" aria-hidden="true"></span>

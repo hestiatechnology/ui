@@ -1,5 +1,6 @@
 import { Component, Input, ChangeDetectionStrategy, booleanAttribute } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LucideLoader2 } from '@lucide/angular';
 
 export type ButtonVariant = 'default' | 'secondary' | 'outline' | 'primary-outline' | 'ghost' | 'destructive' | 'invert' | 'dark-out' | 'link';
 export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
@@ -7,7 +8,7 @@ export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
 @Component({
   selector: 'h-button',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideLoader2],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'class': 'h-button-host',
@@ -22,9 +23,7 @@ export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
       [class]="buttonClasses"
       [style]="buttonStyle">
       @if (loading) {
-        <svg class="h-btn-spinner" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-          <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-        </svg>
+        <svg lucideLoader2 class="h-btn-spinner" [size]="14" aria-hidden="true"></svg>
       } @else if (iconLeft) {
         <span class="h-btn-icon" aria-hidden="true">
           <ng-container *ngTemplateOutlet="iconLeft"></ng-container>

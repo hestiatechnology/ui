@@ -15,6 +15,7 @@ import {
   AccordionPanel,
   AccordionTrigger,
 } from '@angular/aria/accordion';
+import { LucideChevronDown } from '@lucide/angular';
 
 /**
  * Marker directive — apply to ng-template to define an accordion item.
@@ -36,7 +37,7 @@ export class HAccordionItemDirective {
 @Component({
   selector: 'h-accordion',
   standalone: true,
-  imports: [AccordionGroup, AccordionTrigger, AccordionPanel, AccordionContent, NgTemplateOutlet],
+  imports: [AccordionGroup, AccordionTrigger, AccordionPanel, AccordionContent, NgTemplateOutlet, LucideChevronDown],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div ngAccordionGroup [multiExpandable]="multiExpandable()" class="h-accordion">
@@ -54,18 +55,12 @@ export class HAccordionItemDirective {
             >
               <span class="h-accordion-title">{{ item.title() }}</span>
               <svg
+                lucideChevronDown
                 class="h-accordion-chevron"
                 [class.h-accordion-chevron--open]="trig.expanded()"
-                xmlns="http://www.w3.org/2000/svg"
-                width="16" height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                [size]="16"
                 aria-hidden="true"
-              ><path d="m6 9 6 6 6-6"/></svg>
+              ></svg>
             </button>
           </h3>
           <div ngAccordionPanel #p="ngAccordionPanel" class="h-accordion-panel">

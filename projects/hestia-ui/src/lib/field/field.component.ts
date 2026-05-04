@@ -8,6 +8,7 @@ import {
   computed,
   contentChild,
 } from '@angular/core';
+import { LucideAlertCircle } from '@lucide/angular';
 
 export interface HFormFieldControl {
   readonly nativeId: Signal<string>;
@@ -18,6 +19,7 @@ export const H_FORM_FIELD_CONTROL = new InjectionToken<HFormFieldControl>('H_FOR
 @Component({
   selector: 'h-field',
   standalone: true,
+  imports: [LucideAlertCircle],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="h-field">
@@ -33,7 +35,7 @@ export const H_FORM_FIELD_CONTROL = new InjectionToken<HFormFieldControl>('H_FOR
       }
       @if (error) {
         <span class="h-field-error" [id]="errorId" role="alert">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <svg lucideAlertCircle [size]="12" aria-hidden="true"></svg>
           {{ error }}
         </span>
       }

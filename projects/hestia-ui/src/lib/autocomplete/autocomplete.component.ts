@@ -19,6 +19,7 @@ import {
 import { ConnectedPosition, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { FormValueControl, ValidationError } from '@angular/forms/signals';
+import { LucideX, LucideChevronDown, LucideCheck } from '@lucide/angular';
 import { H_FORM_FIELD_CONTROL, HFormFieldControl } from '../field/field.component';
 
 const PANEL_POSITIONS: ConnectedPosition[] = [
@@ -31,6 +32,7 @@ let _nextId = 0;
 @Component({
   selector: 'h-autocomplete',
   standalone: true,
+  imports: [LucideX, LucideChevronDown, LucideCheck],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: HAutocompleteComponent }],
   template: `
@@ -67,18 +69,11 @@ let _nextId = 0;
       }
       @if (value() !== null && !disabled()) {
         <button type="button" class="h-ac-clear" (click)="clear()" aria-label="Clear selection" tabindex="-1">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M18 6 6 18M6 6l12 12"/>
-          </svg>
+          <svg lucideX [size]="12" aria-hidden="true"></svg>
         </button>
       }
-      <svg class="h-ac-chevron" [class.h-ac-chevron--open]="_open()"
-           width="14" height="14" viewBox="0 0 24 24" fill="none"
-           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-           aria-hidden="true">
-        <path d="m6 9 6 6 6-6"/>
-      </svg>
+      <svg lucideChevronDown class="h-ac-chevron" [class.h-ac-chevron--open]="_open()"
+           [size]="14" aria-hidden="true"></svg>
     </div>
 
     <ng-template #panelTpl>
@@ -99,10 +94,7 @@ let _nextId = 0;
               {{ displayWith()(opt) }}
               <span class="h-ac-option-check">
                 @if (_isSelected(opt)) {
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                       stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                    <path d="M20 6 9 17l-5-5"/>
-                  </svg>
+                  <svg lucideCheck [size]="12" aria-hidden="true"></svg>
                 }
               </span>
             </div>

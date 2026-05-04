@@ -19,11 +19,11 @@ function pad2(n: number): string {
   return n.toString().padStart(2, '0');
 }
 
-const CHEVRON_UP   = `<path d="m18 15-6-6-6 6"/>`;
-const CHEVRON_DOWN = `<path d="m6 9 6 6 6-6"/>`;
+const CHEVRON_UP   = '';
+const CHEVRON_DOWN = '';
 
 function chevronSvg(path: string): string {
-  return `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${path}</svg>`;
+  return '';
 }
 
 @Component({
@@ -36,10 +36,7 @@ function chevronSvg(path: string): string {
       <!-- Hours -->
       <div class="h-tp-col" role="group" aria-label="Hours">
         <button type="button" class="h-tp-btn" (click)="_step('h', -1)" aria-label="Previous hour">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m18 15-6-6-6 6"/>
-          </svg>
+          <svg lucideChevronUp [size]="14" aria-hidden="true"></svg>
         </button>
         <div class="h-tp-drum" (wheel)="_onWheel($event, 'h')" aria-label="Hour value">
           @for (item of _visH(); track item.v + '-' + item.offset) {
@@ -53,10 +50,7 @@ function chevronSvg(path: string): string {
           }
         </div>
         <button type="button" class="h-tp-btn" (click)="_step('h', 1)" aria-label="Next hour">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m6 9 6 6 6-6"/>
-          </svg>
+          <svg lucideChevronDown [size]="14" aria-hidden="true"></svg>
         </button>
       </div>
 
@@ -65,10 +59,7 @@ function chevronSvg(path: string): string {
       <!-- Minutes -->
       <div class="h-tp-col" role="group" aria-label="Minutes">
         <button type="button" class="h-tp-btn" (click)="_step('m', -1)" aria-label="Previous minute">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m18 15-6-6-6 6"/>
-          </svg>
+          <svg lucideChevronUp [size]="14" aria-hidden="true"></svg>
         </button>
         <div class="h-tp-drum" (wheel)="_onWheel($event, 'm')" aria-label="Minute value">
           @for (item of _visM(); track item.v + '-' + item.offset) {
@@ -81,10 +72,7 @@ function chevronSvg(path: string): string {
           }
         </div>
         <button type="button" class="h-tp-btn" (click)="_step('m', 1)" aria-label="Next minute">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-               stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m6 9 6 6 6-6"/>
-          </svg>
+          <svg lucideChevronDown [size]="14" aria-hidden="true"></svg>
         </button>
       </div>
 
@@ -94,10 +82,7 @@ function chevronSvg(path: string): string {
         <!-- Seconds -->
         <div class="h-tp-col" role="group" aria-label="Seconds">
           <button type="button" class="h-tp-btn" (click)="_step('s', -1)" aria-label="Previous second">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m18 15-6-6-6 6"/>
-            </svg>
+            <svg lucideChevronUp [size]="14" aria-hidden="true"></svg>
           </button>
           <div class="h-tp-drum" (wheel)="_onWheel($event, 's')" aria-label="Second value">
             @for (item of _visS(); track item.v + '-' + item.offset) {
@@ -110,10 +95,7 @@ function chevronSvg(path: string): string {
             }
           </div>
           <button type="button" class="h-tp-btn" (click)="_step('s', 1)" aria-label="Next second">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="m6 9 6 6 6-6"/>
-            </svg>
+            <svg lucideChevronDown [size]="14" aria-hidden="true"></svg>
           </button>
         </div>
       }

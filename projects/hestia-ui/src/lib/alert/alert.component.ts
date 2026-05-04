@@ -1,12 +1,13 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LucideCheckCircle2, LucideAlertTriangle, LucideAlertCircle, LucidePauseCircle, LucideInfo, LucideX } from '@lucide/angular';
 
 export type AlertTone = 'primary' | 'running' | 'idle' | 'error' | 'hold';
 
 @Component({
   selector: 'h-alert',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideCheckCircle2, LucideAlertTriangle, LucideAlertCircle, LucidePauseCircle, LucideInfo, LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
@@ -17,11 +18,11 @@ export type AlertTone = 'primary' | 'running' | 'idle' | 'error' | 'hold';
       [attr.aria-label]="title">
       <span class="h-alert-icon" [style]="iconStyle" aria-hidden="true">
         @switch (tone) {
-          @case ('running') { <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg> }
-          @case ('idle')    { <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m10.29 3.86-8.27 14.34A1.7 1.7 0 0 0 3.46 21h17.08a1.7 1.7 0 0 0 1.44-2.8L13.7 3.86a2 2 0 0 0-3.41 0Z"/><path d="M12 9v4M12 17h.01"/></svg> }
-          @case ('error')   { <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg> }
-          @case ('hold')    { <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg> }
-          @default          { <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg> }
+          @case ('running') { <svg lucideCheckCircle2 [size]="16"></svg> }
+          @case ('idle')    { <svg lucideAlertTriangle [size]="16"></svg> }
+          @case ('error')   { <svg lucideAlertCircle [size]="16"></svg> }
+          @case ('hold')    { <svg lucidePauseCircle [size]="16"></svg> }
+          @default          { <svg lucideInfo [size]="16"></svg> }
         }
       </span>
       <div class="h-alert-body">
@@ -31,7 +32,7 @@ export type AlertTone = 'primary' | 'running' | 'idle' | 'error' | 'hold';
       </div>
       @if (dismissible) {
         <button type="button" class="h-alert-dismiss" (click)="dismiss.emit()" aria-label="Dismiss alert">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          <svg lucideX [size]="14"></svg>
         </button>
       }
     </div>

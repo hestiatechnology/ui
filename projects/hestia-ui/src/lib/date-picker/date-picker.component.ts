@@ -7,6 +7,7 @@ import {
   output,
   signal,
 } from '@angular/core';
+import { LucideChevronLeft, LucideChevronRight } from '@lucide/angular';
 
 export interface DateRange {
   start: Date | null;
@@ -20,21 +21,18 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
 @Component({
   selector: 'h-date-picker',
   standalone: true,
+  imports: [LucideChevronLeft, LucideChevronRight],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'h-date-picker-host' },
   template: `
     <div class="h-datepicker">
       <div class="h-datepicker-nav">
         <button type="button" class="h-datepicker-nav-btn" (click)="prevMonth()" aria-label="Previous month">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m15 18-6-6 6-6"/>
-          </svg>
+          <svg lucideChevronLeft [size]="14" aria-hidden="true"></svg>
         </button>
         <span class="h-datepicker-month-label">{{ monthLabel() }}</span>
         <button type="button" class="h-datepicker-nav-btn" (click)="nextMonth()" aria-label="Next month">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="m9 18 6-6-6-6"/>
-          </svg>
+          <svg lucideChevronRight [size]="14" aria-hidden="true"></svg>
         </button>
       </div>
 

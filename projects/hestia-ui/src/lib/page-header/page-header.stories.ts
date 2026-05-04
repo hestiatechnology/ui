@@ -77,7 +77,7 @@ export const Default: Story = {
           <div style="flex: 1; padding: 12px 20px; min-width: 0;">
             <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--h-muted-foreground); margin-bottom: 5px;">Condições de Pagamento</div>
             <div style="font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 4px; cursor: pointer;">
-              30 dias <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--h-muted-foreground)"><path d="m6 9 6 6 6-6"/></svg>
+              30 dias <svg lucideChevronDown [size]="13" style="color: var(--h-muted-foreground)" aria-hidden="true"></svg>
             </div>
           </div>
         </ng-container>
@@ -152,7 +152,7 @@ export const DarkSurface: Story = {
             <div style="flex: 1; padding: 12px 20px; min-width: 0;">
               <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--h-muted-foreground); margin-bottom: 5px;">Condições de Pagamento</div>
               <div style="font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 4px; cursor: pointer;">
-                30 dias <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--h-muted-foreground)"><path d="m6 9 6 6 6-6"/></svg>
+                30 dias <svg lucideChevronDown [size]="13" style="color: var(--h-muted-foreground)" aria-hidden="true"></svg>
               </div>
             </div>
           </ng-container>
@@ -205,7 +205,7 @@ export const ERPLotDetail: Story = {
 
         <!-- Row 2: Icon -->
         <h-icon-tile hPageHeaderIcon tone="primary" [size]="40">
-           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+           <svg lucideServer [size]="20"></svg>
         </h-icon-tile>
 
         <!-- Row 2: Status -->
