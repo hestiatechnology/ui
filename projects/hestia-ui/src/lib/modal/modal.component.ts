@@ -9,10 +9,12 @@ import {
   output,
   viewChild,
 } from '@angular/core';
+import { LucideX } from '@lucide/angular';
 
 @Component({
   selector: 'h-modal',
   standalone: true,
+  imports: [LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <dialog

@@ -8,6 +8,7 @@ import {
   signal,
   untracked,
 } from '@angular/core';
+import { LucideChevronUp, LucideChevronDown } from '@lucide/angular';
 
 export interface HTimeValue {
   hours: number;
@@ -30,6 +31,7 @@ function chevronSvg(path: string): string {
   selector: 'h-time-picker',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LucideChevronUp, LucideChevronDown],
   host: { class: 'h-time-picker-host' },
   template: `
     <div class="h-timepicker">

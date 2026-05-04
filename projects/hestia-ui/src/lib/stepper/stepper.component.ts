@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { LucideCheck } from '@lucide/angular';
 
 export interface StepperStep {
   label: string;
@@ -12,6 +13,7 @@ export type StepState = 'done' | 'active' | 'todo';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'h-stepper-host' },
+  imports: [LucideCheck],
   template: `
     @if (orientation() === 'horizontal') {
       <div class="h-stepper h-stepper--horizontal">

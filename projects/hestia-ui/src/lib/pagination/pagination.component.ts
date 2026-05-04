@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, effect, input, model, output } from '@angular/core';
 import { HSelectComponent } from '../select/select.component';
 import { HOptionComponent } from '../select/option.component';
+import { LucideChevronsLeft, LucideArrowLeft, LucideArrowRight, LucideChevronsRight } from '@lucide/angular';
 
 @Component({
   selector: 'h-pagination',
   standalone: true,
-  imports: [HSelectComponent, HOptionComponent],
+  imports: [HSelectComponent, HOptionComponent, LucideChevronsLeft, LucideArrowLeft, LucideArrowRight, LucideChevronsRight],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nav class="h-pagination" [attr.aria-label]="ariaLabel()">

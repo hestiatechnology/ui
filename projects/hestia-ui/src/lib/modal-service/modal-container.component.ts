@@ -10,10 +10,12 @@ import {
   viewChild,
 } from '@angular/core';
 import { HModalRef } from './modal-ref';
+import { LucideX } from '@lucide/angular';
 
 @Component({
   selector: 'h-modal-container',
   standalone: true,
+  imports: [LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <dialog

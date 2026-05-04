@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LucideChevronDown } from '@lucide/angular';
 
 @Component({
   selector: 'h-ph-meta-cell',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideChevronDown],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="h-meta-cell"

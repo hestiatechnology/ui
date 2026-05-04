@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { LucideCircle } from '@lucide/angular';
 
 export type TimelineTone = 'running' | 'idle' | 'error' | 'hold' | 'primary' | 'neutral';
 
@@ -14,6 +15,7 @@ export interface TimelineEvent {
   selector: 'h-timeline',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LucideCircle],
   host: { class: 'h-timeline-host' },
   template: `
     <div class="h-timeline">

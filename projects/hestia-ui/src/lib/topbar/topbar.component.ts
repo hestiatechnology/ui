@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { LucideHelpCircle, LucideBell, LucideChevronDown } from '@lucide/angular';
 import { HAvatarComponent } from '../avatar/avatar.component';
 
 @Component({
   selector: 'h-topbar',
   standalone: true,
-  imports: [HAvatarComponent],
+  imports: [HAvatarComponent, LucideHelpCircle, LucideBell, LucideChevronDown],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="h-topbar">

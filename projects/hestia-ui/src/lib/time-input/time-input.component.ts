@@ -21,6 +21,7 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { FormValueControl, ValidationError } from '@angular/forms/signals';
 import { H_FORM_FIELD_CONTROL, HFormFieldControl } from '../field/field.component';
 import { HTimePickerComponent, HTimeValue } from '../time-picker/time-picker.component';
+import { LucideClock, LucideX } from '@lucide/angular';
 
 const POSITIONS: ConnectedPosition[] = [
   { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top',    offsetY: 4  },
@@ -49,7 +50,7 @@ function parseTime(s: string): HTimeValue | null {
 @Component({
   selector: 'h-time-input',
   standalone: true,
-  imports: [HTimePickerComponent],
+  imports: [HTimePickerComponent, LucideClock, LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: HTimeInputComponent }],
   template: `
