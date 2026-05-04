@@ -39,6 +39,7 @@ export const H_SELECT_CONTEXT = new InjectionToken<HSelectContext>('H_SELECT_CON
       gap: 10px;
       padding: 8px 10px;
       border-radius: var(--h-radius-sm);
+      font-family: var(--h-font-sans);
       font-size: 13.5px;
       cursor: pointer;
       color: var(--h-foreground);

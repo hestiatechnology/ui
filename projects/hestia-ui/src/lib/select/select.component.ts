@@ -13,6 +13,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { FormValueControl, ValidationError } from '@angular/forms/signals';
+import { LucideChevronDown, LucideSearch } from '@lucide/angular';
 import { H_FORM_FIELD_CONTROL, HFormFieldControl } from '../field/field.component';
 import { HOptionComponent, HSelectContext, H_SELECT_CONTEXT } from './option.component';
 
@@ -21,6 +22,7 @@ let _nextId = 0;
 @Component({
   selector: 'h-select',
   standalone: true,
+  imports: [LucideChevronDown, LucideSearch],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     { provide: H_SELECT_CONTEXT, useExisting: HSelectComponent },
@@ -48,11 +50,7 @@ let _nextId = 0;
         <span class="h-select-value" [class.h-select-value--placeholder]="!_selectedLabel()">
           {{ _selectedLabel() || placeholder() }}
         </span>
-        <svg class="h-select-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"
-             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-             aria-hidden="true">
-          <path d="m6 9 6 6 6-6"/>
-        </svg>
+        <svg class="h-select-chevron" lucideChevronDown [size]="14" aria-hidden="true"></svg>
       </button>
 
       <!--
@@ -62,10 +60,7 @@ let _nextId = 0;
       <div class="h-select-panel" [class.h-select-panel--open]="open()" role="listbox">
         @if (searchable()) {
           <div class="h-select-search">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
-            </svg>
+            <svg lucideSearch [size]="13" aria-hidden="true"></svg>
             <input
               class="h-select-search-input"
               type="text"

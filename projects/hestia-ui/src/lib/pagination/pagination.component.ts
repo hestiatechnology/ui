@@ -1,8 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, effect, input, model, output } from '@angular/core';
+import { HSelectComponent } from '../select/select.component';
+import { HOptionComponent } from '../select/option.component';
 
 @Component({
   selector: 'h-pagination',
   standalone: true,
+  imports: [HSelectComponent, HOptionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <nav class="h-pagination" [attr.aria-label]="ariaLabel()">
@@ -21,16 +24,17 @@ import { ChangeDetectionStrategy, Component, computed, effect, input, model, out
         @if (_showPageSize()) {
           <div class="h-pagination-page-size">
             <label class="h-pagination-page-size-label" [for]="pageSizeSelectId()">{{ pageSizeLabel() }}</label>
-            <select
+            <h-select
               class="h-pagination-page-size-select"
-              [id]="pageSizeSelectId()"
+              size="sm"
+              [selectId]="pageSizeSelectId()"
               [value]="pageSize()"
-              (change)="setPageSize($any($event.target).value)"
+              (valueChange)="setPageSize($event)"
             >
               @for (option of pageSizeOptions(); track option) {
-                <option [value]="option">{{ option }}</option>
+                <h-option [value]="option">{{ option }}</h-option>
               }
-            </select>
+            </h-select>
           </div>
         }
 
@@ -160,20 +164,7 @@ import { ChangeDetectionStrategy, Component, computed, effect, input, model, out
       }
 
       .h-pagination-page-size-select {
-        height: 32px;
-        min-width: 74px;
-        padding: 0 10px;
-        border-radius: var(--h-radius-sm);
-        border: 1px solid var(--h-border);
-        background: var(--h-card);
-        color: var(--h-foreground);
-        font-size: var(--h-text-sm);
-        font-family: var(--h-font-sans);
-      }
-
-      .h-pagination-page-size-select:focus-visible {
-        outline: 2px solid var(--h-ring);
-        outline-offset: 2px;
+        min-width: 84px;
       }
 
       .h-pagination-actions {
@@ -356,7 +347,7 @@ export class HPaginationComponent {
     }
   }
 
-  setPageSize(value: string) {
+  setPageSize(value: unknown) {
     const nextPageSize = Number(value);
 
     if (!Number.isFinite(nextPageSize) || nextPageSize <= 0) {
