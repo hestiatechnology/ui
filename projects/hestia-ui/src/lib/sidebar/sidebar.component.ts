@@ -5,11 +5,12 @@ import {
   QueryList,
   input,
   output,
-  computed,
   AfterContentInit,
   Directive,
+  OnDestroy,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Directive({ selector: '[hSidebarBrand]', standalone: true })
 export class HSidebarBrandDirective {}
@@ -24,6 +25,7 @@ export class HSidebarBrandDirective {}
       class="h-sidebar-item"
       [class.h-sidebar-item--active]="active()"
       [attr.aria-current]="active() ? 'page' : null"
+      (click)="clicked.emit(value())"
     >
       @if (active()) {
         <span class="h-sidebar-item-rail" aria-hidden="true"></span>
@@ -127,7 +129,40 @@ export class HSidebarGroupComponent {
     .h-sidebar-brand:empty { display: none; }
   `],
 })
-export class HSidebarComponent {
+export class HSidebarComponent implements AfterContentInit, OnDestroy {
   readonly ariaLabel = input('Sidebar navigation');
   readonly navigate  = output<string>();
+
+  @ContentChildren(HSidebarItemComponent, { descendants: true })
+  private _items?: QueryList<HSidebarItemComponent>;
+
+  private readonly _subscriptions = new Subscription();
+  private _itemSubscriptions = new Subscription();
+
+  ngAfterContentInit(): void {
+    this._bindItemClickEvents();
+    if (!this._items) return;
+
+    this._subscriptions.add(
+      this._items.changes.subscribe(() => this._bindItemClickEvents()),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this._itemSubscriptions.unsubscribe();
+    this._subscriptions.unsubscribe();
+  }
+
+  private _bindItemClickEvents(): void {
+    this._itemSubscriptions.unsubscribe();
+    this._itemSubscriptions = new Subscription();
+
+    if (!this._items) return;
+
+    for (const item of this._items.toArray()) {
+      this._itemSubscriptions.add(
+        item.clicked.subscribe((value) => this.navigate.emit(value)),
+      );
+    }
+  }
 }

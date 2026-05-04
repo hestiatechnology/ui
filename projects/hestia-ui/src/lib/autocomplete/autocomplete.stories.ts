@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
+import { Component, signal } from '@angular/core';
 import { HAutocompleteComponent } from './autocomplete.component';
 import { HFieldComponent } from '../field/field.component';
 
@@ -154,5 +155,68 @@ export const Disabled: Story = {
       </div>
     `,
     moduleMetadata: { imports: [HAutocompleteComponent] },
+  }),
+};
+
+@Component({
+  selector: 'story-async-autocomplete',
+  standalone: true,
+  imports: [HAutocompleteComponent, HFieldComponent],
+  template: `
+    <div style="display:flex;flex-direction:column;gap:10px;width:320px;">
+      <h-field label="Client lookup" hint="Server mode with query/value split">
+        <h-autocomplete
+          [options]="filteredClients()"
+          [displayWith]="displayClient"
+          [compareWith]="compareClient"
+          [filterMode]="'none'"
+          [loading]="loading()"
+          [value]="selected()"
+          (queryChange)="onQuery($event)"
+          (valueChange)="selected.set($event)"
+          placeholder="Type at least 2 chars...">
+        </h-autocomplete>
+      </h-field>
+
+      <div style="font-size:12px;color:var(--h-muted-foreground);font-family:var(--h-font-mono);">
+        query={{ query() || 'none' }} - selected={{ selected()?.name || 'none' }}
+      </div>
+    </div>
+  `,
+})
+class AsyncAutocompleteStoryComponent {
+  readonly allClients = CLIENTS;
+  readonly query = signal('');
+  readonly loading = signal(false);
+  readonly selected = signal<Client | null>(null);
+  readonly filteredClients = signal<Client[]>(this.allClients);
+
+  readonly displayClient = (c: Client) => `${c.name} · ${c.country}`;
+  readonly compareClient = (a: Client, b: Client) => a.id === b.id;
+
+  onQuery(value: string): void {
+    this.query.set(value);
+    this.loading.set(true);
+
+    const lowered = value.trim().toLowerCase();
+    if (lowered.length < 2) {
+      this.filteredClients.set([]);
+      this.loading.set(false);
+      return;
+    }
+
+    this.filteredClients.set(
+      this.allClients.filter((client) => this.displayClient(client).toLowerCase().includes(lowered)),
+    );
+    this.loading.set(false);
+  }
+}
+
+export const AsyncServerMode: Story = {
+  render: () => ({
+    template: `<story-async-autocomplete></story-async-autocomplete>`,
+    moduleMetadata: {
+      imports: [AsyncAutocompleteStoryComponent],
+    },
   }),
 };

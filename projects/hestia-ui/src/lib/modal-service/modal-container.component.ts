@@ -33,7 +33,7 @@ import { HModalRef } from './modal-ref';
               <button
                 type="button"
                 class="h-modal-sc-close"
-                (click)="_modalRef.close()"
+                (click)="_modalRef.closeWithReason('cancel')"
                 aria-label="Close dialog"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -44,7 +44,9 @@ import { HModalRef } from './modal-ref';
             }
           </div>
         }
-        <ng-container #outlet></ng-container>
+        <div class="h-modal-sc-body">
+          <ng-container #outlet></ng-container>
+        </div>
       </div>
     </dialog>
   `,
@@ -66,6 +68,13 @@ import { HModalRef } from './modal-ref';
     }
 
     .h-modal-sc-content { display: flex; flex-direction: column; }
+
+    .h-modal-sc-body {
+      padding: 16px 24px 20px;
+      font-size: var(--h-text-sm);
+      color: var(--h-muted-foreground);
+      line-height: 1.6;
+    }
 
     .h-modal-sc-header {
       display: flex; align-items: center; justify-content: space-between;
@@ -106,7 +115,10 @@ export class HModalContainerComponent implements AfterViewInit {
 
   onCancel(e: Event): void {
     e.preventDefault();
-    if (this.closeable) this._modalRef.close();
+    if (e instanceof KeyboardEvent) {
+      this._modalRef._emitKeydown(e);
+    }
+    if (this.closeable) this._modalRef.closeWithReason('escape');
   }
 
   onDialogClick(event: MouseEvent): void {
@@ -118,7 +130,7 @@ export class HModalContainerComponent implements AfterViewInit {
 
     if (outside) {
       this._modalRef._emitBackdropClick();
-      if (this.closeable) this._modalRef.close();
+      if (this.closeable) this._modalRef.closeWithReason('backdrop');
     }
   }
 

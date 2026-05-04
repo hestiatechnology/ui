@@ -12,6 +12,7 @@ import {
   inject,
   input,
   model,
+  output,
   signal,
   viewChild,
 } from '@angular/core';
@@ -61,6 +62,9 @@ let _nextId = 0;
         (blur)="onBlur()"
         (keydown)="onKeydown($event)"
       />
+      @if (loading()) {
+        <span class="h-ac-loading" aria-hidden="true"></span>
+      }
       @if (value() !== null && !disabled()) {
         <button type="button" class="h-ac-clear" (click)="clear()" aria-label="Clear selection" tabindex="-1">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -79,28 +83,32 @@ let _nextId = 0;
 
     <ng-template #panelTpl>
       <div class="h-ac-panel" role="listbox" [attr.aria-label]="ariaLabel() ?? 'Options'">
-        @for (opt of _filtered(); track $index) {
-          <div
-            class="h-ac-option"
-            [class.h-ac-option--selected]="_isSelected(opt)"
-            [class.h-ac-option--highlighted]="_highlightIdx() === $index"
-            [id]="nativeId() + '-opt-' + $index"
-            role="option"
-            [attr.aria-selected]="_isSelected(opt)"
-            (mousedown)="selectOption(opt, $event)"
-          >
-            {{ displayWith()(opt) }}
-            <span class="h-ac-option-check">
-              @if (_isSelected(opt)) {
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M20 6 9 17l-5-5"/>
-                </svg>
-              }
-            </span>
-          </div>
-        } @empty {
-          <div class="h-ac-empty">No options found</div>
+        @if (loading()) {
+          <div class="h-ac-empty">{{ loadingText() }}</div>
+        } @else {
+          @for (opt of _filtered(); track $index) {
+            <div
+              class="h-ac-option"
+              [class.h-ac-option--selected]="_isSelected(opt)"
+              [class.h-ac-option--highlighted]="_highlightIdx() === $index"
+              [id]="nativeId() + '-opt-' + $index"
+              role="option"
+              [attr.aria-selected]="_isSelected(opt)"
+              (mousedown)="selectOption(opt, $event)"
+            >
+              {{ displayWith()(opt) }}
+              <span class="h-ac-option-check">
+                @if (_isSelected(opt)) {
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                       stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5"/>
+                  </svg>
+                }
+              </span>
+            </div>
+          } @empty {
+            <div class="h-ac-empty">{{ emptyText() }}</div>
+          }
         }
       </div>
     </ng-template>
@@ -138,6 +146,21 @@ let _nextId = 0;
       transition: color var(--h-motion-product-instant) var(--h-motion-product-ease);
     }
     .h-ac-clear:hover { color: var(--h-foreground); }
+
+    .h-ac-loading {
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--h-border);
+      border-top-color: var(--h-primary);
+      border-radius: 999px;
+      animation: h-ac-spin 700ms linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes h-ac-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
     .h-ac-chevron {
       flex-shrink: 0; color: var(--h-muted-foreground);
@@ -189,10 +212,17 @@ export class HAutocompleteComponent<T = unknown> implements FormValueControl<T |
   readonly displayWith = input<(v: T) => string>((v) => String(v));
   readonly compareWith = input<(a: T, b: T) => boolean>((a, b) => a === b);
   readonly placeholder = input('');
+  readonly filterMode  = input<'client' | 'none'>('client');
+  readonly loading     = input(false, { transform: booleanAttribute });
+  readonly loadingText = input('Loading...');
+  readonly emptyText   = input('No options found');
   readonly size        = input<'sm' | 'default' | 'lg'>('default');
   readonly inputId     = input<string | undefined>(undefined);
   readonly ariaLabel   = input<string | undefined>(undefined, { alias: 'aria-label' });
   readonly describedById = input<string | undefined>(undefined, { alias: 'aria-describedby' });
+
+  readonly valueChange = output<T | null>();
+  readonly queryChange = output<string>();
 
   protected readonly focused       = signal(false);
   protected readonly _open         = signal(false);
@@ -210,7 +240,7 @@ export class HAutocompleteComponent<T = unknown> implements FormValueControl<T |
   });
 
   protected readonly _filtered = computed(() => {
-    if (!this._searching()) return this.options();
+    if (this.filterMode() === 'none' || !this._searching()) return this.options();
     const q = this._inputText().toLowerCase();
     if (!q) return this.options();
     return this.options().filter(o => this.displayWith()(o).toLowerCase().includes(q));
@@ -263,6 +293,7 @@ export class HAutocompleteComponent<T = unknown> implements FormValueControl<T |
     this._inputText.set(text);
     this._searching.set(true);
     this._highlightIdx.set(-1);
+    this.queryChange.emit(text);
     if (!this._open()) this._openPanel();
     else this._overlayRef.updatePosition();
   }
@@ -305,9 +336,11 @@ export class HAutocompleteComponent<T = unknown> implements FormValueControl<T |
 
   protected clear(): void {
     this.value.set(null);
+    this.valueChange.emit(null);
     this._inputText.set('');
     this._searching.set(false);
     this._highlightIdx.set(-1);
+    this.queryChange.emit('');
     this._inputEl().nativeElement.focus();
   }
 
@@ -320,6 +353,7 @@ export class HAutocompleteComponent<T = unknown> implements FormValueControl<T |
   private _commitOption(opt: T): void {
     this._searching.set(false);
     this.value.set(opt);
+    this.valueChange.emit(opt);
     this._inputText.set(this.displayWith()(opt));
     this._highlightIdx.set(-1);
     this._closePanel(true);
