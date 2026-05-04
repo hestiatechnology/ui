@@ -80,9 +80,12 @@ const machineLoom = [
   { label: 'ETA',  value: '02:14', unit: 'h' },
 ];
 
+import { HPageHeaderComponent, HPageHeaderMetaCellComponent, HPageHeaderStatusPillComponent, HPageHeaderToggleChipComponent } from '../page-header';
+
 const allImports = [
   HSidebarComponent, HSidebarGroupComponent, HSidebarItemComponent, HSidebarBrandDirective,
   HTopbarComponent, HBreadcrumbsComponent, HInputComponent, HButtonComponent, HIconButtonComponent,
+  HPageHeaderComponent, HPageHeaderMetaCellComponent, HPageHeaderStatusPillComponent, HPageHeaderToggleChipComponent,
   HAlertComponent, HCardComponent, HBadgeComponent, HStatusPillComponent,
   HProgressComponent, HKpiComponent, HBarMiniComponent,
   HTabsComponent, HTabLabelDirective, HTabPanelDirective,
@@ -171,42 +174,75 @@ export const Default: Story = {
     </h-topbar>
 
     <!-- SCROLLABLE CONTENT -->
-    <div style="flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:20px">
+    <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column">
 
       <!-- PAGE HEADER -->
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
-        <div style="display:flex;align-items:flex-start;gap:12px">
-          <h-button variant="ghost" size="sm" style="margin-top:2px">
-            <svg lucideArrowLeft [size]="14"></svg>
-          </h-button>
-          <div>
-            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-              <h1 style="font-size:22px;font-weight:700;letter-spacing:-0.02em;margin:0;font-family:var(--h-font-mono)">LOT-2A-0094</h1>
-              <h-status-pill status="running">Running</h-status-pill>
-              <h-badge tone="primary" [dot]="true">DPP draft</h-badge>
-            </div>
-            <div style="font-size:13px;color:var(--h-muted-foreground);margin-top:4px">
-              Inditex · Order #443120 · LIN-180-NAT · 4,200 m
-            </div>
-          </div>
-        </div>
-        <div style="display:inline-flex;gap:8px;flex-shrink:0">
+      <h-page-header
+        title="LOT-2A-0094"
+        subtitle="· Linen warp · 4,200 m"
+        eyebrow="Production · Lots"
+        eyebrowTone="primary"
+      >
+        <!-- Row 1: Breadcrumbs -->
+        <h-breadcrumbs hPageHeaderBreadcrumbs [items]="['Production', 'Lots', 'LOT-2A-0094']" [mono]="[false, false, true]"></h-breadcrumbs>
+
+        <!-- Row 1: Actions -->
+        <ng-container hPageHeaderActions>
+          <h-icon-button variant="outline" size="sm" aria-label="History">
+            <svg lucideClock [size]="15"></svg>
+          </h-icon-button>
+          <h-icon-button variant="outline" size="sm" aria-label="More">
+            <svg lucideMoreHorizontal [size]="15"></svg>
+          </h-icon-button>
+          <div style="width: 1px; height: 22px; background: var(--h-border); margin: 0 2px;"></div>
           <h-button variant="outline" size="sm">
-            <svg lucideShare [size]="13"></svg>
-            Share
-          </h-button>
-          <h-button variant="outline" size="sm">
-            <svg lucideDownload [size]="13"></svg>
-            Export
+            <svg lucidePauseCircle, lucideMoreHorizontal [size]="13"></svg>
+            Pause lot
           </h-button>
           <h-button size="sm">
-            <svg lucidePencil [size]="13"></svg>
-            Edit lot
+            <svg lucideShieldCheck [size]="13"></svg>
+            Finalize DPP
           </h-button>
-        </div>
-      </div>
+        </ng-container>
 
-      <!-- STEPPER — production stages -->
+        <!-- Row 2: Icon -->
+        <h-icon-tile hPageHeaderIcon tone="primary" [size]="40">
+           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </h-icon-tile>
+
+        <!-- Row 2: Status -->
+        <ng-container hPageHeaderStatus>
+          <h-ph-status-pill label="Running" status="running"></h-ph-status-pill>
+          <h-ph-toggle-chip label="DPP" value="DRAFT" [active]="false">
+            <svg hToggleIcon lucideFileText [size]="14"></svg>
+          </h-ph-toggle-chip>
+        </ng-container>
+
+        <!-- Row 3: Meta Strip -->
+        <ng-container hPageHeaderMeta>
+          <h-ph-meta-cell label="SKU" value="LIN-180-NAT" [mono]="true"></h-ph-meta-cell>
+          <h-ph-meta-cell label="Customer" value="Inditex · Order #443120"></h-ph-meta-cell>
+          <h-ph-meta-cell label="Machine" value="Loom 7 · L7-KNIT-03" [clickable]="true" [mono]="true"></h-ph-meta-cell>
+          <h-ph-meta-cell label="Started" value="Apr 27 · 06:14" [mono]="true"></h-ph-meta-cell>
+          <div style="flex: 1; padding: 12px 20px; min-width: 0;">
+            <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--h-muted-foreground); margin-bottom: 5px;">Progress</div>
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; font-family: var(--h-font-mono); margin-bottom: 5px;">
+                <span style="font-weight: 600;">62%</span>
+                <span style="color: var(--h-muted-foreground);">ETA Apr 28</span>
+              </div>
+              <div style="height: 4px; border-radius: 4px; background: var(--h-muted); overflow: hidden;">
+                <div style="width: 62%; height: 100%; background: var(--h-primary);"></div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </h-page-header>
+
+      <!-- PADDED BODY CONTENT -->
+      <div style="padding:24px;display:flex;flex-direction:column;gap:20px">
+      
+        <!-- STEPPER — production stages -->
       <h-card>
         <div style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--h-muted-foreground);margin-bottom:16px">Production stages</div>
         <h-stepper [steps]="stages" [activeIndex]="2" orientation="horizontal"></h-stepper>

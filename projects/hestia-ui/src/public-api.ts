@@ -30,6 +30,7 @@ export * from './lib/menu/menu.component';
 export * from './lib/stepper/stepper.component';
 export * from './lib/sidebar/sidebar.component'; // HSidebarComponent, HSidebarGroupComponent, HSidebarItemComponent, HSidebarBrandDirective
 export * from './lib/topbar/topbar.component';
+export * from './lib/page-header/index';
 export * from './lib/filter-bar/filter-bar.component';
 export * from './lib/command-palette/command-palette.component';
 
