@@ -7,9 +7,13 @@ const meta: Meta<HPaginationComponent> = {
   tags: ['autodocs'],
   argTypes: {
     totalPages: { control: { type: 'number', min: 1, max: 100 } },
+    totalItems: { control: { type: 'number', min: 0, max: 5000 } },
     currentPage: { control: { type: 'number', min: 1, max: 100 } },
+    pageSize: { control: { type: 'number', min: 1, max: 200 } },
+    showPageSize: { control: 'boolean' },
     siblingCount: { control: { type: 'number', min: 0, max: 3 } },
     showLabels: { control: 'boolean' },
+    showFirstLast: { control: 'boolean' },
   },
 };
 
@@ -17,7 +21,43 @@ export default meta;
 type Story = StoryObj<HPaginationComponent>;
 
 export const Default: Story = {
-  args: { totalPages: 10, currentPage: 1, siblingCount: 1, showLabels: false },
+  args: {
+    totalItems: 1248,
+    currentPage: 2,
+    pageSize: 20,
+    pageSizeOptions: [10, 20, 50, 100],
+    showPageSize: false,
+    siblingCount: 1,
+    showFirstLast: true,
+  },
+};
+
+export const WithPageSize: Story = {
+  args: {
+    totalItems: 237,
+    currentPage: 1,
+    pageSize: 25,
+    showPageSize: true,
+    siblingCount: 1,
+    showLabels: false,
+  },
+  render: (args) => ({
+    props: args,
+    template: `
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+        <h-pagination
+          [totalItems]="totalItems"
+          [currentPage]="currentPage"
+          [pageSize]="pageSize"
+          [showPageSize]="showPageSize"
+          [pageSizeOptions]="[10, 25, 50, 100]"
+          [siblingCount]="siblingCount"
+          [showLabels]="showLabels"
+          [ariaLabel]="'Pagination'"
+        ></h-pagination>
+      </div>
+    `,
+  }),
 };
 
 export const MiddlePage: Story = {
