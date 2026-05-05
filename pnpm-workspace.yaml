@@ -1,3 +1,7 @@
 packages:
   - 'projects/*'
   - 'tools/*'
+allowBuilds:
+  '@compodoc/compodoc': true
+  sharp: true
+  workerd: true
