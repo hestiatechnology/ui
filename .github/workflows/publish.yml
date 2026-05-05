@@ -26,15 +26,20 @@ jobs:
         run: |
           VERSION=${GITHUB_REF_NAME#v}
           npm version $VERSION --no-git-tag-version --prefix projects/hestia-ui
+          npm version $VERSION --no-git-tag-version --prefix tools/mcp-hestia-ui
 
       - run: pnpm build
 
-      - run: npm publish ./dist/hestia-ui --access public --provenance
+      - name: Publish hestia-ui to npm
+        run: npm publish ./dist/hestia-ui --access public --provenance
+
+      - name: Publish mcp-hestia-ui to npm
+        run: npm publish ./tools/mcp-hestia-ui --access public --provenance
 
       - name: Commit version bump
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add projects/hestia-ui/package.json
+          git add projects/hestia-ui/package.json tools/mcp-hestia-ui/package.json
           git commit -m "chore: bump version to ${GITHUB_REF_NAME}"
           git push origin HEAD:main

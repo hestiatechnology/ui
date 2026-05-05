@@ -1,0 +1,30 @@
+# Development files
+src/
+tsconfig.json
+*.tsbuildinfo
+
+# Testing
+test-scan.mjs
+
+# Development dependencies
+node_modules/
+pnpm-lock.yaml
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Version control
+.git/
+.gitignore
+
+# Other
+.npmrc
+README.dev.md
