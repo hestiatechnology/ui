@@ -18,6 +18,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio";
 import {
   ListToolsRequestSchema,
   CallToolRequestSchema,
+  CallToolRequest,
 } from "@modelcontextprotocol/sdk/types";
 import * as fs from "fs";
 import * as path from "path";
@@ -358,7 +359,7 @@ class HestiaUIServer {
       };
     });
 
-    this.server.server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    this.server.server.setRequestHandler(CallToolRequestSchema, async (request: CallToolRequest) => {
       switch (request.params.name) {
         case "list_components":
           return this.handleListComponents(request.params.arguments as Record<string,unknown>);
