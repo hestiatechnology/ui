@@ -26,7 +26,9 @@ jobs:
         run: |
           VERSION=${GITHUB_REF_NAME#v}
           npm version $VERSION --no-git-tag-version --prefix projects/hestia-ui
-          npm version $VERSION --no-git-tag-version --prefix tools/mcp-hestia-ui
+          # Sync mcp-hestia-ui version with main hestia-ui package
+          HESTIA_VERSION=$(grep '"version"' projects/hestia-ui/package.json | head -1 | grep -oP '\d+\.\d+\.\d+')
+          npm version $HESTIA_VERSION --no-git-tag-version --prefix tools/mcp-hestia-ui
 
       - run: pnpm build
 
