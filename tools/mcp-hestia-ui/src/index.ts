@@ -289,6 +289,10 @@ class HestiaUIServer {
     this.server = new McpServer({
       name: "hestia-ui",
       version: "0.1.0",
+    }, {
+      capabilities: {
+        tools: {},
+      },
     });
 
     this.setupHandlers();
@@ -526,9 +530,24 @@ class HestiaUIServer {
 // Export utilities for testing and programmatic use
 export { scanComponents, getComponentDetails, HestiaUIServer };
 
+function isMainModule(): boolean {
+  const entryPath = process.argv[1];
+
+  if (!entryPath) {
+    return false;
+  }
+
+  const moduleFilePath = fs.realpathSync(fileURLToPath(import.meta.url));
+
+  try {
+    return fs.realpathSync(entryPath) === moduleFilePath;
+  } catch {
+    return path.resolve(entryPath) === moduleFilePath;
+  }
+}
+
 // Only run the server when this file is the entrypoint (not when imported)
-const __filename = fileURLToPath(import.meta.url);
-if (process.argv[1] === __filename) {
+if (isMainModule()) {
   const server = new HestiaUIServer();
   server.run().catch(console.error);
 }
