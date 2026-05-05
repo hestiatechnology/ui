@@ -53,6 +53,7 @@ import { LucideChevronDown } from '@lucide/angular';
       text-transform: uppercase;
       color: var(--h-muted-foreground);
       margin-bottom: 5px;
+      font-family: var(--h-font-sans);
       white-space: nowrap;
     }
 
@@ -68,6 +69,7 @@ import { LucideChevronDown } from '@lucide/angular';
       font-size: 14px;
       font-weight: 500;
       color: var(--h-foreground);
+      font-family: var(--h-font-sans);
       overflow: hidden;
       text-overflow: ellipsis;
     }

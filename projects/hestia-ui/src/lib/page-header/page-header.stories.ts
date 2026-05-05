@@ -74,12 +74,7 @@ export const Default: Story = {
           <h-ph-meta-cell label="Data de Emissão" value="04/05/2026" [mono]="true"></h-ph-meta-cell>
           <h-ph-meta-cell label="Código do Documento"></h-ph-meta-cell>
           <h-ph-meta-cell label="Cliente" value="Cortefiel Group · ES"></h-ph-meta-cell>
-          <div style="flex: 1; padding: 12px 20px; min-width: 0;">
-            <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--h-muted-foreground); margin-bottom: 5px;">Condições de Pagamento</div>
-            <div style="font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 4px; cursor: pointer;">
-              30 dias <svg lucideChevronDown [size]="13" style="color: var(--h-muted-foreground)" aria-hidden="true"></svg>
-            </div>
-          </div>
+          <h-ph-meta-cell label="Condições de Pagamento" value="30 dias" [clickable]="true"></h-ph-meta-cell>
         </ng-container>
 
       </h-page-header>
@@ -149,12 +144,7 @@ export const DarkSurface: Story = {
             <h-ph-meta-cell label="Data de Emissão" value="04/05/2026" [mono]="true"></h-ph-meta-cell>
             <h-ph-meta-cell label="Código do Documento"></h-ph-meta-cell>
             <h-ph-meta-cell label="Cliente" value="Cortefiel Group · ES"></h-ph-meta-cell>
-            <div style="flex: 1; padding: 12px 20px; min-width: 0;">
-              <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--h-muted-foreground); margin-bottom: 5px;">Condições de Pagamento</div>
-              <div style="font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 4px; cursor: pointer;">
-                30 dias <svg lucideChevronDown [size]="13" style="color: var(--h-muted-foreground)" aria-hidden="true"></svg>
-              </div>
-            </div>
+            <h-ph-meta-cell label="Condições de Pagamento" value="30 dias" [clickable]="true"></h-ph-meta-cell>
           </ng-container>
         </h-page-header>
       </div>
@@ -182,7 +172,7 @@ export const ERPLotDetail: Story = {
         eyebrowTone="primary"
       >
         <!-- Row 1: Breadcrumbs -->
-        <h-breadcrumbs hPageHeaderBreadcrumbs [items]="['Production', 'Lots', 'LOT-2A-0094']" [mono]="[false, false, true]"></h-breadcrumbs>
+        <h-breadcrumbs hPageHeaderBreadcrumbs [items]="['Production', 'Lots', 'LOT-2A-0094']"></h-breadcrumbs>
 
         <!-- Row 1: Actions -->
         <ng-container hPageHeaderActions>
@@ -222,8 +212,8 @@ export const ERPLotDetail: Story = {
           <h-ph-meta-cell label="Customer" value="Inditex · ES"></h-ph-meta-cell>
           <h-ph-meta-cell label="Machine" value="Loom 7 · L7-KNIT-03" [clickable]="true" [mono]="true"></h-ph-meta-cell>
           <h-ph-meta-cell label="Started" value="Apr 27 · 06:14" [mono]="true"></h-ph-meta-cell>
-          <div style="flex: 1; padding: 12px 20px; min-width: 0;">
-            <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--h-muted-foreground); margin-bottom: 5px;">Progress</div>
+          <div style="flex: 1; padding: 12px 20px; min-width: 0; font-family: var(--h-font-sans);">
+            <div style="font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--h-muted-foreground); margin-bottom: 5px; font-family: var(--h-font-sans);">Progress</div>
             <div>
               <div style="display: flex; justify-content: space-between; font-size: 13px; font-family: var(--h-font-mono); margin-bottom: 5px;">
                 <span style="font-weight: 600;">62%</span>

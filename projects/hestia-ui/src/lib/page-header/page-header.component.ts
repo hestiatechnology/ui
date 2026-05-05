@@ -56,7 +56,7 @@ import { HIconTileComponent, IconTileTone } from '../icon-tile/icon-tile.compone
       display: flex;
       flex-direction: column;
     }
-    
+
     .h-page-header--dark {
       --h-card: oklch(0.155 0.020 255);
       --h-foreground: oklch(0.97 0.005 255);
@@ -133,9 +133,10 @@ import { HIconTileComponent, IconTileTone } from '../icon-tile/icon-tile.compone
       color: var(--h-foreground);
     }
     /* Let users override font-family with utility classes if they need mono */
-    
+
     .h-ph-subtitle {
       font-size: 14px;
+      font-family: var(--h-font-sans);
       color: var(--h-muted-foreground);
     }
 

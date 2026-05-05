@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "hestia-ui": {
+      "command": "node",
+      "args": [
+        "./tools/mcp-hestia-ui/dist/index.js"
+      ],
+      "cwd": "/home/danielpereira/Documents/hestia-ui"
+    }
+  }
+}

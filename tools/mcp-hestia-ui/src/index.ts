@@ -13,13 +13,12 @@
  * @see https://modelcontextprotocol.io/
  */
 
-import { Server } from "@modelcontextprotocol/sdk/server/index.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio";
 import {
   ListToolsRequestSchema,
   CallToolRequestSchema,
-  TextContent,
-} from "@modelcontextprotocol/sdk/types.js";
+} from "@modelcontextprotocol/sdk/types";
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from 'url';
@@ -283,21 +282,19 @@ export function buildComponentExample(selector: string): string | null {
 }
 
 class HestiaUIServer {
-  private server: Server;
+  private server: McpServer;
 
   constructor() {
-    this.server = new Server({
+    this.server = new McpServer({
       name: "hestia-ui",
       version: "0.1.0",
     });
-    // Register server capabilities required by our handlers (must be done before connect)
-    this.server.registerCapabilities({ tools: {} });
 
     this.setupHandlers();
   }
 
   private setupHandlers() {
-    this.server.setRequestHandler(ListToolsRequestSchema, async () => {
+    this.server.server.setRequestHandler(ListToolsRequestSchema, async () => {
       return {
         tools: [
           {
@@ -361,7 +358,7 @@ class HestiaUIServer {
       };
     });
 
-    this.server.setRequestHandler(CallToolRequestSchema, async (request) => {
+    this.server.server.setRequestHandler(CallToolRequestSchema, async (request) => {
       switch (request.params.name) {
         case "list_components":
           return this.handleListComponents(request.params.arguments as Record<string,unknown>);
