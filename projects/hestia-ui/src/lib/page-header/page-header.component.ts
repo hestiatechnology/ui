@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, input, output, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HIconTileComponent, IconTileTone } from '../icon-tile/icon-tile.component';
 
 @Component({
   selector: 'h-page-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="h-page-header" [class.h-page-header--dark]="dark()">

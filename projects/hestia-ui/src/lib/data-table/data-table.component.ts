@@ -1,11 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ContentChildren,
   Directive,
-  QueryList,
   TemplateRef,
   computed,
+  contentChildren,
   input,
   model,
   output,
@@ -363,7 +362,7 @@ export class HDataTableComponent<T extends Record<string, unknown> = Record<stri
   readonly selectionChange = output<T[]>();
   readonly sortChange      = output<SortState | null>();
 
-  @ContentChildren(HDtCellDirective) private _cellDirs!: QueryList<HDtCellDirective>;
+  private readonly _cellDirs = contentChildren(HDtCellDirective); // @angular-eslint/no-unused-class-members
 
   readonly emptyTpl = input<TemplateRef<unknown> | null>(null);
 
@@ -422,8 +421,9 @@ export class HDataTableComponent<T extends Record<string, unknown> = Record<stri
   }
 
   protected _cellTpl(key: string): TemplateRef<HDtCellContext<T>> | null {
-    if (!this._cellDirs) return null;
-    const dir = this._cellDirs.find(d => d.hDtCell() === key);
+    const dirs = this._cellDirs();
+    if (!dirs.length) return null;
+    const dir = dirs.find(d => d.hDtCell() === key);
     return dir ? (dir.tpl as TemplateRef<HDtCellContext<T>>) : null;
   }
 

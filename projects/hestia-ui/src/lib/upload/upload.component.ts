@@ -9,7 +9,7 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { LucideUpload, LucideFile, LucideX } from '@lucide/angular';
 
 export interface UploadFile {
@@ -23,7 +23,7 @@ export interface UploadFile {
 @Component({
   selector: 'h-dropzone',
   standalone: true,
-  imports: [CommonModule, LucideUpload, LucideFile, LucideX],
+  imports: [LucideUpload, LucideFile, LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'h-dropzone-host' },
   template: `

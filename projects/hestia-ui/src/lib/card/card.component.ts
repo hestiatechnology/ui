@@ -1,13 +1,12 @@
-import { Component, Input, ChangeDetectionStrategy, booleanAttribute } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, booleanAttribute, input } from '@angular/core';
 
 @Component({
   selector: 'h-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div [class]="cardClasses" [attr.aria-label]="ariaLabel || null">
+    <div [class]="cardClasses" [attr.aria-label]="ariaLabel() || null">
       <ng-content></ng-content>
     </div>
   `,
@@ -25,11 +24,11 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class HCardComponent {
-  @Input({ transform: booleanAttribute }) padded = true;
-  @Input({ transform: booleanAttribute }) featured = false;
-  @Input('aria-label') ariaLabel?: string;
+  readonly padded = input(true, { transform: booleanAttribute });
+  readonly featured = input(false, { transform: booleanAttribute });
+  readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
 
   get cardClasses() {
-    return ['h-card', this.padded ? 'h-card--padded' : '', this.featured ? 'h-card--featured' : ''].filter(Boolean).join(' ');
+    return ['h-card', this.padded() ? 'h-card--padded' : '', this.featured() ? 'h-card--featured' : ''].filter(Boolean).join(' ');
   }
 }

@@ -1,12 +1,13 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+
 import { LucideAlertCircle, LucideCheckCircle, LucideX } from '@lucide/angular';
 import { ToastService, Toast } from './toast.service';
 
 @Component({
   selector: 'h-toast-outlet',
   standalone: true,
-  imports: [CommonModule, LucideAlertCircle, LucideCheckCircle, LucideX],
+  imports: [AsyncPipe, LucideAlertCircle, LucideCheckCircle, LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="h-toast-stack" aria-live="polite" aria-label="Notifications">

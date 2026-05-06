@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 import { LucideCheckCircle2, LucideAlertTriangle, LucideAlertCircle, LucidePauseCircle, LucideInfo, LucideX } from '@lucide/angular';
 
 export type AlertTone = 'primary' | 'running' | 'idle' | 'error' | 'hold';
@@ -7,17 +6,17 @@ export type AlertTone = 'primary' | 'running' | 'idle' | 'error' | 'hold';
 @Component({
   selector: 'h-alert',
   standalone: true,
-  imports: [CommonModule, LucideCheckCircle2, LucideAlertTriangle, LucideAlertCircle, LucidePauseCircle, LucideInfo, LucideX],
+  imports: [LucideCheckCircle2, LucideAlertTriangle, LucideAlertCircle, LucidePauseCircle, LucideInfo, LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
       [class]="alertClasses"
       [style]="alertStyle"
       role="alert"
-      [attr.aria-live]="tone === 'error' ? 'assertive' : 'polite'"
-      [attr.aria-label]="title">
+      [attr.aria-live]="tone() === 'error' ? 'assertive' : 'polite'"
+      [attr.aria-label]="title()">
       <span class="h-alert-icon" [style]="iconStyle" aria-hidden="true">
-        @switch (tone) {
+        @switch (tone()) {
           @case ('running') { <svg lucideCheckCircle2 [size]="16"></svg> }
           @case ('idle')    { <svg lucideAlertTriangle [size]="16"></svg> }
           @case ('error')   { <svg lucideAlertCircle [size]="16"></svg> }
@@ -26,11 +25,11 @@ export type AlertTone = 'primary' | 'running' | 'idle' | 'error' | 'hold';
         }
       </span>
       <div class="h-alert-body">
-        @if (title) { <div class="h-alert-title">{{ title }}</div> }
-        @if (description) { <div class="h-alert-desc">{{ description }}</div> }
+        @if (title()) { <div class="h-alert-title">{{ title() }}</div> }
+        @if (description()) { <div class="h-alert-desc">{{ description() }}</div> }
         <ng-content></ng-content>
       </div>
-      @if (dismissible) {
+      @if (dismissible()) {
         <button type="button" class="h-alert-dismiss" (click)="dismiss.emit()" aria-label="Dismiss alert">
           <svg lucideX [size]="14"></svg>
         </button>
@@ -55,11 +54,11 @@ export type AlertTone = 'primary' | 'running' | 'idle' | 'error' | 'hold';
   `]
 })
 export class HAlertComponent {
-  @Input() tone: AlertTone = 'primary';
-  @Input() title?: string;
-  @Input() description?: string;
-  @Input() dismissible = false;
-  @Output() dismiss = new EventEmitter<void>();
+  readonly tone = input<AlertTone>('primary');
+  readonly title = input<string | undefined>(undefined);
+  readonly description = input<string | undefined>(undefined);
+  readonly dismissible = input(false);
+  readonly dismiss = output<void>();
 
   private readonly palettes: Record<AlertTone, { fg: string; bg: string; border: string }> = {
     primary: { fg: 'var(--h-primary)',        bg: 'rgba(0,61,165,0.06)',      border: 'rgba(0,61,165,0.20)' },
@@ -72,11 +71,11 @@ export class HAlertComponent {
   get alertClasses() { return 'h-alert'; }
 
   get alertStyle(): string {
-    const p = this.palettes[this.tone];
+    const p = this.palettes[this.tone()];
     return `background:${p.bg};border-color:${p.border}`;
   }
 
   get iconStyle(): string {
-    return `color:${this.palettes[this.tone].fg}`;
+    return `color:${this.palettes[this.tone()].fg}`;
   }
 }

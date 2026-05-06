@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'h-ph-toggle-chip',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button class="h-toggle-chip" (click)="toggle.emit()">
@@ -35,12 +35,12 @@ import { CommonModule } from '@angular/common';
     }
     .h-toggle-chip:hover { background: var(--h-muted); }
     .h-toggle-chip:focus-visible { box-shadow: 0 0 0 2px var(--h-card), 0 0 0 4px var(--h-ring); }
-    
+
     .h-toggle-icon {
       color: var(--h-muted-foreground);
       display: flex;
     }
-    
+
     .h-toggle-val {
       padding: 1px 5px;
       border-radius: 4px;

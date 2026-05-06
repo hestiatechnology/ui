@@ -1,13 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ContentChildren,
-  QueryList,
   input,
   output,
   AfterContentInit,
   Directive,
   OnDestroy,
+  effect,
+  contentChildren,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -129,23 +129,20 @@ export class HSidebarGroupComponent {
     .h-sidebar-brand:empty { display: none; }
   `],
 })
-export class HSidebarComponent implements AfterContentInit, OnDestroy {
+export class HSidebarComponent implements OnDestroy {
   readonly ariaLabel = input('Sidebar navigation');
   readonly navigate  = output<string>();
 
-  @ContentChildren(HSidebarItemComponent, { descendants: true })
-  private _items?: QueryList<HSidebarItemComponent>;
+  private readonly _items = contentChildren(HSidebarItemComponent, { descendants: true });
 
   private readonly _subscriptions = new Subscription();
   private _itemSubscriptions = new Subscription();
 
-  ngAfterContentInit(): void {
-    this._bindItemClickEvents();
-    if (!this._items) return;
-
-    this._subscriptions.add(
-      this._items.changes.subscribe(() => this._bindItemClickEvents()),
-    );
+  constructor() {
+    effect(() => {
+      const items = this._items();
+      this._bindItemClickEvents();
+    });
   }
 
   ngOnDestroy(): void {
@@ -157,11 +154,12 @@ export class HSidebarComponent implements AfterContentInit, OnDestroy {
     this._itemSubscriptions.unsubscribe();
     this._itemSubscriptions = new Subscription();
 
-    if (!this._items) return;
+    const items = this._items();
+    if (!items || items.length === 0) return;
 
-    for (const item of this._items.toArray()) {
+    for (const item of items) {
       this._itemSubscriptions.add(
-        item.clicked.subscribe((value) => this.navigate.emit(value)),
+        item.clicked.subscribe((value: string) => this.navigate.emit(value)),
       );
     }
   }

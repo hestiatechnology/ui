@@ -1,12 +1,11 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 
 export type IconTileTone = 'primary' | 'running' | 'idle' | 'error' | 'hold' | 'maintenance' | 'cotton';
 
 @Component({
   selector: 'h-icon-tile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [class]="tileClasses" [style]="tileStyle" aria-hidden="true">
@@ -19,8 +18,8 @@ export type IconTileTone = 'primary' | 'running' | 'idle' | 'error' | 'hold' | '
   `]
 })
 export class HIconTileComponent {
-  @Input() size = 36;
-  @Input() tone: IconTileTone = 'primary';
+  readonly size = input(36);
+  readonly tone = input<IconTileTone>('primary');
 
   private readonly palettes: Record<IconTileTone, { bg: string; fg: string }> = {
     primary:     { bg: 'rgba(0,61,165,0.10)',              fg: 'var(--h-primary)' },
@@ -35,7 +34,8 @@ export class HIconTileComponent {
   get tileClasses() { return 'h-icon-tile'; }
 
   get tileStyle(): string {
-    const p = this.palettes[this.tone];
-    return `width:${this.size}px;height:${this.size}px;background:${p.bg};color:${p.fg}`;
+    const sz = this.size();
+    const p = this.palettes[this.tone()];
+    return `width:${sz}px;height:${sz}px;background:${p.bg};color:${p.fg}`;
   }
 }

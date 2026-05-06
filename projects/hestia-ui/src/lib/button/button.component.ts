@@ -1,6 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy, booleanAttribute } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { LucideLoader2 } from '@lucide/angular';
+import { Component, ChangeDetectionStrategy, booleanAttribute, input } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
+import { LucideLoaderCircle } from '@lucide/angular';
 
 export type ButtonVariant = 'default' | 'secondary' | 'outline' | 'primary-outline' | 'ghost' | 'destructive' | 'invert' | 'dark-out' | 'link';
 export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
@@ -8,7 +8,7 @@ export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
 @Component({
   selector: 'h-button',
   standalone: true,
-  imports: [CommonModule, LucideLoader2],
+  imports: [NgTemplateOutlet, LucideLoaderCircle],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     'class': 'h-button-host',
@@ -16,23 +16,23 @@ export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
   },
   template: `
     <button
-      [type]="type"
-      [disabled]="disabled || loading"
-      [attr.aria-busy]="loading || null"
-      [attr.aria-label]="ariaLabel || null"
+      [type]="type()"
+      [disabled]="disabled() || loading()"
+      [attr.aria-busy]="loading() || null"
+      [attr.aria-label]="ariaLabel() || null"
       [class]="buttonClasses"
       [style]="buttonStyle">
-      @if (loading) {
-        <svg lucideLoader2 class="h-btn-spinner" [size]="14" aria-hidden="true"></svg>
-      } @else if (iconLeft) {
+      @if (loading()) {
+        <svg lucideLoaderCircle class="h-btn-spinner" [size]="14" aria-hidden="true"></svg>
+      } @else if (iconLeft()) {
         <span class="h-btn-icon" aria-hidden="true">
-          <ng-container *ngTemplateOutlet="iconLeft"></ng-container>
+          <ng-container *ngTemplateOutlet="iconLeft()"></ng-container>
         </span>
       }
       <ng-content></ng-content>
-      @if (iconRight && !loading) {
+      @if (iconRight() && !loading()) {
         <span class="h-btn-icon" aria-hidden="true">
-          <ng-container *ngTemplateOutlet="iconRight"></ng-container>
+          <ng-container *ngTemplateOutlet="iconRight()"></ng-container>
         </span>
       }
     </button>
@@ -79,20 +79,20 @@ export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
   `]
 })
 export class HButtonComponent {
-  @Input() variant: ButtonVariant = 'default';
-  @Input() size: ButtonSize = 'default';
-  @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  @Input({ transform: booleanAttribute }) loading = false;
-  @Input({ transform: booleanAttribute }) disabled = false;
-  @Input('aria-label') ariaLabel?: string;
-  @Input() iconLeft?: any;
-  @Input() iconRight?: any;
+  readonly variant = input<ButtonVariant>('default');
+  readonly size = input<ButtonSize>('default');
+  readonly type = input<'button' | 'submit' | 'reset'>('button');
+  readonly loading = input(false, { transform: booleanAttribute });
+  readonly disabled = input(false, { transform: booleanAttribute });
+  readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
+  readonly iconLeft = input<any>(undefined);
+  readonly iconRight = input<any>(undefined);
 
   get buttonClasses(): string {
     return [
       'h-btn',
-      `h-btn--${this.size}`,
-      `h-btn--variant-${this.variant}`,
+      `h-btn--${this.size()}`,
+      `h-btn--variant-${this.variant()}`,
     ].join(' ');
   }
 

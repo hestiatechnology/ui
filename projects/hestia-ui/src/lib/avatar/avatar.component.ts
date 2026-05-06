@@ -1,17 +1,16 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 
 export type AvatarTone = 'primary' | 'cotton';
 
 @Component({
   selector: 'h-avatar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [class]="avatarClasses" [style]="avatarStyle" [attr.aria-label]="name || 'Avatar'">
-      @if (src) {
-        <img [src]="src" [alt]="name || ''" class="h-avatar-img">
+        @if (src()) {
+          <img [src]="src()" [alt]="name() || ''" class="h-avatar-img">
       } @else {
         <span aria-hidden="true">{{ initials }}</span>
       }
@@ -28,14 +27,15 @@ export type AvatarTone = 'primary' | 'cotton';
   `]
 })
 export class HAvatarComponent {
-  @Input() name?: string;
-  @Input() src?: string;
-  @Input() size = 32;
-  @Input() tone: AvatarTone = 'primary';
+  readonly name = input<string | undefined>(undefined);
+  readonly src = input<string | undefined>(undefined);
+  readonly size = input(32);
+  readonly tone = input<AvatarTone>('primary');
 
   get initials(): string {
-    if (!this.name) return '?';
-    return this.name.split(' ').map(s => s[0]).slice(0, 2).join('').toUpperCase();
+    const n = this.name();
+    if (!n) return '?';
+    return n.split(' ').map(s => s[0]).slice(0, 2).join('').toUpperCase();
   }
 
   private readonly palettes: Record<AvatarTone, { bg: string; fg: string }> = {
@@ -46,8 +46,9 @@ export class HAvatarComponent {
   get avatarClasses() { return 'h-avatar'; }
 
   get avatarStyle(): string {
-    const p = this.palettes[this.tone];
-    const fontSize = Math.round(this.size * 0.38);
-    return `width:${this.size}px;height:${this.size}px;font-size:${fontSize}px;background:${p.bg};color:${p.fg}`;
+    const p = this.palettes[this.tone()];
+    const sz = this.size();
+    const fontSize = Math.round(sz * 0.38);
+    return `width:${sz}px;height:${sz}px;font-size:${fontSize}px;background:${p.bg};color:${p.fg}`;
   }
 }

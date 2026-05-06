@@ -1,29 +1,28 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 
 @Component({
   selector: 'h-progress',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
       <div
         class="h-progress-track"
         role="progressbar"
-        [attr.aria-valuenow]="indeterminate ? null : value"
+          [attr.aria-valuenow]="indeterminate() ? null : value()"
         [attr.aria-valuemin]="0"
-        [attr.aria-valuemax]="max"
-        [attr.aria-label]="ariaLabel || null"
-        [attr.aria-valuetext]="indeterminate ? 'Loading…' : value + '%'">
+          [attr.aria-valuemax]="max()"
+          [attr.aria-label]="ariaLabel() || null"
+          [attr.aria-valuetext]="indeterminate() ? 'Loading…' : value() + '%'">
         <div
           class="h-progress-fill"
-          [class.h-progress-fill--indeterminate]="indeterminate"
-          [style.width]="indeterminate ? null : (value / max * 100) + '%'">
+            [class.h-progress-fill--indeterminate]="indeterminate()"
+            [style.width]="indeterminate() ? null : (value() / max() * 100) + '%'">
         </div>
       </div>
-      @if (showValue && !indeterminate) {
-        <div class="h-progress-label" aria-hidden="true">{{ value }}%</div>
+        @if (showValue() && !indeterminate()) {
+          <div class="h-progress-label" aria-hidden="true">{{ value() }}%</div>
       }
     </div>
   `,
@@ -50,9 +49,9 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class HProgressComponent {
-  @Input() value = 0;
-  @Input() max = 100;
-  @Input() indeterminate = false;
-  @Input() showValue = true;
-  @Input('aria-label') ariaLabel?: string;
+  readonly value = input(0);
+  readonly max = input(100);
+  readonly indeterminate = input(false);
+  readonly showValue = input(true);
+  readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
 }

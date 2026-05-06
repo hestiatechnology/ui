@@ -1,16 +1,15 @@
-import { Component, Input, ChangeDetectionStrategy, booleanAttribute } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, booleanAttribute, input } from '@angular/core';
 
 export type BadgeTone = 'neutral' | 'primary' | 'running' | 'idle' | 'error' | 'hold' | 'maintenance';
 
 @Component({
   selector: 'h-badge',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span [class]="badgeClasses" [style]="badgeStyle">
-      @if (dot) { <span class="h-badge-dot" aria-hidden="true"></span> }
+        @if (dot()) { <span class="h-badge-dot" aria-hidden="true"></span> }
       <ng-content></ng-content>
     </span>
   `,
@@ -26,9 +25,9 @@ export type BadgeTone = 'neutral' | 'primary' | 'running' | 'idle' | 'error' | '
   `]
 })
 export class HBadgeComponent {
-  @Input() tone: BadgeTone = 'neutral';
-  @Input({ transform: booleanAttribute }) dot = false;
-  @Input({ transform: booleanAttribute }) solid = false;
+  readonly tone = input<BadgeTone>('neutral');
+  readonly dot = input(false, { transform: booleanAttribute });
+  readonly solid = input(false, { transform: booleanAttribute });
 
   private readonly palettes: Record<BadgeTone, { fg: string; bg: string; border: string }> = {
     neutral:     { fg: 'var(--h-foreground)',        bg: 'var(--h-muted)',              border: 'var(--h-border)' },
@@ -43,8 +42,8 @@ export class HBadgeComponent {
   get badgeClasses() { return 'h-badge'; }
 
   get badgeStyle(): string {
-    const p = this.palettes[this.tone];
-    if (this.solid) return `background:${p.fg};color:#fff;border-color:transparent`;
+    const p = this.palettes[this.tone()];
+    if (this.solid()) return `background:${p.fg};color:#fff;border-color:transparent`;
     return `background:${p.bg};color:${p.fg};border-color:${p.border}`;
   }
 }

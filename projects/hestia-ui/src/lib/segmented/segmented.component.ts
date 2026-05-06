@@ -2,11 +2,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  QueryList,
-  ViewChildren,
   input,
   model,
   signal,
+  viewChildren,
 } from '@angular/core';
 
 export interface HSegmentedOption<T = string> {
@@ -96,7 +95,7 @@ export class HSegmentedComponent<T = string> {
   readonly selectedValues = model<T[]>([]);
   readonly ariaLabel = input<string>('Options');
 
-  @ViewChildren('item') private _items!: QueryList<ElementRef<HTMLButtonElement>>;
+  private readonly _items = viewChildren<ElementRef>('item');
 
   isSelected(value: T): boolean {
     return this.selectedValues().includes(value);
@@ -132,6 +131,6 @@ export class HSegmentedComponent<T = string> {
 
     const allOpts = this.options();
     const globalIdx = allOpts.findIndex(o => o.value === opts[next].value);
-    this._items.get(globalIdx)?.nativeElement.focus();
+    this._items()[globalIdx]?.nativeElement.focus();
   }
 }

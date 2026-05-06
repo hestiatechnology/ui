@@ -1,5 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, booleanAttribute } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, booleanAttribute, input } from '@angular/core';
 
 export type IconButtonVariant = 'outline' | 'ghost' | 'primary' | 'danger';
 export type IconButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
@@ -7,14 +6,14 @@ export type IconButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
 @Component({
   selector: 'h-icon-button',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { 'class': 'h-icon-button-host' },
   template: `
     <button
-      [type]="type"
-      [disabled]="disabled"
-      [attr.aria-label]="ariaLabel"
+        [type]="type()"
+        [disabled]="disabled()"
+        [attr.aria-label]="ariaLabel()"
       [class]="btnClasses">
       <ng-content></ng-content>
     </button>
@@ -45,13 +44,13 @@ export type IconButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
   `]
 })
 export class HIconButtonComponent {
-  @Input() variant: IconButtonVariant = 'outline';
-  @Input() size: IconButtonSize = 'default';
-  @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  @Input({ transform: booleanAttribute }) disabled = false;
-  @Input('aria-label') ariaLabel!: string;
+  readonly variant = input<IconButtonVariant>('outline');
+  readonly size = input<IconButtonSize>('default');
+  readonly type = input<'button' | 'submit' | 'reset'>('button');
+  readonly disabled = input(false, { transform: booleanAttribute });
+  readonly ariaLabel = input<string>('', { alias: 'aria-label' });
 
   get btnClasses(): string {
-    return `h-icon-btn h-icon-btn--${this.size} h-icon-btn--${this.variant}`;
+    return `h-icon-btn h-icon-btn--${this.size()} h-icon-btn--${this.variant()}`;
   }
 }

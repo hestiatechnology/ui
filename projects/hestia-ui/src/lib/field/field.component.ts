@@ -2,11 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   InjectionToken,
-  Input,
   Signal,
   booleanAttribute,
   computed,
   contentChild,
+  input,
 } from '@angular/core';
 import { LucideAlertCircle } from '@lucide/angular';
 
@@ -23,20 +23,20 @@ export const H_FORM_FIELD_CONTROL = new InjectionToken<HFormFieldControl>('H_FOR
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="h-field">
-      @if (label) {
-        <label [attr.for]="_effectiveForId()" class="h-field-label">
-          {{ label }}
-          @if (required) { <span class="h-field-required" aria-hidden="true">*</span> }
+        @if (label()) {
+          <label [attr.for]="_effectiveForId()" class="h-field-label">
+            {{ label() }}
+            @if (required()) { <span class="h-field-required" aria-hidden="true">*</span> }
         </label>
       }
       <ng-content></ng-content>
-      @if (hint && !error) {
-        <span class="h-field-hint" [id]="hintId">{{ hint }}</span>
+        @if (hint() && !error()) {
+          <span class="h-field-hint" [id]="hintId()">{{ hint() }}</span>
       }
-      @if (error) {
-        <span class="h-field-error" [id]="errorId" role="alert">
+        @if (error()) {
+          <span class="h-field-error" [id]="errorId()" role="alert">
           <svg lucideAlertCircle [size]="12" aria-hidden="true"></svg>
-          {{ error }}
+            {{ error() }}
         </span>
       }
     </div>
@@ -57,11 +57,11 @@ export class HFieldComponent {
     return control ? control.nativeId() : (this.forId ?? null);
   });
 
-  @Input() label?: string;
-  @Input() hint?: string;
-  @Input() error?: string;
-  @Input({ transform: booleanAttribute }) required = false;
-  @Input('for') forId?: string;
-  @Input() hintId?: string;
-  @Input() errorId?: string;
+    readonly label = input<string | undefined>(undefined);
+    readonly hint = input<string | undefined>(undefined);
+    readonly error = input<string | undefined>(undefined);
+    readonly required = input(false, { transform: booleanAttribute });
+    readonly forId = input<string | undefined>(undefined, { alias: 'for' });
+    readonly hintId = input<string | undefined>(undefined);
+    readonly errorId = input<string | undefined>(undefined);
 }
