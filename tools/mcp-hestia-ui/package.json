@@ -1,6 +1,6 @@
 {
   "name": "@hestiatechnology/mcp-hestia-ui",
-  "version": "0.3.15",
+  "version": "0.3.16",
   "description": "MCP server for Hestia UI - Enables AI Agents to discover, document, and generate code for 50+ Angular components with automatic metadata extraction.",
   "license": "MIT",
   "author": {
