@@ -23,6 +23,7 @@ import {
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from 'url';
+import { createRequire } from 'module';
 
 interface ComponentMetadata {
   name: string;
@@ -46,12 +47,26 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Resolve components directory robustly. Prefer workspace-relative `projects/...` from cwd,
 // fall back to paths relative to this file (works when imported from dist).
 function resolveComponentsDir(): string {
-  // Helper to walk up directories looking for repo root indicators
-  function findRepoRoot(start: string): string | null {
+  // Allow explicit override when running from a different project
+  const envPath = process.env.HESTIA_UI_PATH;
+  if (envPath) {
+    const resolved = path.isAbsolute(envPath) ? envPath : path.resolve(process.cwd(), envPath);
+    try {
+      if (fs.existsSync(resolved) && fs.statSync(resolved).isDirectory()) return resolved;
+    } catch (e) {
+      // fallthrough to normal discovery
+    }
+  }
+  const rel = path.join('projects', 'hestia-ui', 'src', 'lib');
+
+  function findUpFor(relPath: string, start: string): string | null {
     let cur = path.resolve(start);
     while (true) {
-      if (fs.existsSync(path.join(cur, 'angular.json')) || fs.existsSync(path.join(cur, 'package.json'))) {
-        return cur;
+      const candidate = path.join(cur, relPath);
+      try {
+        if (fs.existsSync(candidate) && fs.statSync(candidate).isDirectory()) return candidate;
+      } catch (e) {
+        // ignore
       }
       const parent = path.dirname(cur);
       if (parent === cur) return null;
@@ -59,16 +74,42 @@ function resolveComponentsDir(): string {
     }
   }
 
-  const repoFromCwd = findRepoRoot(process.cwd());
-  const repoFromFile = findRepoRoot(__dirname);
+  // Prefer an explicit match starting from the current working directory (where the user ran the command)
+  const fromCwd = findUpFor(rel, process.cwd());
+  if (fromCwd) return fromCwd;
 
-  const candidates: string[] = [];
-  if (repoFromCwd) candidates.push(path.join(repoFromCwd, 'projects', 'hestia-ui', 'src', 'lib'));
-  if (repoFromFile && repoFromFile !== repoFromCwd) candidates.push(path.join(repoFromFile, 'projects', 'hestia-ui', 'src', 'lib'));
-  // Fallbacks relative to this package
-  candidates.push(path.resolve(process.cwd(), 'projects', 'hestia-ui', 'src', 'lib'));
-  candidates.push(path.resolve(__dirname, '..', '..', 'projects', 'hestia-ui', 'src', 'lib'));
-  candidates.push(path.resolve(__dirname, '..', '..', '..', 'projects', 'hestia-ui', 'src', 'lib'));
+  // Then try relative to this package file (useful when the tool is installed globally or run via npx)
+  const fromFile = findUpFor(rel, __dirname);
+  if (fromFile) return fromFile;
+
+  // Try resolving the published UI package if it's installed as a dependency
+  try {
+    const require = createRequire(import.meta.url);
+    const pkgJsonPath = require.resolve('@hestiatechnology/ui/package.json');
+    const pkgRoot = path.dirname(pkgJsonPath);
+    const candidatesFromPkg = [
+      path.join(pkgRoot, 'projects', 'hestia-ui', 'src', 'lib'),
+      path.join(pkgRoot, 'src', 'lib'),
+      path.join(pkgRoot, 'lib'),
+      path.join(pkgRoot, 'dist'),
+    ];
+    for (const c of candidatesFromPkg) {
+      try {
+        if (fs.existsSync(c) && fs.statSync(c).isDirectory()) return c;
+      } catch (e) {
+        // ignore
+      }
+    }
+  } catch (e) {
+    // ignore resolve errors
+  }
+
+  // Final fallbacks (keep original candidate ordering for predictability)
+  const candidates = [
+    path.resolve(process.cwd(), rel),
+    path.resolve(__dirname, '..', '..', rel),
+    path.resolve(__dirname, '..', '..', '..', rel),
+  ];
 
   for (const c of candidates) {
     try {
@@ -78,7 +119,6 @@ function resolveComponentsDir(): string {
     }
   }
 
-  // Default to first candidate so callers get a predictable path and an explicit error
   return candidates[0];
 }
 
@@ -136,6 +176,23 @@ function extractComponentMetadata(filePath: string): ComponentMetadata | null {
 }
 
 function scanComponents(): ComponentMetadata[] {
+  // Prefer a bundled manifest inside the published package
+  try {
+    const require = createRequire(import.meta.url);
+    const manifestPath = require.resolve('@hestiatechnology/ui/components.json');
+    try {
+      const raw = fs.readFileSync(manifestPath, 'utf8');
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        return parsed.sort((a: ComponentMetadata, b: ComponentMetadata) => a.name.localeCompare(b.name));
+      }
+    } catch (e) {
+      // fallthrough to filesystem scanning
+    }
+  } catch (e) {
+    // not installed or manifest missing; fallthrough to scanning
+  }
+
   const components: ComponentMetadata[] = [];
 
   try {

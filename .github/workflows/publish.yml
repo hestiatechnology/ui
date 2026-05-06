@@ -22,6 +22,9 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      - name: Generate components manifest
+        run: npm run generate:components --prefix projects/hestia-ui
+
       - name: Set version from release tag
         run: |
           VERSION=${GITHUB_REF_NAME#v}
@@ -31,6 +34,17 @@ jobs:
           npm version $HESTIA_VERSION --no-git-tag-version --prefix tools/mcp-hestia-ui
 
       - run: pnpm build
+
+      - name: Copy components manifest into dist
+        if: always()
+        run: |
+          if [ -f projects/hestia-ui/components.json ]; then
+            mkdir -p ./dist/hestia-ui
+            cp projects/hestia-ui/components.json ./dist/hestia-ui/components.json
+            echo "Copied components.json to ./dist/hestia-ui"
+          else
+            echo "No components.json found to copy"
+          fi
 
       - name: Publish hestia-ui to npm
         run: npm publish ./dist/hestia-ui --access public --provenance

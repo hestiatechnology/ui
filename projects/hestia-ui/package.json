@@ -34,4 +34,9 @@
   "sideEffects": [
     "tokens/design-tokens.css"
   ]
+
+  ,"scripts": {
+    "generate:components": "node ../../tools/generate-components.js",
+    "prepare": "npm run generate:components"
+  }
 }
