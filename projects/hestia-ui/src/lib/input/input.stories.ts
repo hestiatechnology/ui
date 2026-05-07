@@ -104,3 +104,63 @@ export const AllSizes: Story = {
     moduleMetadata: { imports: [HInputComponent] },
   }),
 };
+
+export const NumberInput: Story = {
+  render: () => ({
+    template: `
+      <div style="width:280px;">
+        <h-input type="number" placeholder="0" [value]="42" suffix="units" [valueConverter]="numberConverter"></h-input>
+      </div>
+    `,
+    moduleMetadata: { imports: [HInputComponent] },
+    props: {
+      numberConverter: (raw: string) => raw === '' ? 0 : Number(raw),
+    },
+  }),
+};
+
+export const EmailInput: Story = {
+  render: () => ({
+    template: `
+      <div style="width:280px;">
+        <h-input type="email" placeholder="user@example.com" [value]="'john@example.com'"></h-input>
+      </div>
+    `,
+    moduleMetadata: { imports: [HInputComponent] },
+  }),
+};
+
+export const URLInput: Story = {
+  render: () => ({
+    template: `
+      <div style="width:280px;">
+        <h-input type="url" placeholder="https://example.com" [value]="'https://hestia.pt'"></h-input>
+      </div>
+    `,
+    moduleMetadata: { imports: [HInputComponent] },
+  }),
+};
+
+export const TelInput: Story = {
+  render: () => ({
+    template: `
+      <div style="width:280px;">
+        <h-input type="tel" placeholder="+1 (555) 000-0000" [value]="'+1 (555) 123-4567'"></h-input>
+      </div>
+    `,
+    moduleMetadata: { imports: [HInputComponent] },
+  }),
+};
+
+export const SearchInput: Story = {
+  render: () => ({
+    template: `
+      <div style="width:280px;">
+        <h-input type="search" placeholder="Search…" [hasIcon]="true">
+          <svg slot="icon" lucideSearch [size]="14"></svg>
+        </h-input>
+      </div>
+    `,
+    moduleMetadata: { imports: [HInputComponent, LucideSearch] },
+  }),
+};

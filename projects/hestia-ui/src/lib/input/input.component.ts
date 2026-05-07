@@ -77,12 +77,12 @@ let _nextId = 0;
     .h-input-suffix { color: var(--h-muted-foreground); font-size: 12px; font-family: var(--h-font-mono); white-space: nowrap; }
   `],
 })
-export class HInputComponent implements FormValueControl<string>, HFormFieldControl {
+export class HInputComponent<T = string> implements FormValueControl<T>, HFormFieldControl {
   private readonly _autoId = `h-input-${_nextId++}`;
 
   readonly nativeId = computed(() => this.inputId() ?? this._autoId);
 
-  readonly value = model<string>('');
+  readonly value = model<T>('' as T);
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly invalid = input(false, { transform: booleanAttribute });
   readonly errors = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
@@ -97,11 +97,13 @@ export class HInputComponent implements FormValueControl<string>, HFormFieldCont
   readonly inputId = input<string | undefined>(undefined);
   readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
   readonly describedById = input<string | undefined>(undefined, { alias: 'aria-describedby' });
+  readonly valueConverter = input<(raw: string) => T>((raw: string) => raw as T);
 
   protected readonly focused = signal(false);
 
   protected onInput(e: Event): void {
-    this.value.set((e.target as HTMLInputElement).value);
+    const rawValue = (e.target as HTMLInputElement).value;
+    this.value.set(this.valueConverter()(rawValue));
   }
 
   protected onBlur(): void {
