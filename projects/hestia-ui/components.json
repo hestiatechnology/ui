@@ -1,0 +1,402 @@
+[
+  {
+    "name": "AccordionComponent",
+    "selector": "ng-template[hAccordionItem]",
+    "path": "projects/hestia-ui/src/lib/accordion/accordion.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": "Marker directive — apply to ng-template to define an accordion item.  Usage: <ng-template hAccordionItem title=\"FAQ question\">Answer text</ng-template>"
+  },
+  {
+    "name": "AlertComponent",
+    "selector": "h-alert",
+    "path": "projects/hestia-ui/src/lib/alert/alert.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "AutocompleteComponent",
+    "selector": "h-autocomplete",
+    "path": "projects/hestia-ui/src/lib/autocomplete/autocomplete.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "AvatarComponent",
+    "selector": "h-avatar",
+    "path": "projects/hestia-ui/src/lib/avatar/avatar.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "BadgeComponent",
+    "selector": "h-badge",
+    "path": "projects/hestia-ui/src/lib/badge/badge.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "BreadcrumbsComponent",
+    "selector": "h-breadcrumbs",
+    "path": "projects/hestia-ui/src/lib/breadcrumbs/breadcrumbs.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "ButtonComponent",
+    "selector": "h-button",
+    "path": "projects/hestia-ui/src/lib/button/button.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "CardComponent",
+    "selector": "h-card",
+    "path": "projects/hestia-ui/src/lib/card/card.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "CheckboxComponent",
+    "selector": "h-checkbox",
+    "path": "projects/hestia-ui/src/lib/checkbox/checkbox.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "ChipInputComponent",
+    "selector": "h-chip-input",
+    "path": "projects/hestia-ui/src/lib/chip-input/chip-input.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "CommandPaletteComponent",
+    "selector": "h-command-palette",
+    "path": "projects/hestia-ui/src/lib/command-palette/command-palette.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "ConfirmDialogComponent",
+    "selector": "h-confirm-dialog",
+    "path": "projects/hestia-ui/src/lib/confirm-dialog/confirm-dialog.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "DataTableComponent",
+    "selector": "ng-template[hDtCell]",
+    "path": "projects/hestia-ui/src/lib/data-table/data-table.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": "Formatted cell value (result of col.cell() or raw field)."
+  },
+  {
+    "name": "DateInputComponent",
+    "selector": "h-date-input",
+    "path": "projects/hestia-ui/src/lib/date-input/date-input.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "DatePickerComponent",
+    "selector": "h-date-picker",
+    "path": "projects/hestia-ui/src/lib/date-picker/date-picker.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "DefListComponent",
+    "selector": "h-def-row",
+    "path": "projects/hestia-ui/src/lib/def-list/def-list.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "DppLockupComponent",
+    "selector": "h-dpp-lockup",
+    "path": "projects/hestia-ui/src/lib/dpp-lockup/dpp-lockup.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "DrawerComponent",
+    "selector": "h-drawer",
+    "path": "projects/hestia-ui/src/lib/drawer/drawer.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "FieldComponent",
+    "selector": "h-field",
+    "path": "projects/hestia-ui/src/lib/field/field.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "FilterBarComponent",
+    "selector": "h-filter-chip",
+    "path": "projects/hestia-ui/src/lib/filter-bar/filter-bar.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "IconButtonComponent",
+    "selector": "h-icon-button",
+    "path": "projects/hestia-ui/src/lib/icon-button/icon-button.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "IconTileComponent",
+    "selector": "h-icon-tile",
+    "path": "projects/hestia-ui/src/lib/icon-tile/icon-tile.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "InputComponent",
+    "selector": "h-input",
+    "path": "projects/hestia-ui/src/lib/input/input.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "KpiComponent",
+    "selector": "h-kpi",
+    "path": "projects/hestia-ui/src/lib/kpi/kpi.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "MachineTileComponent",
+    "selector": "h-machine-tile",
+    "path": "projects/hestia-ui/src/lib/machine-tile/machine-tile.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "MenuComponent",
+    "selector": "ng-template[hMenuItem]",
+    "path": "projects/hestia-ui/src/lib/menu/menu.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "ModalComponent",
+    "selector": "h-modal",
+    "path": "projects/hestia-ui/src/lib/modal/modal.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "PageHeaderComponent",
+    "selector": "h-page-header",
+    "path": "projects/hestia-ui/src/lib/page-header/page-header.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "PaginationComponent",
+    "selector": "h-pagination",
+    "path": "projects/hestia-ui/src/lib/pagination/pagination.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "PopoverComponent",
+    "selector": "[hPopoverTrigger]",
+    "path": "projects/hestia-ui/src/lib/popover/popover.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "ProgressComponent",
+    "selector": "h-progress",
+    "path": "projects/hestia-ui/src/lib/progress/progress.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "RadioComponent",
+    "selector": "h-radio-group",
+    "path": "projects/hestia-ui/src/lib/radio/radio.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "RingProgressComponent",
+    "selector": "h-ring-progress",
+    "path": "projects/hestia-ui/src/lib/ring-progress/ring-progress.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "SegmentedComponent",
+    "selector": "h-segmented",
+    "path": "projects/hestia-ui/src/lib/segmented/segmented.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "SelectComponent",
+    "selector": "h-select",
+    "path": "projects/hestia-ui/src/lib/select/select.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": "Exposed as Signal<string> to satisfy HSelectContext — options read this to filter themselves."
+  },
+  {
+    "name": "SidebarComponent",
+    "selector": "[hSidebarBrand]",
+    "path": "projects/hestia-ui/src/lib/sidebar/sidebar.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "SkeletonComponent",
+    "selector": "h-skeleton",
+    "path": "projects/hestia-ui/src/lib/skeleton/skeleton.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "SliderComponent",
+    "selector": "h-slider",
+    "path": "projects/hestia-ui/src/lib/slider/slider.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "StatusPillComponent",
+    "selector": "h-status-pill",
+    "path": "projects/hestia-ui/src/lib/status-pill/status-pill.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "StepperComponent",
+    "selector": "h-stepper",
+    "path": "projects/hestia-ui/src/lib/stepper/stepper.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "SwitchComponent",
+    "selector": "h-switch",
+    "path": "projects/hestia-ui/src/lib/switch/switch.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "TableComponent",
+    "selector": "table[hTable]",
+    "path": "projects/hestia-ui/src/lib/table/table.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "TabsComponent",
+    "selector": "ng-template[hTabLabel]",
+    "path": "projects/hestia-ui/src/lib/tabs/tabs.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "TextareaComponent",
+    "selector": "h-textarea",
+    "path": "projects/hestia-ui/src/lib/textarea/textarea.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "TimeInputComponent",
+    "selector": "h-time-input",
+    "path": "projects/hestia-ui/src/lib/time-input/time-input.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "TimePickerComponent",
+    "selector": "h-time-picker",
+    "path": "projects/hestia-ui/src/lib/time-picker/time-picker.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": "Minute step: 1, 5, 10, 15, 30"
+  },
+  {
+    "name": "TimelineComponent",
+    "selector": "h-timeline",
+    "path": "projects/hestia-ui/src/lib/timeline/timeline.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "ToastComponent",
+    "selector": "h-toast-outlet",
+    "path": "projects/hestia-ui/src/lib/toast/toast.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "TopbarComponent",
+    "selector": "h-topbar",
+    "path": "projects/hestia-ui/src/lib/topbar/topbar.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
+    "name": "UploadComponent",
+    "selector": "h-dropzone",
+    "path": "projects/hestia-ui/src/lib/upload/upload.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  }
+]

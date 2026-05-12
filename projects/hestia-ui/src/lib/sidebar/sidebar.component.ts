@@ -1,16 +1,19 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  Directive,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  contentChildren,
+  effect,
   input,
   output,
-  AfterContentInit,
-  Directive,
-  OnDestroy,
-  effect,
-  contentChildren,
+  signal,
+  viewChild,
 } from '@angular/core';
-import { NgTemplateOutlet } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { LucideChevronDown, LucideChevronRight } from '@lucide/angular';
 
 @Directive({ selector: '[hSidebarBrand]', standalone: true })
 export class HSidebarBrandDirective {}
@@ -79,6 +82,176 @@ export class HSidebarItemComponent {
   readonly clicked = output<string>();
 }
 
+@Directive({ selector: '[hSubGroupIcon]', standalone: true })
+export class HSidebarSubGroupIconDirective {}
+
+@Component({
+  selector: 'h-sidebar-sub-group',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LucideChevronDown],
+  template: `
+    <div class="h-sidebar-sub-group">
+      <button
+        type="button"
+        class="h-sidebar-sub-group-trigger"
+        [class.h-sidebar-sub-group-trigger--open]="isOpen()"
+        [attr.aria-expanded]="isOpen()"
+        (click)="toggle()"
+      >
+        <span class="h-sidebar-sub-group-icon" aria-hidden="true">
+          <ng-content select="[hSubGroupIcon]" />
+        </span>
+        <span class="h-sidebar-sub-group-label">{{ label() }}</span>
+        <svg lucideChevronDown [size]="14" class="h-sidebar-sub-group-chevron"
+             [class.h-sidebar-sub-group-chevron--open]="isOpen()" aria-hidden="true"></svg>
+      </button>
+      @if (isOpen()) {
+        <div class="h-sidebar-sub-group-panel" role="group">
+          <ng-content select="h-sidebar-item" />
+        </div>
+      }
+    </div>
+  `,
+  styles: [`
+    :host { display: block; }
+    .h-sidebar-sub-group-trigger {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 10px; border-radius: 8px;
+      font-size: 13.5px; font-weight: 500; font-family: var(--h-font-sans);
+      color: var(--h-foreground); background: transparent;
+      border: none; cursor: pointer; width: 100%; text-align: left;
+      transition: background 100ms;
+    }
+    .h-sidebar-sub-group-trigger:hover { background: var(--h-muted); }
+    .h-sidebar-sub-group-trigger:focus-visible { outline: 2px solid var(--h-ring); outline-offset: -2px; }
+    .h-sidebar-sub-group-trigger--open { font-weight: 600; }
+    .h-sidebar-sub-group-icon { color: var(--h-muted-foreground); display: inline-flex; flex-shrink: 0; }
+    .h-sidebar-sub-group-label { flex: 1; }
+    .h-sidebar-sub-group-chevron { color: var(--h-muted-foreground); transition: transform 150ms; }
+    .h-sidebar-sub-group-chevron--open { transform: rotate(180deg); }
+    .h-sidebar-sub-group-panel {
+      display: flex; flex-direction: column;
+      padding-left: 20px;
+      border-left: 2px solid var(--h-border);
+      margin-left: 22px;
+      margin-top: 2px;
+    }
+  `],
+})
+export class HSidebarSubGroupComponent implements OnInit {
+  readonly label = input.required<string>();
+  readonly defaultOpen = input(false);
+
+  readonly isOpen = signal(false);
+
+  ngOnInit(): void {
+    this.isOpen.set(this.defaultOpen());
+  }
+
+  toggle(): void {
+    this.isOpen.update(v => !v);
+  }
+}
+
+@Component({
+  selector: 'h-sidebar-sub-group-flyout',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LucideChevronRight],
+  template: `
+    <div class="h-sidebar-sub-group-flyout"
+         (mouseenter)="showPanel()"
+         (mouseleave)="scheduleHide()">
+      <button
+        type="button"
+        class="h-sidebar-sub-group-flyout-trigger"
+        #triggerEl
+        (focus)="showPanel()"
+        (blur)="scheduleHide()"
+      >
+        <span class="h-sidebar-sub-group-flyout-icon" aria-hidden="true">
+          <ng-content select="[hSubGroupIcon]" />
+        </span>
+        <span class="h-sidebar-sub-group-flyout-label">{{ label() }}</span>
+        <svg lucideChevronRight [size]="14" class="h-sidebar-sub-group-flyout-arrow" aria-hidden="true"></svg>
+      </button>
+      @if (panelVisible()) {
+        <div class="h-sidebar-sub-group-flyout-panel"
+             [style.top.px]="panelTop()"
+             [style.left.px]="panelLeft()"
+             (mouseenter)="cancelHide()"
+             (mouseleave)="scheduleHide()">
+          <div class="h-sidebar-sub-group-flyout-header">{{ label() }}</div>
+          <ng-content select="h-sidebar-item" />
+        </div>
+      }
+    </div>
+  `,
+  styles: [`
+    :host { display: block; }
+    .h-sidebar-sub-group-flyout-trigger {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 10px; border-radius: 8px;
+      font-size: 13.5px; font-weight: 500; font-family: var(--h-font-sans);
+      color: var(--h-foreground); background: transparent;
+      border: none; cursor: pointer; width: 100%; text-align: left;
+      transition: background 100ms;
+    }
+    .h-sidebar-sub-group-flyout-trigger:hover { background: var(--h-muted); }
+    .h-sidebar-sub-group-flyout-trigger:focus-visible { outline: 2px solid var(--h-ring); outline-offset: -2px; }
+    .h-sidebar-sub-group-flyout-icon { color: var(--h-muted-foreground); display: inline-flex; flex-shrink: 0; }
+    .h-sidebar-sub-group-flyout-label { flex: 1; }
+    .h-sidebar-sub-group-flyout-arrow { color: var(--h-muted-foreground); }
+    .h-sidebar-sub-group-flyout-panel {
+      position: fixed;
+      z-index: 1000;
+      background: var(--h-card);
+      border: 1px solid var(--h-border);
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
+      padding: 6px;
+      min-width: 220px;
+    }
+    .h-sidebar-sub-group-flyout-header {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--h-muted-foreground); padding: 4px 10px 6px;
+      font-family: var(--h-font-sans);
+    }
+  `],
+})
+export class HSidebarSubGroupFlyoutComponent implements OnDestroy {
+  readonly label = input.required<string>();
+
+  private readonly triggerEl = viewChild.required<ElementRef>('triggerEl');
+
+  readonly panelVisible = signal(false);
+  readonly panelTop = signal(0);
+  readonly panelLeft = signal(0);
+
+  private _hideTimer?: ReturnType<typeof setTimeout>;
+
+  showPanel(): void {
+    clearTimeout(this._hideTimer);
+    const rect = (this.triggerEl().nativeElement as HTMLElement).getBoundingClientRect();
+    this.panelTop.set(Math.min(rect.top, window.innerHeight - 300));
+    this.panelLeft.set(rect.right + 6);
+    this.panelVisible.set(true);
+  }
+
+  scheduleHide(): void {
+    this._hideTimer = setTimeout(() => this.panelVisible.set(false), 150);
+  }
+
+  cancelHide(): void {
+    clearTimeout(this._hideTimer);
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this._hideTimer);
+  }
+}
+
 @Component({
   selector: 'h-sidebar-group',
   standalone: true,
@@ -86,7 +259,7 @@ export class HSidebarItemComponent {
   template: `
     <div class="h-sidebar-group">
       <div class="h-sidebar-group-label">{{ label() }}</div>
-      <ng-content select="h-sidebar-item" />
+      <ng-content />
     </div>
   `,
   styles: [`
