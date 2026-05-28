@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, booleanAttribute, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, booleanAttribute, computed, input, output } from '@angular/core';
 import { Menu, MenuContent, MenuItem, MenuTrigger } from '@angular/aria/menu';
 import { LucideChevronDown } from '@lucide/angular';
 import { HMenuItemData } from '../menu/menu.component';
@@ -18,7 +18,7 @@ export type StatusDropdownTone = 'success' | 'warning' | 'primary' | 'muted' | '
         [menu]="menuRef"
         type="button"
         [disabled]="disabled()"
-        [class]="triggerClasses">
+        [class]="triggerClasses()">
         <span class="h-sd-dot"></span>
         <span class="h-sd-label">{{ label() }}</span>
         <svg lucideChevronDown [size]="14" class="h-sd-chevron" aria-hidden="true"></svg>
@@ -73,18 +73,18 @@ export type StatusDropdownTone = 'success' | 'warning' | 'primary' | 'muted' | '
     .h-sd-trigger:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .h-sd-trigger--success {
-      color: #1a7f37;
-      border-color: #1a7f37;
-      background: color-mix(in oklch, #1a7f37 8%, transparent);
+      color: var(--h-success, #1a7f37);
+      border-color: var(--h-success, #1a7f37);
+      background: color-mix(in oklch, var(--h-success, #1a7f37) 8%, transparent);
     }
-    .h-sd-trigger--success .h-sd-dot { background: #1a7f37; }
+    .h-sd-trigger--success .h-sd-dot { background: var(--h-success, #1a7f37); }
 
     .h-sd-trigger--warning {
-      color: #977f2e;
-      border-color: #977f2e;
-      background: color-mix(in oklch, #977f2e 8%, transparent);
+      color: var(--h-warning, #977f2e);
+      border-color: var(--h-warning, #977f2e);
+      background: color-mix(in oklch, var(--h-warning, #977f2e) 8%, transparent);
     }
-    .h-sd-trigger--warning .h-sd-dot { background: #977f2e; }
+    .h-sd-trigger--warning .h-sd-dot { background: var(--h-warning, #977f2e); }
 
     .h-sd-trigger--primary {
       color: var(--h-primary);
@@ -167,7 +167,5 @@ export class HStatusDropdownComponent {
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly itemSelected = output<string>();
 
-  get triggerClasses(): string {
-    return `h-sd-trigger h-sd-trigger--${this.tone()}`;
-  }
+  readonly triggerClasses = computed(() => `h-sd-trigger h-sd-trigger--${this.tone()}`);
 }

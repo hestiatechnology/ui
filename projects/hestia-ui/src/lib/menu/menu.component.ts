@@ -45,7 +45,8 @@ export class HMenuItemTemplateDirective<T = string> {
         #trigger="ngMenuTrigger"
         [menu]="menuRef"
         type="button"
-        [class]="iconTrigger() ? 'h-dropdown-trigger h-dropdown-trigger--icon' : 'h-dropdown-trigger'"
+        class="h-dropdown-trigger"
+        [class.h-dropdown-trigger--icon]="iconTrigger()"
       >
         <ng-content select="[hTrigger]" />
       </button>
