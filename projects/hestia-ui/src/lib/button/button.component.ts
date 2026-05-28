@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, booleanAttribute, input } from '@an
 import { NgTemplateOutlet } from '@angular/common';
 import { LucideLoaderCircle } from '@lucide/angular';
 
-export type ButtonVariant = 'default' | 'secondary' | 'outline' | 'primary-outline' | 'ghost' | 'destructive' | 'invert' | 'dark-out' | 'link';
+export type ButtonVariant = 'default' | 'secondary' | 'outline' | 'primary-outline' | 'ghost' | 'destructive' | 'invert' | 'dark-out' | 'link' | 'dashed';
 export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
 
 @Component({
@@ -71,6 +71,8 @@ export type ButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
     .h-btn--variant-invert      { background: #fff; color: #060E24; }
     .h-btn--variant-dark-out    { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.20); color: #fff; }
     .h-btn--variant-link        { background: transparent; color: var(--h-primary); border-color: transparent; text-decoration: underline; text-underline-offset: 4px; padding: 0; height: auto; }
+    .h-btn--variant-dashed      { background: transparent; border-color: var(--h-border); border-style: dashed; color: var(--h-foreground); }
+    .h-btn--variant-dashed:hover:not(:disabled) { background: var(--h-muted); border-color: var(--h-border-strong); }
     /* Icon */
     .h-btn-icon { display: flex; flex-shrink: 0; }
     /* Spinner */

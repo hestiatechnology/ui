@@ -56,6 +56,27 @@ export const WithIcons: Story = {
   }),
 };
 
+export const IconTrigger: Story = {
+  render: () => ({
+    props: {
+      items: [
+        { value: 'edit', label: 'Edit' },
+        { value: 'duplicate', label: 'Duplicate' },
+        { separator: true, value: '__sep', label: '' },
+        { value: 'delete', label: 'Delete' },
+      ],
+    },
+    template: `
+      <div style="height:200px;padding:16px;">
+        <h-dropdown [items]="items" [iconTrigger]="true">
+          <span hTrigger>⋯</span>
+        </h-dropdown>
+      </div>
+    `,
+    moduleMetadata: { imports: [HDropdownComponent] },
+  }),
+};
+
 export const WithDisabledItem: Story = {
   render: () => ({
     props: {

@@ -55,6 +55,10 @@ export const Link: Story = {
   args: { variant: 'link', size: 'default' },
 };
 
+export const Dashed: Story = {
+  args: { variant: 'dashed', size: 'default' },
+};
+
 export const Loading: Story = {
   args: { variant: 'default', size: 'default', loading: true },
 };

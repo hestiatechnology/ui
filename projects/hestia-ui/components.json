@@ -304,6 +304,14 @@
     "description": ""
   },
   {
+    "name": "StatusDropdownComponent",
+    "selector": "h-status-dropdown",
+    "path": "projects/hestia-ui/src/lib/status-dropdown/status-dropdown.component.ts",
+    "inputs": [],
+    "outputs": [],
+    "description": ""
+  },
+  {
     "name": "StatusPillComponent",
     "selector": "h-status-pill",
     "path": "projects/hestia-ui/src/lib/status-pill/status-pill.component.ts",

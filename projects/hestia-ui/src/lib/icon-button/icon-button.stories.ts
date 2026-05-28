@@ -7,7 +7,7 @@ const meta: Meta<HIconButtonComponent> = {
   component: HIconButtonComponent,
   tags: ["autodocs"],
   argTypes: {
-    variant: { control: "select", options: ["outline", "ghost", "primary", "danger"] },
+    variant: { control: "select", options: ["outline", "ghost", "primary", "danger", "thumbnail"] },
     size: { control: "select", options: ["xs", "sm", "default", "lg", "xl"] },
     disabled: { control: "boolean" },
     ariaLabel: { control: "text" },
@@ -61,6 +61,22 @@ export const AllSizes: Story = {
         <h-icon-button size="default" aria-label="Default"><svg lucidePlus [size]="16"></svg> </h-icon-button>
         <h-icon-button size="lg"      aria-label="Large">  <svg lucidePlus [size]="18"></svg> </h-icon-button>
         <h-icon-button size="xl"      aria-label="XLarge"> <svg lucidePlus [size]="20"></svg> </h-icon-button>
+      </div>
+    `,
+    moduleMetadata: { imports: [HIconButtonComponent, LucidePlus] },
+  }),
+};
+
+export const Thumbnail: Story = {
+  render: () => ({
+    template: `
+      <div style="display:flex;align-items:center;gap:12px;">
+        <h-icon-button variant="thumbnail" size="lg" aria-label="Gallery">
+          <svg lucidePlus [size]="20"></svg>
+        </h-icon-button>
+        <h-icon-button variant="thumbnail" size="xl" aria-label="Gallery large">
+          <svg lucidePlus [size]="24"></svg>
+        </h-icon-button>
       </div>
     `,
     moduleMetadata: { imports: [HIconButtonComponent, LucidePlus] },
