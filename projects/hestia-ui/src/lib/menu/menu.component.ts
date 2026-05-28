@@ -119,6 +119,7 @@ export class HMenuItemTemplateDirective<T = string> {
         padding: 0;
         width: 36px;
         height: 36px;
+        justify-content: center;
         border: 1px solid transparent;
         background: transparent;
         color: var(--h-foreground);
