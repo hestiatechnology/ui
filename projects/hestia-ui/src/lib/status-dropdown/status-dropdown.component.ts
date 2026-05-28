@@ -58,54 +58,27 @@ export type StatusDropdownTone = 'success' | 'warning' | 'primary' | 'muted' | '
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 0 10px 0 8px;
-      height: 28px;
-      border-radius: 100px;
-      border: 1px solid;
+      padding: 4px 10px;
+      border-radius: var(--h-radius-pill);
+      border: 1px solid transparent;
       cursor: pointer;
-      font-size: 12px;
-      font-weight: 500;
+      font-size: 12.5px;
+      font-weight: 600;
       font-family: var(--h-font-sans);
+      line-height: 1.4;
       white-space: nowrap;
       transition: opacity var(--h-motion-product-quick) var(--h-motion-product-ease);
     }
     .h-sd-trigger:focus-visible { outline: 2px solid var(--h-ring); outline-offset: 2px; }
     .h-sd-trigger:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    .h-sd-trigger--success {
-      color: var(--h-success, #1a7f37);
-      border-color: var(--h-success, #1a7f37);
-      background: color-mix(in oklch, var(--h-success, #1a7f37) 8%, transparent);
-    }
-    .h-sd-trigger--success .h-sd-dot { background: var(--h-success, #1a7f37); }
+    .h-sd-trigger--success     { color: var(--h-status-running);     background: var(--h-status-running-bg);     border-color: var(--h-status-running-border); }
+    .h-sd-trigger--warning     { color: var(--h-status-idle);        background: var(--h-status-idle-bg);        border-color: var(--h-status-idle-border); }
+    .h-sd-trigger--error       { color: var(--h-status-error);       background: var(--h-status-error-bg);       border-color: var(--h-status-error-border); }
+    .h-sd-trigger--muted       { color: var(--h-status-maintenance); background: var(--h-status-maintenance-bg); border-color: var(--h-status-maintenance-border); }
+    .h-sd-trigger--primary     { color: var(--h-primary); border-color: var(--h-primary); background: color-mix(in oklch, var(--h-primary) 8%, var(--h-card)); }
 
-    .h-sd-trigger--warning {
-      color: var(--h-warning, #977f2e);
-      border-color: var(--h-warning, #977f2e);
-      background: color-mix(in oklch, var(--h-warning, #977f2e) 8%, transparent);
-    }
-    .h-sd-trigger--warning .h-sd-dot { background: var(--h-warning, #977f2e); }
-
-    .h-sd-trigger--primary {
-      color: var(--h-primary);
-      border-color: var(--h-primary);
-      background: color-mix(in oklch, var(--h-primary) 8%, transparent);
-    }
-    .h-sd-trigger--primary .h-sd-dot { background: var(--h-primary); }
-
-    .h-sd-trigger--error {
-      color: var(--h-destructive);
-      border-color: var(--h-destructive);
-      background: color-mix(in oklch, var(--h-destructive) 8%, transparent);
-    }
-    .h-sd-trigger--error .h-sd-dot { background: var(--h-destructive); }
-
-    .h-sd-trigger--muted {
-      color: var(--h-muted-foreground);
-      border-color: var(--h-border);
-      background: transparent;
-    }
-    .h-sd-trigger--muted .h-sd-dot { background: var(--h-muted-foreground); }
+    .h-sd-dot { background: currentColor; }
 
     .h-sd-dot {
       width: 7px;
