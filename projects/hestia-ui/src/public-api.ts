@@ -53,6 +53,7 @@ export * from './lib/ring-progress/ring-progress.component';
 // Display
 export * from './lib/badge/badge.component';
 export * from './lib/status-pill/status-pill.component';
+export * from './lib/status-dropdown/status-dropdown.component';
 export * from './lib/card/card.component';
 export * from './lib/avatar/avatar.component';
 export * from './lib/avatar/avatar-stack.component';
