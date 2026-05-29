@@ -212,6 +212,9 @@ export class HMenuItemTemplateDirective<T = string> {
 })
 export class HDropdownComponent<T = string> {
   readonly items = input<HMenuItemData<T>[]>([]);
-  readonly iconTrigger = input<'ghost' | 'outline' | false>(false);
+  readonly iconTrigger = input<'ghost' | 'outline' | false, 'ghost' | 'outline' | boolean | string>(
+    false,
+    { transform: (v) => (v === true || v === '' ? 'ghost' : (v || false) as 'ghost' | 'outline' | false) }
+  );
   readonly itemSelected = output<T>();
 }
