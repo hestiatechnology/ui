@@ -56,7 +56,7 @@ export const WithIcons: Story = {
   }),
 };
 
-export const IconTrigger: Story = {
+export const IconTriggerGhost: Story = {
   render: () => ({
     props: {
       items: [
@@ -68,7 +68,27 @@ export const IconTrigger: Story = {
     },
     template: `
       <div style="height:200px;padding:16px;">
-        <h-dropdown [items]="items" [iconTrigger]="true">
+        <h-dropdown [items]="items" iconTrigger="ghost">
+          <span hTrigger>⋯</span>
+        </h-dropdown>
+      </div>
+    `,
+    moduleMetadata: { imports: [HDropdownComponent] },
+  }),
+};
+
+export const IconTriggerOutline: Story = {
+  render: () => ({
+    props: {
+      items: [
+        { value: 'template1', label: 'Acabamento Básico' },
+        { value: 'template2', label: 'Instruções de Etiqueta' },
+        { value: 'template3', label: 'Lavagem Stone Wash' },
+      ],
+    },
+    template: `
+      <div style="height:200px;padding:16px;">
+        <h-dropdown [items]="items" iconTrigger="outline">
           <span hTrigger>⋯</span>
         </h-dropdown>
       </div>

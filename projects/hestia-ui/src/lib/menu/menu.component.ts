@@ -3,7 +3,6 @@ import {
   Component,
   Directive,
   TemplateRef,
-  booleanAttribute,
   contentChildren,
   input,
   model,
@@ -46,7 +45,8 @@ export class HMenuItemTemplateDirective<T = string> {
         [menu]="menuRef"
         type="button"
         class="h-dropdown-trigger"
-        [class.h-dropdown-trigger--icon]="iconTrigger()"
+        [class.h-dropdown-trigger--icon]="iconTrigger() === 'ghost'"
+        [class.h-dropdown-trigger--icon-outline]="iconTrigger() === 'outline'"
       >
         <ng-content select="[hTrigger]" />
       </button>
@@ -130,6 +130,20 @@ export class HMenuItemTemplateDirective<T = string> {
         background: var(--h-muted);
       }
 
+      .h-dropdown-trigger--icon-outline {
+        padding: 0;
+        width: 36px;
+        height: 36px;
+        justify-content: center;
+        border: 1px solid var(--h-border);
+        background: var(--h-card);
+        color: var(--h-foreground);
+        border-radius: 10px;
+      }
+      .h-dropdown-trigger--icon-outline:hover {
+        background: var(--h-muted);
+      }
+
       .h-dropdown-panel {
         position: absolute;
         top: calc(100% + 6px);
@@ -198,6 +212,6 @@ export class HMenuItemTemplateDirective<T = string> {
 })
 export class HDropdownComponent<T = string> {
   readonly items = input<HMenuItemData<T>[]>([]);
-  readonly iconTrigger = input(false, { transform: booleanAttribute });
+  readonly iconTrigger = input<'ghost' | 'outline' | false>(false);
   readonly itemSelected = output<T>();
 }
