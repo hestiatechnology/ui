@@ -41,8 +41,8 @@ export type IconButtonSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl';
     .h-icon-btn--primary:hover:not(:disabled) { background: color-mix(in oklch, var(--h-primary) 90%, black); }
     .h-icon-btn--danger  { background: transparent; border-color: var(--h-border); color: var(--h-destructive); }
     .h-icon-btn--danger:hover:not(:disabled) { background: var(--h-status-error-bg); }
-    .h-icon-btn--thumbnail { background: var(--h-muted); border-color: var(--h-border); color: var(--h-muted-foreground); border-radius: 8px; }
-    .h-icon-btn--thumbnail:hover:not(:disabled) { background: color-mix(in oklch, var(--h-primary) 8%, var(--h-muted)); border-color: var(--h-primary); }
+    .h-icon-btn--thumbnail { background: var(--h-card); border-color: var(--h-border); color: var(--h-muted-foreground); border-radius: 8px; }
+    .h-icon-btn--thumbnail:hover:not(:disabled) { background: color-mix(in oklch, var(--h-primary) 8%, var(--h-card)); border-color: var(--h-primary); }
   `]
 })
 export class HIconButtonComponent {
