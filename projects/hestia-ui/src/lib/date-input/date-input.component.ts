@@ -83,7 +83,7 @@ function parsePtDate(s: string, withTime = false): Date | null {
       [class.h-di-wrap--sm]="size() === 'sm'"
       [class.h-di-wrap--lg]="size() === 'lg'"
     >
-      <svg lucideCalendar class="h-di-icon" [size]="14" aria-hidden="true"></svg>
+      <svg lucideCalendar class="h-di-icon" [size]="14" aria-hidden="true" (click)="!disabled() && _toggleCalendar()"></svg>
       <input
         #inputEl
         [id]="nativeId()"
@@ -103,6 +103,7 @@ function parsePtDate(s: string, withTime = false): Date | null {
         (focus)="onFocus()"
         (blur)="onBlur()"
         (keydown)="onKeydown($event)"
+        (click)="!disabled() && _openCalendar()"
       />
       @if (_hasValue() && !disabled()) {
         <button type="button" class="h-di-clear" (click)="clear()" aria-label="Clear date" tabindex="-1">
@@ -148,7 +149,7 @@ function parsePtDate(s: string, withTime = false): Date | null {
     .h-di-wrap--error { border-color: var(--h-destructive); }
     .h-di-wrap--error.h-di-wrap--focus { box-shadow: 0 0 0 3px rgba(180,35,24,0.20); }
 
-    .h-di-icon { color: var(--h-muted-foreground); flex-shrink: 0; }
+    .h-di-icon { color: var(--h-muted-foreground); flex-shrink: 0; cursor: pointer; }
 
     .h-di-native {
       flex: 1; min-width: 0; border: 0; outline: none; background: transparent;
