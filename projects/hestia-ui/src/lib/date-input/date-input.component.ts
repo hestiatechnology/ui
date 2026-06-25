@@ -339,11 +339,11 @@ export class HDateInputComponent implements FormValueControl<Date | null>, HForm
     this._rawText.set(null);
   }
 
-  private _toggleCalendar(): void {
+  protected _toggleCalendar(): void {
     this._open() ? this._closeCalendar(true) : this._openCalendar();
   }
 
-  private _openCalendar(): void {
+  protected _openCalendar(): void {
     if (this._open() || this._overlayRef?.hasAttached()) return;
     this._overlayRef.attach(new TemplatePortal(this._calendarTpl(), this._vcr));
     this._open.set(true);
