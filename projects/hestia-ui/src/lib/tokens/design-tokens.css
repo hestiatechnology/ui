@@ -5,7 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@400;500;600&display=swap");
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
 
   /* Brand */
   --h-blue:      #003DA5;
@@ -14,12 +14,12 @@
   --h-blue-tint: #E5EBF6;
 
   /* Surface */
-  --h-background:           oklch(0.985 0.003 80);
-  --h-foreground:           oklch(0.10  0.01  255);
-  --h-card:                 #ffffff;
-  --h-card-foreground:      oklch(0.10  0.01  255);
-  --h-popover:              #ffffff;
-  --h-popover-foreground:   oklch(0.10  0.01  255);
+  --h-background:           light-dark(oklch(0.985 0.003 80), oklch(0.085 0.018 255));
+  --h-foreground:           light-dark(oklch(0.10  0.01  255), oklch(0.97  0.005 255));
+  --h-card:                 light-dark(#ffffff, oklch(0.155 0.020 255));
+  --h-card-foreground:      light-dark(oklch(0.10  0.01  255), oklch(0.97  0.005 255));
+  --h-popover:              light-dark(#ffffff, oklch(0.18  0.020 255));
+  --h-popover-foreground:   light-dark(oklch(0.10  0.01  255), oklch(0.97  0.005 255));
 
   /* Thread palette — sparingly: footer, empty states, never on actions */
   --h-thread-cotton: #F5EFE2;
@@ -28,39 +28,39 @@
   --h-thread-jute:   #B89968;
 
   /* Semantic */
-  --h-primary:              #003DA5;
+  --h-primary:              light-dark(#003DA5, #5B7BD9);
   --h-primary-foreground:   #ffffff;
-  --h-secondary:            oklch(0.96 0.003 80);
-  --h-secondary-foreground: oklch(0.18 0.01  255);
-  --h-muted:                oklch(0.96 0.003 80);
-  --h-muted-foreground:     oklch(0.42 0.01  255);
-  --h-accent:               oklch(0.96 0.003 80);
-  --h-accent-foreground:    oklch(0.18 0.01  255);
-  --h-destructive:          #B42318;
+  --h-secondary:            light-dark(oklch(0.96 0.003 80), oklch(0.20 0.020 255));
+  --h-secondary-foreground: light-dark(oklch(0.18 0.01  255), oklch(0.97 0.005 255));
+  --h-muted:                light-dark(oklch(0.96 0.003 80), oklch(0.19 0.020 255));
+  --h-muted-foreground:     light-dark(oklch(0.42 0.01  255), oklch(0.72 0.012 255));
+  --h-accent:               light-dark(oklch(0.96 0.003 80), oklch(0.20 0.020 255));
+  --h-accent-foreground:    light-dark(oklch(0.18 0.01  255), oklch(0.97 0.005 255));
+  --h-destructive:          light-dark(#B42318, #F04438);
   --h-destructive-foreground: #ffffff;
 
   /* Status palette — shop-floor states, colour-blind safe */
-  --h-status-running:        #118D57;
-  --h-status-running-bg:     #E6F4EC;
-  --h-status-running-border: #B5DBC5;
-  --h-status-idle:           #B76E00;
-  --h-status-idle-bg:        #FAEFD9;
-  --h-status-idle-border:    #ECC785;
-  --h-status-error:          #B42318;
-  --h-status-error-bg:       #FBE9E7;
-  --h-status-error-border:   #F1B8AE;
-  --h-status-maintenance:    #475467;
-  --h-status-maintenance-bg: #EAECF0;
-  --h-status-maintenance-border: #C7CCD4;
-  --h-status-hold:           #6941C6;
-  --h-status-hold-bg:        #EDE9FB;
-  --h-status-hold-border:    #CFC2F1;
+  --h-status-running:        light-dark(#118D57, #3CCB7F);
+  --h-status-running-bg:     light-dark(#E6F4EC, oklch(0.22 0.06 150));
+  --h-status-running-border: light-dark(#B5DBC5, oklch(0.32 0.07 150));
+  --h-status-idle:           light-dark(#B76E00, #F5B544);
+  --h-status-idle-bg:        light-dark(#FAEFD9, oklch(0.24 0.06 70));
+  --h-status-idle-border:    light-dark(#ECC785, oklch(0.36 0.08 70));
+  --h-status-error:          light-dark(#B42318, #F04438);
+  --h-status-error-bg:       light-dark(#FBE9E7, oklch(0.24 0.07 25));
+  --h-status-error-border:   light-dark(#F1B8AE, oklch(0.36 0.10 25));
+  --h-status-maintenance:    light-dark(#475467, #98A2B3);
+  --h-status-maintenance-bg: light-dark(#EAECF0, oklch(0.20 0.01 255));
+  --h-status-maintenance-border: light-dark(#C7CCD4, oklch(0.32 0.01 255));
+  --h-status-hold:           light-dark(#6941C6, #B692F6);
+  --h-status-hold-bg:        light-dark(#EDE9FB, oklch(0.22 0.06 290));
+  --h-status-hold-border:    light-dark(#CFC2F1, oklch(0.34 0.10 290));
 
   /* Lines & focus */
-  --h-border:        oklch(0.905 0.003 80);
-  --h-border-strong: oklch(0.84  0.003 80);
-  --h-input:         oklch(0.905 0.003 80);
-  --h-ring:          #003DA5;
+  --h-border:        light-dark(oklch(0.905 0.003 80), oklch(0.30 0.020 255));
+  --h-border-strong: light-dark(oklch(0.84  0.003 80), oklch(0.42 0.022 255));
+  --h-input:         light-dark(oklch(0.905 0.003 80), oklch(0.30 0.020 255));
+  --h-ring:          light-dark(#003DA5, #5B7BD9);
 
   /* Charts */
   --h-chart-1: #003DA5;
@@ -142,43 +142,13 @@
   --h-touch-comfort:      52px;
 }
 
-/* Dark mode */
+/* Explicit overrides */
 .dark, [data-theme="dark"] {
   color-scheme: dark;
-  --h-background:           oklch(0.085 0.018 255);
-  --h-foreground:           oklch(0.97  0.005 255);
-  --h-card:                 oklch(0.155 0.020 255);
-  --h-card-foreground:      oklch(0.97  0.005 255);
-  --h-popover:              oklch(0.18  0.020 255);
-  --h-popover-foreground:   oklch(0.97  0.005 255);
-  --h-primary:              #5B7BD9;
-  --h-primary-foreground:   #ffffff;
-  --h-secondary:            oklch(0.20 0.020 255);
-  --h-secondary-foreground: oklch(0.97 0.005 255);
-  --h-muted:                oklch(0.19 0.020 255);
-  --h-muted-foreground:     oklch(0.72 0.012 255);
-  --h-accent:               oklch(0.20 0.020 255);
-  --h-accent-foreground:    oklch(0.97 0.005 255);
-  --h-destructive:          #F04438;
-  --h-border:               oklch(0.30 0.020 255);
-  --h-border-strong:        oklch(0.42 0.022 255);
-  --h-input:                oklch(0.30 0.020 255);
-  --h-ring:                 #5B7BD9;
-  --h-status-running:        #3CCB7F;
-  --h-status-running-bg:     oklch(0.22 0.06 150);
-  --h-status-running-border: oklch(0.32 0.07 150);
-  --h-status-idle:           #F5B544;
-  --h-status-idle-bg:        oklch(0.24 0.06 70);
-  --h-status-idle-border:    oklch(0.36 0.08 70);
-  --h-status-error:          #F04438;
-  --h-status-error-bg:       oklch(0.24 0.07 25);
-  --h-status-error-border:   oklch(0.36 0.10 25);
-  --h-status-maintenance:    #98A2B3;
-  --h-status-maintenance-bg: oklch(0.20 0.01 255);
-  --h-status-maintenance-border: oklch(0.32 0.01 255);
-  --h-status-hold:           #B692F6;
-  --h-status-hold-bg:        oklch(0.22 0.06 290);
-  --h-status-hold-border:    oklch(0.34 0.10 290);
+}
+
+.light, [data-theme="light"] {
+  color-scheme: light;
 }
 
 /* Element defaults */
