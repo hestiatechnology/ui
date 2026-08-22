@@ -3,10 +3,7 @@
   "version": 1,
   "cli": {
     "packageManager": "pnpm",
-    "analytics": "e4a826f3-7f96-4d65-90fa-10b4003bedb3",
-    "cache": {
-      "path": "../.angular-cache"
-    }
+    "analytics": "e4a826f3-7f96-4d65-90fa-10b4003bedb3"
   },
   "newProjectRoot": "projects",
   "projects": {
