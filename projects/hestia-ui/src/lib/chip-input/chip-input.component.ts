@@ -4,6 +4,7 @@ import {
   ElementRef,
   booleanAttribute,
   computed,
+  forwardRef,
   input,
   model,
   signal,
@@ -20,7 +21,7 @@ let _nextId = 0;
   standalone: true,
   imports: [LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: HChipInputComponent }],
+  providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: forwardRef(() => HChipInputComponent) }],
   template: `
     <div
       class="h-chip-wrap"

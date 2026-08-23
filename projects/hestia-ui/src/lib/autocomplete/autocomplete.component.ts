@@ -9,6 +9,7 @@ import {
   booleanAttribute,
   computed,
   effect,
+  forwardRef,
   inject,
   input,
   model,
@@ -34,7 +35,9 @@ let _nextId = 0;
   standalone: true,
   imports: [LucideX, LucideChevronDown, LucideCheck],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: HAutocompleteComponent }],
+  providers: [
+    { provide: H_FORM_FIELD_CONTROL, useExisting: forwardRef(() => HAutocompleteComponent) },
+  ],
   template: `
     <div
       [class]="wrapClasses"

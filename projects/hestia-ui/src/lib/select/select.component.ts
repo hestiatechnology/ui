@@ -6,6 +6,7 @@ import {
   Signal,
   computed,
   contentChildren,
+  forwardRef,
   input,
   model,
   signal,
@@ -24,8 +25,8 @@ let _nextId = 0;
   imports: [LucideChevronDown, LucideSearch],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    { provide: H_SELECT_CONTEXT, useExisting: HSelectComponent },
-    { provide: H_FORM_FIELD_CONTROL, useExisting: HSelectComponent },
+    { provide: H_SELECT_CONTEXT, useExisting: forwardRef(() => HSelectComponent) },
+    { provide: H_FORM_FIELD_CONTROL, useExisting: forwardRef(() => HSelectComponent) },
   ],
   host: {
     class: 'h-select-host',

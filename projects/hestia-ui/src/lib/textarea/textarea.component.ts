@@ -3,6 +3,7 @@ import {
   Component,
   booleanAttribute,
   computed,
+  forwardRef,
   input,
   model,
   signal,
@@ -18,7 +19,7 @@ let _nextId = 0;
   selector: 'h-textarea',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: HTextareaComponent }],
+  providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: forwardRef(() => HTextareaComponent) }],
   template: `
     <div
       [class]="wrapClasses"

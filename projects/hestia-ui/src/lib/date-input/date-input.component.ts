@@ -9,6 +9,7 @@ import {
   booleanAttribute,
   computed,
   effect,
+  forwardRef,
   inject,
   input,
   model,
@@ -74,7 +75,7 @@ function parsePtDate(s: string, withTime = false): Date | null {
   standalone: true,
   imports: [HDatePickerComponent, HTimePickerComponent, LucideCalendar, LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: HDateInputComponent }],
+  providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: forwardRef(() => HDateInputComponent) }],
   template: `
     <div
       class="h-di-wrap"

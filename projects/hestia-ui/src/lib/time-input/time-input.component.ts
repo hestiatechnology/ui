@@ -9,6 +9,7 @@ import {
   booleanAttribute,
   computed,
   effect,
+  forwardRef,
   inject,
   input,
   model,
@@ -52,7 +53,7 @@ function parseTime(s: string): HTimeValue | null {
   standalone: true,
   imports: [HTimePickerComponent, LucideClock, LucideX],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: HTimeInputComponent }],
+  providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: forwardRef(() => HTimeInputComponent) }],
   template: `
     <div
       class="h-ti-wrap"

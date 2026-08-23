@@ -3,6 +3,7 @@ import {
   Component,
   booleanAttribute,
   computed,
+  forwardRef,
   inject,
   input,
   model,
@@ -19,7 +20,7 @@ let _nextId = 0;
   selector: 'h-input',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: HInputComponent }],
+  providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: forwardRef(() => HInputComponent) }],
   template: `
     <div [class]="wrapClasses" [class.h-input-wrap--focus]="focused()" [class.h-input-wrap--error]="invalid()">
       @if (hasIcon()) {
