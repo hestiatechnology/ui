@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Component, signal } from '@angular/core';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { HAutocompleteComponent } from './autocomplete.component';
 import { HFieldComponent } from '../field/field.component';
 
@@ -16,22 +16,22 @@ interface Supplier {
 }
 
 const CLIENTS: Client[] = [
-  { id: 1,  name: 'Zara Portugal',    country: 'PT' },
-  { id: 2,  name: 'H&M Group',        country: 'SE' },
-  { id: 3,  name: 'Mango',            country: 'ES' },
-  { id: 4,  name: 'C&A Europe',       country: 'DE' },
-  { id: 5,  name: 'Primark',          country: 'IE' },
-  { id: 6,  name: 'Marks & Spencer',  country: 'GB' },
-  { id: 7,  name: 'Next PLC',         country: 'GB' },
-  { id: 8,  name: 'Inditex',          country: 'ES' },
+  { id: 1, name: 'Zara Portugal', country: 'PT' },
+  { id: 2, name: 'H&M Group', country: 'SE' },
+  { id: 3, name: 'Mango', country: 'ES' },
+  { id: 4, name: 'C&A Europe', country: 'DE' },
+  { id: 5, name: 'Primark', country: 'IE' },
+  { id: 6, name: 'Marks & Spencer', country: 'GB' },
+  { id: 7, name: 'Next PLC', country: 'GB' },
+  { id: 8, name: 'Inditex', country: 'ES' },
 ];
 
 const SUPPLIERS: Supplier[] = [
-  { code: 'SP-001', name: 'Fibrotex',     category: 'Yarns'    },
-  { code: 'SP-002', name: 'ColorTex',     category: 'Dyes'     },
-  { code: 'SP-003', name: 'Maquinvest',   category: 'Machinery'},
-  { code: 'SP-004', name: 'AcetoChem',    category: 'Chemicals'},
-  { code: 'SP-005', name: 'TelaFina',     category: 'Yarns'    },
+  { code: 'SP-001', name: 'Fibrotex', category: 'Yarns' },
+  { code: 'SP-002', name: 'ColorTex', category: 'Dyes' },
+  { code: 'SP-003', name: 'Maquinvest', category: 'Machinery' },
+  { code: 'SP-004', name: 'AcetoChem', category: 'Chemicals' },
+  { code: 'SP-005', name: 'TelaFina', category: 'Yarns' },
 ];
 
 const meta: Meta<HAutocompleteComponent> = {
@@ -40,8 +40,8 @@ const meta: Meta<HAutocompleteComponent> = {
   tags: ['autodocs'],
   argTypes: {
     placeholder: { control: 'text' },
-    disabled:    { control: 'boolean' },
-    invalid:     { control: 'boolean' },
+    disabled: { control: 'boolean' },
+    invalid: { control: 'boolean' },
     size: { control: 'select', options: ['sm', 'default', 'lg'] },
   },
 };
@@ -162,6 +162,7 @@ export const Disabled: Story = {
   selector: 'story-async-autocomplete',
   standalone: true,
   imports: [HAutocompleteComponent, HFieldComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div style="display:flex;flex-direction:column;gap:10px;width:320px;">
       <h-field label="Client lookup" hint="Server mode with query/value split">
@@ -174,7 +175,8 @@ export const Disabled: Story = {
           [value]="selected()"
           (queryChange)="onQuery($event)"
           (valueChange)="selected.set($event)"
-          placeholder="Type at least 2 chars...">
+          placeholder="Type at least 2 chars..."
+        >
         </h-autocomplete>
       </h-field>
 
@@ -206,7 +208,9 @@ class AsyncAutocompleteStoryComponent {
     }
 
     this.filteredClients.set(
-      this.allClients.filter((client) => this.displayClient(client).toLowerCase().includes(lowered)),
+      this.allClients.filter((client) =>
+        this.displayClient(client).toLowerCase().includes(lowered),
+      ),
     );
     this.loading.set(false);
   }

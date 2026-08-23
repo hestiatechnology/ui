@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import {
@@ -10,14 +10,11 @@ import {
 @Component({
   standalone: true,
   imports: [HSidebarComponent, HSidebarGroupComponent, HSidebarItemComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <h-sidebar (navigate)="onNavigate($event)">
       <h-sidebar-group label="Main">
-        <h-sidebar-item
-          label="Dashboard"
-          value="dashboard"
-          (clicked)="onItemClicked($event)"
-        />
+        <h-sidebar-item label="Dashboard" value="dashboard" (clicked)="onItemClicked($event)" />
         <h-sidebar-item label="Orders" value="orders" />
       </h-sidebar-group>
     </h-sidebar>

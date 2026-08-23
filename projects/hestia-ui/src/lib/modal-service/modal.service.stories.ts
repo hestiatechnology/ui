@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { HModalService, HModalConfig } from './modal.service';
 import { H_MODAL_DATA, HModalRef } from './modal-ref';
 import { HButtonComponent } from '../button/button.component';
@@ -9,10 +9,11 @@ import { HButtonComponent } from '../button/button.component';
   selector: 'demo-confirm-content',
   standalone: true,
   imports: [HButtonComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <p style="margin:0 0 16px;font-size:14px;color:var(--h-muted-foreground);line-height:1.6;">
-      This action <strong>cannot be undone</strong>. The production order will be permanently deleted
-      and all associated records will be removed from the system.
+      This action <strong>cannot be undone</strong>. The production order will be permanently
+      deleted and all associated records will be removed from the system.
     </p>
     <div style="display:flex;gap:8px;justify-content:flex-end;">
       <h-button variant="outline" (click)="cancel()">Cancel</h-button>
@@ -21,9 +22,13 @@ import { HButtonComponent } from '../button/button.component';
   `,
 })
 class DemoConfirmContentComponent {
-  private readonly _ref  = inject(HModalRef);
-  confirm(): void { this._ref.closeWithReason('confirm', true); }
-  cancel():  void { this._ref.closeWithReason('cancel', false); }
+  private readonly _ref = inject(HModalRef);
+  confirm(): void {
+    this._ref.closeWithReason('confirm', true);
+  }
+  cancel(): void {
+    this._ref.closeWithReason('cancel', false);
+  }
 }
 
 // ── Demo form content ────────────────────────────────────────────────────────
@@ -31,19 +36,31 @@ class DemoConfirmContentComponent {
   selector: 'demo-form-content',
   standalone: true,
   imports: [HButtonComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
       <div>
-        <label style="font-size:13px;font-weight:500;color:var(--h-foreground);display:block;margin-bottom:4px;">
+        <label
+          style="font-size:13px;font-weight:500;color:var(--h-foreground);display:block;margin-bottom:4px;"
+        >
           Client reference
         </label>
-        <input style="height:36px;width:100%;border:1px solid var(--h-border);border-radius:8px;padding:0 12px;font-family:var(--h-font-sans);font-size:13.5px;background:var(--h-card);" placeholder="e.g. ZAR-2025-001" />
+        <input
+          style="height:36px;width:100%;border:1px solid var(--h-border);border-radius:8px;padding:0 12px;font-family:var(--h-font-sans);font-size:13.5px;background:var(--h-card);"
+          placeholder="e.g. ZAR-2025-001"
+        />
       </div>
       <div>
-        <label style="font-size:13px;font-weight:500;color:var(--h-foreground);display:block;margin-bottom:4px;">
+        <label
+          style="font-size:13px;font-weight:500;color:var(--h-foreground);display:block;margin-bottom:4px;"
+        >
           Quantity (kg)
         </label>
-        <input type="number" style="height:36px;width:100%;border:1px solid var(--h-border);border-radius:8px;padding:0 12px;font-family:var(--h-font-mono);font-size:13.5px;background:var(--h-card);" placeholder="0.00" />
+        <input
+          type="number"
+          style="height:36px;width:100%;border:1px solid var(--h-border);border-radius:8px;padding:0 12px;font-family:var(--h-font-mono);font-size:13.5px;background:var(--h-card);"
+          placeholder="0.00"
+        />
       </div>
     </div>
     <div style="display:flex;gap:8px;justify-content:flex-end;">
@@ -54,8 +71,12 @@ class DemoConfirmContentComponent {
 })
 class DemoFormContentComponent {
   private readonly _ref = inject(HModalRef);
-  save():    void { this._ref.closeWithReason('confirm', 'saved'); }
-  dismiss(): void { this._ref.closeWithReason('cancel', undefined); }
+  save(): void {
+    this._ref.closeWithReason('confirm', 'saved');
+  }
+  dismiss(): void {
+    this._ref.closeWithReason('cancel', undefined);
+  }
 }
 
 // ── Demo data content ────────────────────────────────────────────────────────
@@ -63,20 +84,26 @@ class DemoFormContentComponent {
   selector: 'demo-data-content',
   standalone: true,
   imports: [HButtonComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <p style="margin:0 0 8px;font-size:13px;color:var(--h-muted-foreground);">
       Injected via <code>H_MODAL_DATA</code>:
     </p>
-    <pre style="background:var(--h-muted);border-radius:8px;padding:12px;font-size:12px;overflow:auto;">{{ data | json }}</pre>
+    <pre
+      style="background:var(--h-muted);border-radius:8px;padding:12px;font-size:12px;overflow:auto;"
+      >{{ data | json }}</pre
+    >
     <div style="display:flex;justify-content:flex-end;margin-top:16px;">
       <h-button variant="outline" (click)="close()">Close</h-button>
     </div>
   `,
 })
 class DemoDataContentComponent {
-  readonly data  = inject(H_MODAL_DATA);
+  readonly data = inject(H_MODAL_DATA);
   private readonly _ref = inject(HModalRef);
-  close(): void { this._ref.closeWithReason('cancel'); }
+  close(): void {
+    this._ref.closeWithReason('cancel');
+  }
 }
 
 // ── Storybook host ───────────────────────────────────────────────────────────
@@ -92,10 +119,12 @@ class DemoDataContentComponent {
     </div>
     @if (lastResult !== undefined) {
       <p style="margin-top:12px;font-size:13px;color:var(--h-muted-foreground);">
-        Last result: <code>{{ lastResult | json }}</code> · reason: <code>{{ lastCloseReason }}</code>
+        Last result: <code>{{ lastResult | json }}</code> · reason:
+        <code>{{ lastCloseReason }}</code>
       </p>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [],
 })
 class StoryModalHostComponent {
@@ -109,8 +138,12 @@ class StoryModalHostComponent {
       size: 'sm',
     });
 
-    ref.afterClosed().subscribe(result => { this.lastResult = result; });
-    ref.closed().subscribe(event => { this.lastCloseReason = event.reason; });
+    ref.afterClosed().subscribe((result) => {
+      this.lastResult = result;
+    });
+    ref.closed().subscribe((event) => {
+      this.lastCloseReason = event.reason;
+    });
   }
 
   openForm(): void {
@@ -119,8 +152,12 @@ class StoryModalHostComponent {
       size: 'default',
     });
 
-    ref.afterClosed().subscribe(result => { this.lastResult = result; });
-    ref.closed().subscribe(event => { this.lastCloseReason = event.reason; });
+    ref.afterClosed().subscribe((result) => {
+      this.lastResult = result;
+    });
+    ref.closed().subscribe((event) => {
+      this.lastCloseReason = event.reason;
+    });
   }
 
   openData(): void {
@@ -129,8 +166,12 @@ class StoryModalHostComponent {
       data: { orderId: 'PO-2025-0487', client: 'Zara Portugal', qty: 1200 },
     });
 
-    ref.afterClosed().subscribe(result => { this.lastResult = result; });
-    ref.closed().subscribe(event => { this.lastCloseReason = event.reason; });
+    ref.afterClosed().subscribe((result) => {
+      this.lastResult = result;
+    });
+    ref.closed().subscribe((event) => {
+      this.lastCloseReason = event.reason;
+    });
   }
 }
 

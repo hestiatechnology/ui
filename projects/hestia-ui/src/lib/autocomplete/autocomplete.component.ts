@@ -23,8 +23,8 @@ import { LucideX, LucideChevronDown, LucideCheck } from '@lucide/angular';
 import { H_FORM_FIELD_CONTROL, HFormFieldControl } from '../field/field.component';
 
 const PANEL_POSITIONS: ConnectedPosition[] = [
-  { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top',    offsetY: 4  },
-  { originX: 'start', originY: 'top',    overlayX: 'start', overlayY: 'bottom', offsetY: -4 },
+  { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 4 },
+  { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -4 },
 ];
 
 let _nextId = 0;
@@ -68,12 +68,23 @@ let _nextId = 0;
         <span class="h-ac-loading" aria-hidden="true"></span>
       }
       @if (value() !== null && !disabled()) {
-        <button type="button" class="h-ac-clear" (click)="clear()" aria-label="Clear selection" tabindex="-1">
+        <button
+          type="button"
+          class="h-ac-clear"
+          (click)="clear()"
+          aria-label="Clear selection"
+          tabindex="-1"
+        >
           <svg lucideX [size]="12" aria-hidden="true"></svg>
         </button>
       }
-      <svg lucideChevronDown class="h-ac-chevron" [class.h-ac-chevron--open]="_open()"
-           [size]="14" aria-hidden="true"></svg>
+      <svg
+        lucideChevronDown
+        class="h-ac-chevron"
+        [class.h-ac-chevron--open]="_open()"
+        [size]="14"
+        aria-hidden="true"
+      ></svg>
     </div>
 
     <ng-template #panelTpl>
@@ -105,125 +116,214 @@ let _nextId = 0;
       </div>
     </ng-template>
   `,
-  styles: [`
-    :host { display: block; width: 100%; }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
 
-    .h-ac-wrap {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: var(--h-card); border: 1px solid var(--h-border); border-radius: 10px;
-      height: 36px; padding: 0 10px 0 12px; width: 100%;
-      transition: border-color var(--h-motion-product-quick) var(--h-motion-product-ease),
-                  box-shadow var(--h-motion-product-quick) var(--h-motion-product-ease);
-    }
-    .h-ac-wrap--sm  { height: 32px; }
-    .h-ac-wrap--lg  { height: 44px; }
-    .h-ac-wrap--focus { border-color: var(--h-ring); box-shadow: 0 0 0 3px rgba(0,61,165,0.20); }
-    .h-ac-wrap--error { border-color: var(--h-destructive); }
-    .h-ac-wrap--error.h-ac-wrap--focus { box-shadow: 0 0 0 3px rgba(180,35,24,0.20); }
+      .h-ac-wrap {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: var(--h-card);
+        border: 1px solid var(--h-border);
+        border-radius: 10px;
+        height: 36px;
+        padding: 0 10px 0 12px;
+        width: 100%;
+        transition:
+          border-color var(--h-motion-product-quick) var(--h-motion-product-ease),
+          box-shadow var(--h-motion-product-quick) var(--h-motion-product-ease);
+      }
+      .h-ac-wrap--sm {
+        height: 32px;
+      }
+      .h-ac-wrap--lg {
+        height: 44px;
+      }
+      .h-ac-wrap--focus {
+        border-color: var(--h-ring);
+        box-shadow: 0 0 0 3px rgba(0, 61, 165, 0.2);
+      }
+      .h-ac-wrap--error {
+        border-color: var(--h-destructive);
+      }
+      .h-ac-wrap--error.h-ac-wrap--focus {
+        box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.2);
+      }
 
-    .h-ac-native {
-      flex: 1; min-width: 0; border: 0; outline: none; background: transparent;
-      font-family: var(--h-font-sans); font-size: 13.5px; color: var(--h-foreground);
-    }
-    .h-ac-wrap--sm .h-ac-native { font-size: 13px; }
-    .h-ac-wrap--lg .h-ac-native { font-size: 14.5px; }
-    .h-ac-native:disabled { cursor: not-allowed; opacity: 0.5; }
-    .h-ac-native::placeholder { color: var(--h-muted-foreground); }
+      .h-ac-native {
+        flex: 1;
+        min-width: 0;
+        border: 0;
+        outline: none;
+        background: transparent;
+        font-family: var(--h-font-sans);
+        font-size: 13.5px;
+        color: var(--h-foreground);
+      }
+      .h-ac-wrap--sm .h-ac-native {
+        font-size: 13px;
+      }
+      .h-ac-wrap--lg .h-ac-native {
+        font-size: 14.5px;
+      }
+      .h-ac-native:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+      .h-ac-native::placeholder {
+        color: var(--h-muted-foreground);
+      }
 
-    .h-ac-clear {
-      display: flex; align-items: center; justify-content: center;
-      width: 16px; height: 16px; flex-shrink: 0;
-      border: none; background: none; cursor: pointer; padding: 0;
-      color: var(--h-muted-foreground); border-radius: 4px;
-      transition: color var(--h-motion-product-instant) var(--h-motion-product-ease);
-    }
-    .h-ac-clear:hover { color: var(--h-foreground); }
+      .h-ac-clear {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+        color: var(--h-muted-foreground);
+        border-radius: 4px;
+        transition: color var(--h-motion-product-instant) var(--h-motion-product-ease);
+      }
+      .h-ac-clear:hover {
+        color: var(--h-foreground);
+      }
 
-    .h-ac-loading {
-      width: 14px;
-      height: 14px;
-      border: 2px solid var(--h-border);
-      border-top-color: var(--h-primary);
-      border-radius: 999px;
-      animation: h-ac-spin 700ms linear infinite;
-      flex-shrink: 0;
-    }
+      .h-ac-loading {
+        width: 14px;
+        height: 14px;
+        border: 2px solid var(--h-border);
+        border-top-color: var(--h-primary);
+        border-radius: 999px;
+        animation: h-ac-spin 700ms linear infinite;
+        flex-shrink: 0;
+      }
 
-    @keyframes h-ac-spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+      @keyframes h-ac-spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
 
-    .h-ac-chevron {
-      flex-shrink: 0; color: var(--h-muted-foreground);
-      transition: transform var(--h-motion-product-quick) var(--h-motion-product-ease);
-    }
-    .h-ac-chevron--open { transform: rotate(180deg); }
+      .h-ac-chevron {
+        flex-shrink: 0;
+        color: var(--h-muted-foreground);
+        transition: transform var(--h-motion-product-quick) var(--h-motion-product-ease);
+      }
+      .h-ac-chevron--open {
+        transform: rotate(180deg);
+      }
 
-    /* Panel styles live in the overlay; use :host::ng-deep or global */
-    .h-ac-panel {
-      background: var(--h-popover); border: 1px solid var(--h-border);
-      border-radius: var(--h-radius-md); box-shadow: var(--h-shadow-md);
-      padding: 4px; max-height: 240px; overflow-y: auto;
-      font-family: var(--h-font-sans);
-      animation: h-ac-in var(--h-motion-product-base) var(--h-motion-product-ease) forwards;
-    }
-    @keyframes h-ac-in {
-      from { opacity: 0; transform: translateY(-4px) scale(0.98); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    .h-ac-option {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 10px; border-radius: var(--h-radius-sm);
-      font-size: 13.5px; color: var(--h-foreground); cursor: pointer;
-      transition: background var(--h-motion-product-instant) var(--h-motion-product-ease);
-    }
-    .h-ac-option:hover { background: var(--h-muted); }
-    .h-ac-option--highlighted { background: var(--h-muted); }
-    .h-ac-option--selected { background: rgba(0,61,165,0.06); color: var(--h-primary); }
-    .h-ac-option-check { width: 14px; flex-shrink: 0; color: var(--h-primary); display: flex; margin-left: auto; }
-    .h-ac-empty { padding: 10px; text-align: center; font-size: 13px; color: var(--h-muted-foreground); }
-  `],
+      /* Panel styles live in the overlay; use :host::ng-deep or global */
+      .h-ac-panel {
+        background: var(--h-popover);
+        border: 1px solid var(--h-border);
+        border-radius: var(--h-radius-md);
+        box-shadow: var(--h-shadow-md);
+        padding: 4px;
+        max-height: 240px;
+        overflow-y: auto;
+        font-family: var(--h-font-sans);
+        animation: h-ac-in var(--h-motion-product-base) var(--h-motion-product-ease) forwards;
+      }
+      @keyframes h-ac-in {
+        from {
+          opacity: 0;
+          transform: translateY(-4px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      .h-ac-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 10px;
+        border-radius: var(--h-radius-sm);
+        font-size: 13.5px;
+        color: var(--h-foreground);
+        cursor: pointer;
+        transition: background var(--h-motion-product-instant) var(--h-motion-product-ease);
+      }
+      .h-ac-option:hover {
+        background: var(--h-muted);
+      }
+      .h-ac-option--highlighted {
+        background: var(--h-muted);
+      }
+      .h-ac-option--selected {
+        background: rgba(0, 61, 165, 0.06);
+        color: var(--h-primary);
+      }
+      .h-ac-option-check {
+        width: 14px;
+        flex-shrink: 0;
+        color: var(--h-primary);
+        display: flex;
+        margin-left: auto;
+      }
+      .h-ac-empty {
+        padding: 10px;
+        text-align: center;
+        font-size: 13px;
+        color: var(--h-muted-foreground);
+      }
+    `,
+  ],
 })
-export class HAutocompleteComponent<T = unknown> implements FormValueControl<T | null>, HFormFieldControl, AfterViewInit, OnDestroy {
+export class HAutocompleteComponent<T = unknown>
+  implements FormValueControl<T | null>, HFormFieldControl, AfterViewInit, OnDestroy
+{
   private readonly _autoId = `h-ac-${_nextId++}`;
-  private readonly _el     = inject(ElementRef<HTMLElement>);
+  private readonly _el = inject(ElementRef<HTMLElement>);
   private readonly _overlay = inject(Overlay);
-  private readonly _vcr    = inject(ViewContainerRef);
+  private readonly _vcr = inject(ViewContainerRef);
 
   readonly nativeId = computed(() => this.inputId() ?? this._autoId);
 
-  readonly value    = model<T | null>(null);
+  readonly value = model<T | null>(null);
   readonly disabled = input(false, { transform: booleanAttribute });
-  readonly invalid  = input(false, { transform: booleanAttribute });
-  readonly errors   = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
-  readonly touched  = model<boolean>(false);
+  readonly invalid = input(false, { transform: booleanAttribute });
+  readonly errors = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
+  readonly touched = model<boolean>(false);
   readonly required = input(false, { transform: booleanAttribute });
 
-  readonly options     = input<T[]>([]);
+  readonly options = input<T[]>([]);
   readonly displayWith = input<(v: T) => string>((v) => String(v));
   readonly compareWith = input<(a: T, b: T) => boolean>((a, b) => a === b);
   readonly placeholder = input('');
-  readonly filterMode  = input<'client' | 'none'>('client');
-  readonly loading     = input(false, { transform: booleanAttribute });
+  readonly filterMode = input<'client' | 'none'>('client');
+  readonly loading = input(false, { transform: booleanAttribute });
   readonly loadingText = input('Loading...');
-  readonly emptyText   = input('No options found');
-  readonly size        = input<'sm' | 'default' | 'lg'>('default');
-  readonly inputId     = input<string | undefined>(undefined);
-  readonly ariaLabel   = input<string | undefined>(undefined, { alias: 'aria-label' });
+  readonly emptyText = input('No options found');
+  readonly size = input<'sm' | 'default' | 'lg'>('default');
+  readonly inputId = input<string | undefined>(undefined);
+  readonly ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
   readonly describedById = input<string | undefined>(undefined, { alias: 'aria-describedby' });
 
-  readonly valueChange = output<T | null>();
   readonly queryChange = output<string>();
 
-  protected readonly focused       = signal(false);
-  protected readonly _open         = signal(false);
-  protected readonly _inputText    = signal('');
-  protected readonly _searching    = signal(false);
+  protected readonly focused = signal(false);
+  protected readonly _open = signal(false);
+  protected readonly _inputText = signal('');
+  protected readonly _searching = signal(false);
   protected readonly _highlightIdx = signal(-1);
 
-  private readonly _inputEl   = viewChild.required<ElementRef<HTMLInputElement>>('inputEl');
-  private readonly _panelTpl  = viewChild.required<TemplateRef<unknown>>('panelTpl');
+  private readonly _inputEl = viewChild.required<ElementRef<HTMLInputElement>>('inputEl');
+  private readonly _panelTpl = viewChild.required<TemplateRef<unknown>>('panelTpl');
   private _overlayRef!: OverlayRef;
 
   protected readonly _activeDescId = computed(() => {
@@ -235,11 +335,13 @@ export class HAutocompleteComponent<T = unknown> implements FormValueControl<T |
     if (this.filterMode() === 'none' || !this._searching()) return this.options();
     const q = this._inputText().toLowerCase();
     if (!q) return this.options();
-    return this.options().filter(o => this.displayWith()(o).toLowerCase().includes(q));
+    return this.options().filter((o) => this.displayWith()(o).toLowerCase().includes(q));
   });
 
   get wrapClasses(): string {
-    return ['h-ac-wrap', this.size() !== 'default' ? `h-ac-wrap--${this.size()}` : ''].filter(Boolean).join(' ');
+    return ['h-ac-wrap', this.size() !== 'default' ? `h-ac-wrap--${this.size()}` : '']
+      .filter(Boolean)
+      .join(' ');
   }
 
   constructor() {
@@ -254,7 +356,8 @@ export class HAutocompleteComponent<T = unknown> implements FormValueControl<T |
   }
 
   ngAfterViewInit(): void {
-    const strategy = this._overlay.position()
+    const strategy = this._overlay
+      .position()
       .flexibleConnectedTo(this._el)
       .withPositions(PANEL_POSITIONS)
       .withPush(false);
@@ -267,7 +370,7 @@ export class HAutocompleteComponent<T = unknown> implements FormValueControl<T |
     });
 
     this._overlayRef.backdropClick().subscribe(() => this._closePanel(false));
-    this._overlayRef.keydownEvents().subscribe(e => {
+    this._overlayRef.keydownEvents().subscribe((e) => {
       if (e.key === 'Escape') this._closePanel(true);
     });
   }
@@ -302,11 +405,14 @@ export class HAutocompleteComponent<T = unknown> implements FormValueControl<T |
 
   protected onKeydown(e: KeyboardEvent): void {
     const opts = this._filtered();
-    const idx  = this._highlightIdx();
+    const idx = this._highlightIdx();
 
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      if (!this._open()) { this._openPanel(); return; }
+      if (!this._open()) {
+        this._openPanel();
+        return;
+      }
       this._highlightIdx.set(Math.min(idx + 1, opts.length - 1));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
@@ -328,7 +434,6 @@ export class HAutocompleteComponent<T = unknown> implements FormValueControl<T |
 
   protected clear(): void {
     this.value.set(null);
-    this.valueChange.emit(null);
     this._inputText.set('');
     this._searching.set(false);
     this._highlightIdx.set(-1);
@@ -345,7 +450,6 @@ export class HAutocompleteComponent<T = unknown> implements FormValueControl<T |
   private _commitOption(opt: T): void {
     this._searching.set(false);
     this.value.set(opt);
-    this.valueChange.emit(opt);
     this._inputText.set(this.displayWith()(opt));
     this._highlightIdx.set(-1);
     this._closePanel(true);

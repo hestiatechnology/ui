@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { HModalContainerComponent } from './modal-container.component';
@@ -6,6 +6,7 @@ import { HModalRef } from './modal-ref';
 
 @Component({
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<p>Modal service content</p>`,
 })
 class DemoModalContentComponent {}

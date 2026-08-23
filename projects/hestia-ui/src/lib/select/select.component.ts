@@ -8,7 +8,6 @@ import {
   contentChildren,
   input,
   model,
-  output,
   signal,
   viewChild,
 } from '@angular/core';
@@ -80,105 +79,167 @@ let _nextId = 0;
       </div>
     </div>
   `,
-  styles: [`
-    :host { display: block; position: relative; }
+  styles: [
+    `
+      :host {
+        display: block;
+        position: relative;
+      }
 
-    .h-select { position: relative; }
+      .h-select {
+        position: relative;
+      }
 
-    .h-select-trigger {
-      display: inline-flex; align-items: center; justify-content: space-between;
-      width: 100%; height: 36px; padding: 0 12px 0 14px;
-      background: var(--h-card); border: 1px solid var(--h-border);
-      border-radius: var(--h-radius-md); cursor: pointer;
-      font-family: var(--h-font-sans); font-size: 13.5px;
-      color: var(--h-foreground); gap: 8px;
-      transition: border-color var(--h-motion-product-quick) var(--h-motion-product-ease);
-    }
-    .h-select-trigger:hover:not(:disabled) { border-color: var(--h-border-strong); }
-    .h-select-trigger:focus-visible {
-      outline: none;
-      border-color: var(--h-ring);
-      box-shadow: 0 0 0 3px rgba(0, 61, 165, 0.20);
-    }
-    .h-select-trigger:disabled { opacity: 0.5; cursor: not-allowed; }
-    .h-select-trigger--sm { height: 32px; font-size: 13px; }
-    .h-select-trigger--lg { height: 44px; font-size: 14.5px; }
+      .h-select-trigger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 36px;
+        padding: 0 12px 0 14px;
+        background: var(--h-card);
+        border: 1px solid var(--h-border);
+        border-radius: var(--h-radius-md);
+        cursor: pointer;
+        font-family: var(--h-font-sans);
+        font-size: 13.5px;
+        color: var(--h-foreground);
+        gap: 8px;
+        transition: border-color var(--h-motion-product-quick) var(--h-motion-product-ease);
+      }
+      .h-select-trigger:hover:not(:disabled) {
+        border-color: var(--h-border-strong);
+      }
+      .h-select-trigger:focus-visible {
+        outline: none;
+        border-color: var(--h-ring);
+        box-shadow: 0 0 0 3px rgba(0, 61, 165, 0.2);
+      }
+      .h-select-trigger:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .h-select-trigger--sm {
+        height: 32px;
+        font-size: 13px;
+      }
+      .h-select-trigger--lg {
+        height: 44px;
+        font-size: 14.5px;
+      }
 
-    .h-select-value { flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .h-select-value--placeholder { color: var(--h-muted-foreground); }
+      .h-select-value {
+        flex: 1;
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .h-select-value--placeholder {
+        color: var(--h-muted-foreground);
+      }
 
-    .h-select-chevron {
-      color: var(--h-muted-foreground); flex-shrink: 0;
-      transition: transform var(--h-motion-product-quick) var(--h-motion-product-ease);
-    }
-    .h-select--open .h-select-chevron { transform: rotate(180deg); }
+      .h-select-chevron {
+        color: var(--h-muted-foreground);
+        flex-shrink: 0;
+        transition: transform var(--h-motion-product-quick) var(--h-motion-product-ease);
+      }
+      .h-select--open .h-select-chevron {
+        transform: rotate(180deg);
+      }
 
-    .h-select-panel {
-      display: none;
-      position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 50;
-      background: var(--h-popover); border: 1px solid var(--h-border);
-      border-radius: var(--h-radius-md); box-shadow: var(--h-shadow-md);
-      overflow: hidden; min-width: 200px;
-    }
-    .h-select-panel--open { display: block; }
+      .h-select-panel {
+        display: none;
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        right: 0;
+        z-index: 50;
+        background: var(--h-popover);
+        border: 1px solid var(--h-border);
+        border-radius: var(--h-radius-md);
+        box-shadow: var(--h-shadow-md);
+        overflow: hidden;
+        min-width: 200px;
+      }
+      .h-select-panel--open {
+        display: block;
+      }
 
-    .h-select-search {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 10px; border-bottom: 1px solid var(--h-border);
-      color: var(--h-muted-foreground);
-    }
-    .h-select-search-input {
-      flex: 1; border: 0; outline: none; background: transparent;
-      font-family: var(--h-font-sans); font-size: 13px; color: var(--h-foreground);
-    }
+      .h-select-search {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        border-bottom: 1px solid var(--h-border);
+        color: var(--h-muted-foreground);
+      }
+      .h-select-search-input {
+        flex: 1;
+        border: 0;
+        outline: none;
+        background: transparent;
+        font-family: var(--h-font-sans);
+        font-size: 13px;
+        color: var(--h-foreground);
+      }
 
-    .h-select-options { padding: 4px; max-height: 220px; overflow: auto; }
+      .h-select-options {
+        padding: 4px;
+        max-height: 220px;
+        overflow: auto;
+      }
 
-    .h-select-empty { padding: 10px; text-align: center; font-size: 13px; color: var(--h-muted-foreground); }
-  `],
+      .h-select-empty {
+        padding: 10px;
+        text-align: center;
+        font-size: 13px;
+        color: var(--h-muted-foreground);
+      }
+    `,
+  ],
 })
 export class HSelectComponent<T = unknown>
-  implements HSelectContext<T>, FormValueControl<T | null>, HFormFieldControl, OnDestroy {
-
+  implements HSelectContext<T>, FormValueControl<T | null>, HFormFieldControl, OnDestroy
+{
   private readonly _autoId = `h-select-${_nextId++}`;
 
   readonly nativeId = computed(() => this.selectId() ?? this._autoId);
 
-  readonly value    = model<T | null>(null);
+  readonly value = model<T | null>(null);
   readonly disabled = input(false);
-  readonly invalid  = input(false);
-  readonly errors   = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
-  readonly touched  = model<boolean>(false);
+  readonly invalid = input(false);
+  readonly errors = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
+  readonly touched = model<boolean>(false);
   readonly required = input(false);
 
-  readonly compareWith     = input<(a: T, b: T) => boolean>((a, b) => a === b);
-  readonly placeholder     = input('Choose…');
-  readonly searchable      = input(false);
+  readonly compareWith = input<(a: T, b: T) => boolean>((a, b) => a === b);
+  readonly placeholder = input('Choose…');
+  readonly searchable = input(false);
   readonly searchPlaceholder = input('Search…');
-  readonly size            = input<'sm' | 'default' | 'lg'>('default');
-  readonly selectId        = input<string | undefined>(undefined);
-
-  readonly valueChange = output<T | null>();
+  readonly size = input<'sm' | 'default' | 'lg'>('default');
+  readonly selectId = input<string | undefined>(undefined);
 
   protected readonly open = signal(false);
   /** Exposed as Signal<string> to satisfy HSelectContext — options read this to filter themselves. */
   readonly searchQuery = signal('');
 
   private readonly _triggerRef = viewChild<ElementRef<HTMLButtonElement>>('triggerRef');
-  private readonly _options    = contentChildren(HOptionComponent);
+  private readonly _options = contentChildren(HOptionComponent);
 
   protected readonly _selectedLabel = computed(() => {
     const v = this.value();
     if (v === null) return '';
     const cmp = this.compareWith();
-    const match = this._options().find(o => cmp(o.value() as T, v));
+    const match = this._options().find((o) => cmp(o.value() as T, v));
     return match?.getLabel() ?? '';
   });
 
-  protected readonly _noResults = computed(() =>
-    this.searchQuery().length > 0 &&
-    this._options().length > 0 &&
-    this._options().every(o => o.hidden())
+  protected readonly _noResults = computed(
+    () =>
+      this.searchQuery().length > 0 &&
+      this._options().length > 0 &&
+      this._options().every((o) => o.hidden()),
   );
 
   // --- HSelectContext implementation ---
@@ -191,7 +252,6 @@ export class HSelectComponent<T = unknown>
 
   select(value: T): void {
     this.value.set(value);
-    this.valueChange.emit(value);
     this.touched.set(true);
     this.open.set(false);
     this.searchQuery.set('');
@@ -201,7 +261,7 @@ export class HSelectComponent<T = unknown>
 
   toggle(): void {
     if (this.disabled()) return;
-    this.open.update(v => !v);
+    this.open.update((v) => !v);
     if (!this.open()) this.searchQuery.set('');
   }
 

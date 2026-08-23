@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Component, signal } from '@angular/core';
-import { HDataTableComponent, HDtCellDirective, ColumnDef, HDtCellContext } from './data-table.component';
+import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
+import {
+  HDataTableComponent,
+  HDtCellDirective,
+  ColumnDef,
+  HDtCellContext,
+} from './data-table.component';
 import { HAutocompleteComponent } from '../autocomplete/autocomplete.component';
 import { HBadgeComponent, BadgeTone } from '../badge/badge.component';
 
@@ -16,34 +21,93 @@ interface Employee {
 }
 
 const EMPLOYEES: Employee[] = [
-  { id: 1, name: 'Ana Costa',      department: 'Engineering', role: 'Senior',  salary: 72000, active: true  },
-  { id: 2, name: 'Bruno Ferreira', department: 'Design',      role: 'Lead',    salary: 68000, active: true  },
-  { id: 3, name: 'Catarina Lopes', department: 'Engineering', role: 'Junior',  salary: 48000, active: false },
-  { id: 4, name: 'David Sousa',    department: 'Product',     role: 'Manager', salary: 85000, active: true  },
-  { id: 5, name: 'Elisa Martins',  department: 'Engineering', role: 'Senior',  salary: 74000, active: true  },
+  {
+    id: 1,
+    name: 'Ana Costa',
+    department: 'Engineering',
+    role: 'Senior',
+    salary: 72000,
+    active: true,
+  },
+  {
+    id: 2,
+    name: 'Bruno Ferreira',
+    department: 'Design',
+    role: 'Lead',
+    salary: 68000,
+    active: true,
+  },
+  {
+    id: 3,
+    name: 'Catarina Lopes',
+    department: 'Engineering',
+    role: 'Junior',
+    salary: 48000,
+    active: false,
+  },
+  {
+    id: 4,
+    name: 'David Sousa',
+    department: 'Product',
+    role: 'Manager',
+    salary: 85000,
+    active: true,
+  },
+  {
+    id: 5,
+    name: 'Elisa Martins',
+    department: 'Engineering',
+    role: 'Senior',
+    salary: 74000,
+    active: true,
+  },
 ];
 
 const COLUMNS: ColumnDef<Employee>[] = [
-  { key: 'id',         header: 'ID',         width: '60px',  align: 'right', mono: true, sortable: true },
-  { key: 'name',       header: 'Name',       sortable: true },
+  { key: 'id', header: 'ID', width: '60px', align: 'right', mono: true, sortable: true },
+  { key: 'name', header: 'Name', sortable: true },
   { key: 'department', header: 'Department', sortable: true },
-  { key: 'role',       header: 'Role' },
-  { key: 'salary',     header: 'Salary',     align: 'right', mono: true, sortable: true,
-    cell: (r) => `€${r.salary.toLocaleString('pt-PT')}` },
-  { key: 'active',     header: 'Active',     align: 'center',
-    cell: (r) => r.active ? '✓' : '—' },
+  { key: 'role', header: 'Role' },
+  {
+    key: 'salary',
+    header: 'Salary',
+    align: 'right',
+    mono: true,
+    sortable: true,
+    cell: (r) => `€${r.salary.toLocaleString('pt-PT')}`,
+  },
+  { key: 'active', header: 'Active', align: 'center', cell: (r) => (r.active ? '✓' : '—') },
 ];
 
 const EDITABLE_COLUMNS: ColumnDef<Employee>[] = [
-  { key: 'id',         header: 'ID',         width: '60px', align: 'right', mono: true },
-  { key: 'name',       header: 'Name',       editable: true, editType: 'text',   sortable: true },
-  { key: 'department', header: 'Department', editable: true, editType: 'select',
-    editOptions: ['Engineering', 'Design', 'Product', 'Marketing'], sortable: true },
-  { key: 'role',       header: 'Role',       editable: true, editType: 'text' },
-  { key: 'salary',     header: 'Salary',     editable: true, editType: 'number', align: 'right', mono: true,
-    cell: (r) => `€${r.salary.toLocaleString('pt-PT')}` },
-  { key: 'active',     header: 'Active',     editable: true, editType: 'boolean', align: 'center',
-    cell: (r) => r.active ? '✓' : '—' },
+  { key: 'id', header: 'ID', width: '60px', align: 'right', mono: true },
+  { key: 'name', header: 'Name', editable: true, editType: 'text', sortable: true },
+  {
+    key: 'department',
+    header: 'Department',
+    editable: true,
+    editType: 'select',
+    editOptions: ['Engineering', 'Design', 'Product', 'Marketing'],
+    sortable: true,
+  },
+  { key: 'role', header: 'Role', editable: true, editType: 'text' },
+  {
+    key: 'salary',
+    header: 'Salary',
+    editable: true,
+    editType: 'number',
+    align: 'right',
+    mono: true,
+    cell: (r) => `€${r.salary.toLocaleString('pt-PT')}`,
+  },
+  {
+    key: 'active',
+    header: 'Active',
+    editable: true,
+    editType: 'boolean',
+    align: 'center',
+    cell: (r) => (r.active ? '✓' : '—'),
+  },
 ];
 
 // ── Meta ──────────────────────────────────────────────────────────────────────
@@ -119,10 +183,10 @@ export const EditableWithDelete: Story = {
       columns: EDITABLE_COLUMNS,
       rows: signal<Employee[]>([...EMPLOYEES]),
       onSave(rows: ReturnType<typeof signal<Employee[]>>, e: { index: number; draft: Employee }) {
-        rows.update(r => r.map((row, i) => i === e.index ? e.draft : row));
+        rows.update((r) => r.map((row, i) => (i === e.index ? e.draft : row)));
       },
       onDelete(rows: ReturnType<typeof signal<Employee[]>>, row: Employee) {
-        rows.update(r => r.filter(x => x.id !== row.id));
+        rows.update((r) => r.filter((x) => x.id !== row.id));
       },
     },
     template: `
@@ -164,10 +228,10 @@ export const Empty: Story = {
 //   ctx.patch(key, value) — update a field in the draft
 
 const ROLE_TONE: Record<string, BadgeTone> = {
-  Senior:  'running',
-  Lead:    'primary',
+  Senior: 'running',
+  Lead: 'primary',
   Manager: 'primary',
-  Junior:  'idle',
+  Junior: 'idle',
 };
 
 const DEPARTMENTS = ['Engineering', 'Design', 'Product', 'Marketing', 'Operations'];
@@ -176,6 +240,7 @@ const DEPARTMENTS = ['Engineering', 'Design', 'Product', 'Marketing', 'Operation
   selector: 'story-custom-cells',
   standalone: true,
   imports: [HDataTableComponent, HDtCellDirective, HAutocompleteComponent, HBadgeComponent],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <h-data-table
       [columns]="columns"
@@ -229,7 +294,9 @@ const DEPARTMENTS = ['Engineering', 'Design', 'Product', 'Marketing', 'Operation
       -->
       <ng-template hDtCell="active" let-ctx>
         @if (ctx.editing) {
-          <label style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13px">
+          <label
+            style="display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-size:13px"
+          >
             <input
               type="checkbox"
               style="width:15px;height:15px;accent-color:var(--h-primary);cursor:pointer"
@@ -250,16 +317,23 @@ const DEPARTMENTS = ['Engineering', 'Design', 'Product', 'Marketing', 'Operation
 })
 class CustomCellsStory {
   readonly departments = DEPARTMENTS;
-  readonly roles       = ['Junior', 'Mid', 'Senior', 'Lead', 'Manager', 'Director'];
+  readonly roles = ['Junior', 'Mid', 'Senior', 'Lead', 'Manager', 'Director'];
 
   readonly columns: ColumnDef<Employee>[] = [
-    { key: 'id',         header: 'ID',         width: '60px', align: 'right', mono: true, sortable: true },
-    { key: 'name',       header: 'Name',       editable: true, editType: 'text', sortable: true },
+    { key: 'id', header: 'ID', width: '60px', align: 'right', mono: true, sortable: true },
+    { key: 'name', header: 'Name', editable: true, editType: 'text', sortable: true },
     { key: 'department', header: 'Department', editable: true, sortable: true },
-    { key: 'role',       header: 'Role',       editable: true },
-    { key: 'salary',     header: 'Salary',     editable: true, editType: 'number', align: 'right', mono: true,
-      cell: (r) => `€${r.salary.toLocaleString('pt-PT')}` },
-    { key: 'active',     header: 'Status',     editable: true, align: 'center' },
+    { key: 'role', header: 'Role', editable: true },
+    {
+      key: 'salary',
+      header: 'Salary',
+      editable: true,
+      editType: 'number',
+      align: 'right',
+      mono: true,
+      cell: (r) => `€${r.salary.toLocaleString('pt-PT')}`,
+    },
+    { key: 'active', header: 'Status', editable: true, align: 'center' },
   ];
 
   rows = signal<Employee[]>([...EMPLOYEES]);
@@ -269,11 +343,11 @@ class CustomCellsStory {
   }
 
   onSave(e: { index: number; row: Employee; draft: Employee }): void {
-    this.rows.update(r => r.map((row, i) => i === e.index ? e.draft : row));
+    this.rows.update((r) => r.map((row, i) => (i === e.index ? e.draft : row)));
   }
 
   onDelete(row: Employee): void {
-    this.rows.update(r => r.filter(x => x.id !== row.id));
+    this.rows.update((r) => r.filter((x) => x.id !== row.id));
   }
 }
 

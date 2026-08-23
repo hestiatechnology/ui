@@ -9,27 +9,34 @@ import {
   model,
   output,
   signal,
+  linkedSignal,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
-import { LucideChevronsUpDown, LucideCheck, LucideX, LucidePencil, LucideTrash2 } from '@lucide/angular';
+import {
+  LucideChevronsUpDown,
+  LucideCheck,
+  LucideX,
+  LucidePencil,
+  LucideTrash2,
+} from '@lucide/angular';
 import { HAutocompleteComponent } from '../autocomplete/autocomplete.component';
 
 // ── Column definition ─────────────────────────────────────────────────────────
 
 export type ColumnAlign = 'left' | 'center' | 'right';
-export type EditType    = 'text' | 'number' | 'select' | 'boolean' | 'autocomplete';
+export type EditType = 'text' | 'number' | 'select' | 'boolean' | 'autocomplete';
 
 export interface ColumnDef<T = unknown> {
-  key:         keyof T & string;
-  header:      string;
-  align?:      ColumnAlign;
-  width?:      string;
-  sortable?:   boolean;
-  editable?:   boolean;
-  editType?:   EditType;
+  key: keyof T & string;
+  header: string;
+  align?: ColumnAlign;
+  width?: string;
+  sortable?: boolean;
+  editable?: boolean;
+  editType?: EditType;
   editOptions?: string[];
-  mono?:       boolean;
-  cell?:       (row: T) => string;
+  mono?: boolean;
+  cell?: (row: T) => string;
 }
 
 // ── Custom-cell template context ──────────────────────────────────────────────
@@ -63,7 +70,7 @@ export class HDtCellDirective {
 // ── Sort state ────────────────────────────────────────────────────────────────
 
 export interface SortState {
-  key:       string;
+  key: string;
   direction: 'asc' | 'desc';
 }
 
@@ -72,7 +79,16 @@ export interface SortState {
 @Component({
   selector: 'h-data-table',
   standalone: true,
-  imports: [HDtCellDirective, NgTemplateOutlet, HAutocompleteComponent, LucideChevronsUpDown, LucideCheck, LucideX, LucidePencil, LucideTrash2],
+  imports: [
+    HDtCellDirective,
+    NgTemplateOutlet,
+    HAutocompleteComponent,
+    LucideChevronsUpDown,
+    LucideCheck,
+    LucideX,
+    LucidePencil,
+    LucideTrash2,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'h-dt-host' },
   template: `
@@ -82,7 +98,9 @@ export interface SortState {
           <tr>
             @if (selectable()) {
               <th class="h-dt-th h-dt-th--check">
-                <input type="checkbox" class="h-dt-checkbox"
+                <input
+                  type="checkbox"
+                  class="h-dt-checkbox"
                   [checked]="_allSelected()"
                   [indeterminate]="_someSelected()"
                   (change)="_toggleAll($any($event.target).checked)"
@@ -102,7 +120,11 @@ export interface SortState {
                 <span class="h-dt-th-inner">
                   {{ col.header }}
                   @if (col.sortable) {
-                    <span class="h-dt-sort-icon" [class.h-dt-sort-icon--asc]="_sortKey() === col.key && _sortDir() === 'asc'" [class.h-dt-sort-icon--desc]="_sortKey() === col.key && _sortDir() === 'desc'">
+                    <span
+                      class="h-dt-sort-icon"
+                      [class.h-dt-sort-icon--asc]="_sortKey() === col.key && _sortDir() === 'asc'"
+                      [class.h-dt-sort-icon--desc]="_sortKey() === col.key && _sortDir() === 'desc'"
+                    >
                       <svg lucideChevronsUpDown [size]="12" aria-hidden="true"></svg>
                     </span>
                   }
@@ -122,7 +144,12 @@ export interface SortState {
                   <td class="h-dt-td h-dt-td--check"><span class="h-dt-skel"></span></td>
                 }
                 @for (col of columns(); track col.key) {
-                  <td class="h-dt-td"><span class="h-dt-skel" [style.width]="col.align === 'right' ? '60%' : '80%'"></span></td>
+                  <td class="h-dt-td">
+                    <span
+                      class="h-dt-skel"
+                      [style.width]="col.align === 'right' ? '60%' : '80%'"
+                    ></span>
+                  </td>
                 }
                 @if (_hasEditable()) {
                   <td class="h-dt-td h-dt-td--actions"></td>
@@ -146,7 +173,9 @@ export interface SortState {
               >
                 @if (selectable()) {
                   <td class="h-dt-td h-dt-td--check" (click)="$event.stopPropagation()">
-                    <input type="checkbox" class="h-dt-checkbox"
+                    <input
+                      type="checkbox"
+                      class="h-dt-checkbox"
                       [checked]="_isSelected(idx)"
                       (change)="_toggleRow(idx, $any($event.target).checked)"
                       aria-label="Select row"
@@ -162,16 +191,21 @@ export interface SortState {
                   >
                     @let customTpl = _cellTpl(col.key);
                     @if (customTpl) {
-                      <ng-container *ngTemplateOutlet="customTpl; context: _cellCtx(row, col, idx)"></ng-container>
+                      <ng-container
+                        *ngTemplateOutlet="customTpl; context: _cellCtx(row, col, idx)"
+                      ></ng-container>
                     } @else if (_editingIdx() === idx && col.editable) {
                       @if (col.editType === 'boolean') {
-                        <input type="checkbox" class="h-dt-checkbox"
+                        <input
+                          type="checkbox"
+                          class="h-dt-checkbox"
                           [checked]="!!_draft()[col.key]"
                           (change)="_patchDraft(col.key, $any($event.target).checked)"
                           (click)="$event.stopPropagation()"
                         />
                       } @else if (col.editType === 'select' && col.editOptions) {
-                        <select class="h-dt-edit-select"
+                        <select
+                          class="h-dt-edit-select"
                           [value]="_draft()[col.key]"
                           (change)="_patchDraft(col.key, $any($event.target).value)"
                           (click)="$event.stopPropagation()"
@@ -193,7 +227,14 @@ export interface SortState {
                           class="h-dt-edit-input"
                           [type]="col.editType === 'number' ? 'number' : 'text'"
                           [value]="_draft()[col.key]"
-                          (input)="_patchDraft(col.key, col.editType === 'number' ? +$any($event.target).value : $any($event.target).value)"
+                          (input)="
+                            _patchDraft(
+                              col.key,
+                              col.editType === 'number'
+                                ? +$any($event.target).value
+                                : $any($event.target).value
+                            )
+                          "
                           (click)="$event.stopPropagation()"
                           (keydown.enter)="$event.preventDefault(); _commitEdit(idx)"
                           (keydown.escape)="$event.preventDefault(); _cancelEdit()"
@@ -207,18 +248,38 @@ export interface SortState {
                 @if (_hasEditable()) {
                   <td class="h-dt-td h-dt-td--actions" (click)="$event.stopPropagation()">
                     @if (_editingIdx() === idx) {
-                      <button type="button" class="h-dt-action h-dt-action--save" (click)="_commitEdit(idx)" aria-label="Save">
+                      <button
+                        type="button"
+                        class="h-dt-action h-dt-action--save"
+                        (click)="_commitEdit(idx)"
+                        aria-label="Save"
+                      >
                         <svg lucideCheck [size]="14" aria-hidden="true"></svg>
                       </button>
-                      <button type="button" class="h-dt-action h-dt-action--cancel" (click)="_cancelEdit()" aria-label="Cancel">
+                      <button
+                        type="button"
+                        class="h-dt-action h-dt-action--cancel"
+                        (click)="_cancelEdit()"
+                        aria-label="Cancel"
+                      >
                         <svg lucideX [size]="14" aria-hidden="true"></svg>
                       </button>
                     } @else {
-                      <button type="button" class="h-dt-action h-dt-action--edit" (click)="_startEdit(idx, row)" aria-label="Edit row">
+                      <button
+                        type="button"
+                        class="h-dt-action h-dt-action--edit"
+                        (click)="_startEdit(idx, row)"
+                        aria-label="Edit row"
+                      >
                         <svg lucidePencil [size]="14" aria-hidden="true"></svg>
                       </button>
                       @if (deletable()) {
-                        <button type="button" class="h-dt-action h-dt-action--delete" (click)="rowDelete.emit(row)" aria-label="Delete row">
+                        <button
+                          type="button"
+                          class="h-dt-action h-dt-action--delete"
+                          (click)="rowDelete.emit(row)"
+                          aria-label="Delete row"
+                        >
                           <svg lucideTrash2 [size]="14" aria-hidden="true"></svg>
                         </button>
                       }
@@ -236,131 +297,239 @@ export interface SortState {
       <span>{{ emptyMessage() }}</span>
     </ng-template>
   `,
-  styles: [`
-    :host { display: block; width: 100%; }
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
 
-    .h-dt-wrapper {
-      width: 100%; overflow-x: auto;
-      border: 1px solid var(--h-border); border-radius: var(--h-radius-lg);
-    }
+      .h-dt-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        border: 1px solid var(--h-border);
+        border-radius: var(--h-radius-lg);
+      }
 
-    .h-dt {
-      width: 100%; border-collapse: collapse;
-      font-family: var(--h-font-sans); font-size: 13.5px; color: var(--h-foreground);
-    }
+      .h-dt {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: var(--h-font-sans);
+        font-size: 13.5px;
+        color: var(--h-foreground);
+      }
 
-    /* ── Header ─────────────────────────────────────── */
-    .h-dt-th {
-      padding: 10px 14px; text-align: left; white-space: nowrap;
-      font-size: 12px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.05em; color: var(--h-muted-foreground);
-      background: var(--h-muted); border-bottom: 1px solid var(--h-border);
-      user-select: none;
-    }
-    .h-dt-th:first-child { border-radius: var(--h-radius-lg) 0 0 0; }
-    .h-dt-th:last-child  { border-radius: 0 var(--h-radius-lg) 0 0; }
-    .h-dt-th--center { text-align: center; }
-    .h-dt-th--right  { text-align: right; }
-    .h-dt-th--check  { width: 40px; padding: 10px 12px; }
-    .h-dt-th--actions { width: 80px; }
+      /* ── Header ─────────────────────────────────────── */
+      .h-dt-th {
+        padding: 10px 14px;
+        text-align: left;
+        white-space: nowrap;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--h-muted-foreground);
+        background: var(--h-muted);
+        border-bottom: 1px solid var(--h-border);
+        user-select: none;
+      }
+      .h-dt-th:first-child {
+        border-radius: var(--h-radius-lg) 0 0 0;
+      }
+      .h-dt-th:last-child {
+        border-radius: 0 var(--h-radius-lg) 0 0;
+      }
+      .h-dt-th--center {
+        text-align: center;
+      }
+      .h-dt-th--right {
+        text-align: right;
+      }
+      .h-dt-th--check {
+        width: 40px;
+        padding: 10px 12px;
+      }
+      .h-dt-th--actions {
+        width: 80px;
+      }
 
-    .h-dt-th--sortable { cursor: pointer; }
-    .h-dt-th--sortable:hover { color: var(--h-foreground); }
+      .h-dt-th--sortable {
+        cursor: pointer;
+      }
+      .h-dt-th--sortable:hover {
+        color: var(--h-foreground);
+      }
 
-    .h-dt-th-inner {
-      display: inline-flex; align-items: center; gap: 4px;
-    }
+      .h-dt-th-inner {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
 
-    .h-dt-sort-icon { color: var(--h-border-strong); transition: color 0.15s; }
-    .h-dt-th--sortable:hover .h-dt-sort-icon { color: var(--h-muted-foreground); }
-    .h-dt-sort-icon--asc svg  { opacity: 1; color: var(--h-primary); }
-    .h-dt-sort-icon--desc svg { opacity: 1; color: var(--h-primary); transform: scaleY(-1); }
+      .h-dt-sort-icon {
+        color: var(--h-border-strong);
+        transition: color 0.15s;
+      }
+      .h-dt-th--sortable:hover .h-dt-sort-icon {
+        color: var(--h-muted-foreground);
+      }
+      .h-dt-sort-icon--asc svg {
+        opacity: 1;
+        color: var(--h-primary);
+      }
+      .h-dt-sort-icon--desc svg {
+        opacity: 1;
+        color: var(--h-primary);
+        transform: scaleY(-1);
+      }
 
-    /* ── Body ───────────────────────────────────────── */
-    .h-dt-row {
-      border-bottom: 1px solid var(--h-border);
-      transition: background var(--h-motion-product-instant) var(--h-motion-product-ease);
-    }
-    .h-dt-row:last-child { border-bottom: 0; }
-    .h-dt-row:hover { background: var(--h-muted); }
-    .h-dt-row--editing { background: rgba(0, 61, 165, 0.04); }
-    .h-dt-row--selected { background: rgba(0, 61, 165, 0.06); }
+      /* ── Body ───────────────────────────────────────── */
+      .h-dt-row {
+        border-bottom: 1px solid var(--h-border);
+        transition: background var(--h-motion-product-instant) var(--h-motion-product-ease);
+      }
+      .h-dt-row:last-child {
+        border-bottom: 0;
+      }
+      .h-dt-row:hover {
+        background: var(--h-muted);
+      }
+      .h-dt-row--editing {
+        background: rgba(0, 61, 165, 0.04);
+      }
+      .h-dt-row--selected {
+        background: rgba(0, 61, 165, 0.06);
+      }
 
-    .h-dt-td {
-      padding: 10px 14px; vertical-align: middle;
-    }
-    .h-dt-td--mono { font-family: var(--h-font-mono); font-size: 12.5px; }
-    .h-dt-td--center { text-align: center; }
-    .h-dt-td--right  { text-align: right; }
-    .h-dt-td--check  { width: 40px; padding: 10px 12px; }
-    .h-dt-td--actions {
-      white-space: nowrap; text-align: right; padding: 6px 10px;
-    }
+      .h-dt-td {
+        padding: 10px 14px;
+        vertical-align: middle;
+      }
+      .h-dt-td--mono {
+        font-family: var(--h-font-mono);
+        font-size: 12.5px;
+      }
+      .h-dt-td--center {
+        text-align: center;
+      }
+      .h-dt-td--right {
+        text-align: right;
+      }
+      .h-dt-td--check {
+        width: 40px;
+        padding: 10px 12px;
+      }
+      .h-dt-td--actions {
+        white-space: nowrap;
+        text-align: right;
+        padding: 6px 10px;
+      }
 
-    /* ── Edit inputs ────────────────────────────────── */
-    .h-dt-edit-input,
-    .h-dt-edit-select {
-      width: 100%; padding: 4px 8px;
-      border: 1px solid var(--h-ring); border-radius: var(--h-radius-sm);
-      background: var(--h-card); color: var(--h-foreground);
-      font-family: var(--h-font-sans); font-size: 13px;
-      outline: none; box-shadow: 0 0 0 3px rgba(0,61,165,0.12);
-    }
+      /* ── Edit inputs ────────────────────────────────── */
+      .h-dt-edit-input,
+      .h-dt-edit-select {
+        width: 100%;
+        padding: 4px 8px;
+        border: 1px solid var(--h-ring);
+        border-radius: var(--h-radius-sm);
+        background: var(--h-card);
+        color: var(--h-foreground);
+        font-family: var(--h-font-sans);
+        font-size: 13px;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0, 61, 165, 0.12);
+      }
 
-    /* ── Action buttons ─────────────────────────────── */
-    .h-dt-action {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 28px; height: 28px; border: none; background: none;
-      cursor: pointer; border-radius: var(--h-radius-sm);
-      color: var(--h-muted-foreground);
-      transition: background var(--h-motion-product-instant) var(--h-motion-product-ease),
-                  color     var(--h-motion-product-instant) var(--h-motion-product-ease);
-    }
-    .h-dt-action:hover { background: var(--h-muted); color: var(--h-foreground); }
-    .h-dt-action--save:hover   { color: var(--h-primary); }
-    .h-dt-action--delete:hover { color: var(--h-destructive); }
+      /* ── Action buttons ─────────────────────────────── */
+      .h-dt-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        border-radius: var(--h-radius-sm);
+        color: var(--h-muted-foreground);
+        transition:
+          background var(--h-motion-product-instant) var(--h-motion-product-ease),
+          color var(--h-motion-product-instant) var(--h-motion-product-ease);
+      }
+      .h-dt-action:hover {
+        background: var(--h-muted);
+        color: var(--h-foreground);
+      }
+      .h-dt-action--save:hover {
+        color: var(--h-primary);
+      }
+      .h-dt-action--delete:hover {
+        color: var(--h-destructive);
+      }
 
-    /* ── Checkbox ───────────────────────────────────── */
-    .h-dt-checkbox { cursor: pointer; width: 15px; height: 15px; accent-color: var(--h-primary); }
+      /* ── Checkbox ───────────────────────────────────── */
+      .h-dt-checkbox {
+        cursor: pointer;
+        width: 15px;
+        height: 15px;
+        accent-color: var(--h-primary);
+      }
 
-    /* ── Skeleton loader ────────────────────────────── */
-    .h-dt--loading .h-dt-row--skeleton td { padding: 13px 14px; }
-    .h-dt-skel {
-      display: block; height: 12px; border-radius: 6px;
-      background: linear-gradient(90deg, var(--h-muted) 25%, var(--h-border) 50%, var(--h-muted) 75%);
-      background-size: 200% 100%;
-      animation: h-dt-shimmer 1.4s ease-in-out infinite;
-    }
-    @keyframes h-dt-shimmer {
-      0%   { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
+      /* ── Skeleton loader ────────────────────────────── */
+      .h-dt--loading .h-dt-row--skeleton td {
+        padding: 13px 14px;
+      }
+      .h-dt-skel {
+        display: block;
+        height: 12px;
+        border-radius: 6px;
+        background: linear-gradient(
+          90deg,
+          var(--h-muted) 25%,
+          var(--h-border) 50%,
+          var(--h-muted) 75%
+        );
+        background-size: 200% 100%;
+        animation: h-dt-shimmer 1.4s ease-in-out infinite;
+      }
+      @keyframes h-dt-shimmer {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
 
-    /* ── Empty state ────────────────────────────────── */
-    .h-dt-empty {
-      padding: 48px 14px; text-align: center;
-      color: var(--h-muted-foreground); font-size: 13.5px;
-    }
-  `],
+      /* ── Empty state ────────────────────────────────── */
+      .h-dt-empty {
+        padding: 48px 14px;
+        text-align: center;
+        color: var(--h-muted-foreground);
+        font-size: 13.5px;
+      }
+    `,
+  ],
 })
 export class HDataTableComponent<T extends Record<string, unknown> = Record<string, unknown>> {
-  readonly columns      = input<ColumnDef<T>[]>([]);
-  readonly rows         = input<T[]>([]);
-  readonly loading      = input(false);
-  readonly selectable   = input(false);
-  readonly deletable    = input(false);
-  readonly trackByKey   = input<keyof T & string | undefined>(undefined);
+  readonly columns = input<ColumnDef<T>[]>([]);
+  readonly rows = input<T[]>([]);
+  readonly loading = input(false);
+  readonly selectable = input(false);
+  readonly deletable = input(false);
+  readonly trackByKey = input<(keyof T & string) | undefined>(undefined);
   readonly emptyMessage = input('No data available');
   readonly skeletonRows = input(5);
 
   readonly selectedIndices = model<number[]>([]);
-  readonly sort            = model<SortState | null>(null);
+  readonly sortInput = input<SortState | null>(null, { alias: 'sort' });
+  readonly sort = linkedSignal(this.sortInput);
 
-  readonly rowClick        = output<T>();
-  readonly rowSave         = output<{ index: number; row: T; draft: T }>();
-  readonly rowDelete       = output<T>();
+  readonly rowClick = output<T>();
+  readonly rowSave = output<{ index: number; row: T; draft: T }>();
+  readonly rowDelete = output<T>();
   readonly selectionChange = output<T[]>();
-  readonly sortChange      = output<SortState | null>();
+  readonly sortChange = output<SortState | null>();
 
   private readonly _cellDirs = contentChildren(HDtCellDirective); // @angular-eslint/no-unused-class-members
 
@@ -371,7 +540,7 @@ export class HDataTableComponent<T extends Record<string, unknown> = Record<stri
 
   protected readonly _sortedRows = computed(() => {
     const rows = [...this.rows()];
-    const key  = this._sortKey();
+    const key = this._sortKey();
     if (!key) return rows;
     const dir = this._sortDir() === 'asc' ? 1 : -1;
     return rows.sort((a, b) => {
@@ -387,10 +556,12 @@ export class HDataTableComponent<T extends Record<string, unknown> = Record<stri
 
   protected readonly _skeletonRows = computed(() => Array(this.skeletonRows()).fill(0));
 
-  protected readonly _hasEditable = computed(() => this.columns().some(c => c.editable) || this.deletable());
+  protected readonly _hasEditable = computed(
+    () => this.columns().some((c) => c.editable) || this.deletable(),
+  );
 
-  protected readonly _colSpan = computed(() =>
-    this.columns().length + (this.selectable() ? 1 : 0) + (this._hasEditable() ? 1 : 0)
+  protected readonly _colSpan = computed(
+    () => this.columns().length + (this.selectable() ? 1 : 0) + (this._hasEditable() ? 1 : 0),
   );
 
   protected readonly _allSelected = computed(() => {
@@ -405,7 +576,7 @@ export class HDataTableComponent<T extends Record<string, unknown> = Record<stri
   });
 
   protected readonly _editingIdx = signal<number | null>(null);
-  protected readonly _draft      = signal<Record<string, unknown>>({});
+  protected readonly _draft = signal<Record<string, unknown>>({});
 
   _trackBy(row: T, index: number): unknown {
     const key = this.trackByKey();
@@ -423,7 +594,7 @@ export class HDataTableComponent<T extends Record<string, unknown> = Record<stri
   protected _cellTpl(key: string): TemplateRef<HDtCellContext<T>> | null {
     const dirs = this._cellDirs();
     if (!dirs.length) return null;
-    const dir = dirs.find(d => d.hDtCell() === key);
+    const dir = dirs.find((d) => d.hDtCell() === key);
     return dir ? (dir.tpl as TemplateRef<HDtCellContext<T>>) : null;
   }
 
@@ -457,9 +628,9 @@ export class HDataTableComponent<T extends Record<string, unknown> = Record<stri
 
   protected _toggleRow(idx: number, checked: boolean): void {
     const sel = this.selectedIndices();
-    const next = checked ? [...sel, idx] : sel.filter(i => i !== idx);
+    const next = checked ? [...sel, idx] : sel.filter((i) => i !== idx);
     this.selectedIndices.set(next);
-    this.selectionChange.emit(next.map(i => this._sortedRows()[i]));
+    this.selectionChange.emit(next.map((i) => this._sortedRows()[i]));
   }
 
   protected _toggleAll(checked: boolean): void {
@@ -474,7 +645,7 @@ export class HDataTableComponent<T extends Record<string, unknown> = Record<stri
   }
 
   protected _patchDraft(key: string, value: unknown): void {
-    this._draft.update(d => ({ ...d, [key]: value }));
+    this._draft.update((d) => ({ ...d, [key]: value }));
   }
 
   protected _commitEdit(idx: number): void {
