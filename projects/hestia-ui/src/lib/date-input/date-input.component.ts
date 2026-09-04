@@ -80,7 +80,7 @@ function parsePtDate(s: string, withTime = false): Date | null {
     <div
       class="h-di-wrap"
       [class.h-di-wrap--focus]="focused()"
-      [class.h-di-wrap--error]="invalid()"
+      [class.h-di-wrap--error]="showError()"
       [class.h-di-wrap--sm]="size() === 'sm'"
       [class.h-di-wrap--lg]="size() === 'lg'"
     >
@@ -94,7 +94,7 @@ function parsePtDate(s: string, withTime = false): Date | null {
         [disabled]="disabled()"
         [value]="_displayText()"
         [attr.aria-required]="required() || null"
-        [attr.aria-invalid]="invalid() ? 'true' : null"
+        [attr.aria-invalid]="showError() ? 'true' : null"
         [attr.aria-label]="ariaLabel() ?? null"
         [attr.aria-describedby]="describedById() ?? null"
         [attr.aria-expanded]="_open()"
@@ -202,6 +202,8 @@ export class HDateInputComponent implements FormValueControl<Date | null>, HForm
   readonly errors    = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
   readonly touched   = model<boolean>(false);
   readonly required  = input(false, { transform: booleanAttribute });
+
+  readonly showError = computed(() => this.invalid() && this.touched());
 
   readonly mode        = input<'single' | 'range'>('single');
   readonly showTime    = input(false, { transform: booleanAttribute });

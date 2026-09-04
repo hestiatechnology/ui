@@ -22,7 +22,7 @@ let _nextId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{ provide: H_FORM_FIELD_CONTROL, useExisting: forwardRef(() => HInputComponent) }],
   template: `
-    <div [class]="wrapClasses" [class.h-input-wrap--focus]="focused()" [class.h-input-wrap--error]="invalid()">
+    <div [class]="wrapClasses" [class.h-input-wrap--focus]="focused()" [class.h-input-wrap--error]="showError()">
       @if (hasIcon()) {
         <span class="h-input-icon" aria-hidden="true"><ng-content select="[slot=icon]"></ng-content></span>
       }
@@ -31,7 +31,7 @@ let _nextId = 0;
         [type]="type()"
         [placeholder]="placeholder()"
         [disabled]="disabled()"
-        [attr.aria-invalid]="invalid() ? 'true' : null"
+        [attr.aria-invalid]="showError() ? 'true' : null"
         [attr.aria-describedby]="describedById() ?? null"
         [attr.aria-required]="required() || null"
         [attr.aria-label]="ariaLabel() ?? null"
@@ -89,6 +89,8 @@ export class HInputComponent<T = string> implements FormValueControl<T>, HFormFi
   readonly errors = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
   readonly touched = model<boolean>(false);
   readonly required = input(false, { transform: booleanAttribute });
+
+  readonly showError = computed(() => this.invalid() && this.touched());
 
   readonly size = input<InputSize>('default');
   readonly type = input('text');

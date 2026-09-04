@@ -26,7 +26,7 @@ let _nextId = 0;
     <div
       class="h-chip-wrap"
       [class.h-chip-wrap--focus]="focused()"
-      [class.h-chip-wrap--error]="invalid()"
+      [class.h-chip-wrap--error]="showError()"
       [class.h-chip-wrap--disabled]="disabled()"
       (click)="focusInput()"
     >
@@ -55,7 +55,7 @@ let _nextId = 0;
         [disabled]="disabled()"
         [attr.aria-label]="ariaLabel() ?? null"
         [attr.aria-required]="required() || null"
-        [attr.aria-invalid]="invalid() ? 'true' : null"
+        [attr.aria-invalid]="showError() ? 'true' : null"
         [style.width.px]="_inputWidth()"
         [value]="_draft()"
         (input)="onInput($event)"
@@ -118,6 +118,8 @@ export class HChipInputComponent implements FormValueControl<string[]>, HFormFie
   readonly errors   = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
   readonly touched  = model<boolean>(false);
   readonly required = input(false, { transform: booleanAttribute });
+
+  readonly showError = computed(() => this.invalid() && this.touched());
 
   readonly placeholder = input('Add…');
   readonly separator   = input<'enter' | 'comma' | 'both'>('both');

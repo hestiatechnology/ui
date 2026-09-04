@@ -42,7 +42,7 @@ let _nextId = 0;
     <div
       [class]="wrapClasses"
       [class.h-ac-wrap--focus]="focused()"
-      [class.h-ac-wrap--error]="invalid()"
+      [class.h-ac-wrap--error]="showError()"
     >
       <input
         #inputEl
@@ -53,7 +53,7 @@ let _nextId = 0;
         [disabled]="disabled()"
         [value]="_inputText()"
         [attr.aria-required]="required() || null"
-        [attr.aria-invalid]="invalid() ? 'true' : null"
+        [attr.aria-invalid]="showError() ? 'true' : null"
         [attr.aria-label]="ariaLabel() ?? null"
         [attr.aria-describedby]="describedById() ?? null"
         [attr.aria-expanded]="_open()"
@@ -303,6 +303,8 @@ export class HAutocompleteComponent<T = unknown>
   readonly errors = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
   readonly touched = model<boolean>(false);
   readonly required = input(false, { transform: booleanAttribute });
+
+  readonly showError = computed(() => this.invalid() && this.touched());
 
   readonly options = input<T[]>([]);
   readonly displayWith = input<(v: T) => string>((v) => String(v));

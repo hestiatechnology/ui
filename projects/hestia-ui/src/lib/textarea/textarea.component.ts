@@ -24,14 +24,14 @@ let _nextId = 0;
     <div
       [class]="wrapClasses"
       [class.h-textarea-wrap--focus]="focused()"
-      [class.h-textarea-wrap--error]="invalid()"
+      [class.h-textarea-wrap--error]="showError()"
     >
       <textarea
         [id]="nativeId()"
         [rows]="rows()"
         [placeholder]="placeholder()"
         [disabled]="disabled()"
-        [attr.aria-invalid]="invalid() ? 'true' : null"
+        [attr.aria-invalid]="showError() ? 'true' : null"
         [attr.aria-describedby]="describedById() ?? null"
         [attr.aria-required]="required() || null"
         [attr.aria-label]="ariaLabel() ?? null"
@@ -85,6 +85,8 @@ export class HTextareaComponent implements FormValueControl<string>, HFormFieldC
   readonly errors   = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
   readonly touched  = model<boolean>(false);
   readonly required = input(false, { transform: booleanAttribute });
+
+  readonly showError = computed(() => this.invalid() && this.touched());
 
   readonly rows        = input(3);
   readonly placeholder = input('');

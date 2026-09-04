@@ -58,7 +58,7 @@ function parseTime(s: string): HTimeValue | null {
     <div
       class="h-ti-wrap"
       [class.h-ti-wrap--focus]="focused()"
-      [class.h-ti-wrap--error]="invalid()"
+      [class.h-ti-wrap--error]="showError()"
       [class.h-ti-wrap--sm]="size() === 'sm'"
       [class.h-ti-wrap--lg]="size() === 'lg'"
     >
@@ -74,7 +74,7 @@ function parseTime(s: string): HTimeValue | null {
         [disabled]="disabled()"
         [value]="_displayText()"
         [attr.aria-required]="required() || null"
-        [attr.aria-invalid]="invalid() ? 'true' : null"
+        [attr.aria-invalid]="showError() ? 'true' : null"
         [attr.aria-label]="ariaLabel() ?? null"
         [attr.aria-describedby]="describedById() ?? null"
         [attr.aria-expanded]="_open()"
@@ -155,6 +155,8 @@ export class HTimeInputComponent implements FormValueControl<HTimeValue | null>,
   readonly errors   = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
   readonly touched  = model<boolean>(false);
   readonly required = input(false, { transform: booleanAttribute });
+
+  readonly showError = computed(() => this.invalid() && this.touched());
 
   readonly size        = input<'sm' | 'default' | 'lg'>('default');
   readonly showSeconds = input(false);

@@ -41,9 +41,11 @@ let _nextId = 0;
         class="h-select-trigger"
         [class.h-select-trigger--sm]="size() === 'sm'"
         [class.h-select-trigger--lg]="size() === 'lg'"
+        [class.h-select-trigger--error]="showError()"
         [attr.disabled]="disabled() || null"
         [attr.aria-expanded]="open()"
         [attr.aria-haspopup]="'listbox'"
+        [attr.aria-invalid]="showError() ? 'true' : null"
         [id]="nativeId()"
         (click)="toggle()"
       >
@@ -127,6 +129,12 @@ let _nextId = 0;
       .h-select-trigger--lg {
         height: 44px;
         font-size: 14.5px;
+      }
+      .h-select-trigger--error {
+        border-color: var(--h-destructive);
+      }
+      .h-select-trigger--error:focus-visible {
+        box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.2);
       }
 
       .h-select-value {
@@ -213,6 +221,8 @@ export class HSelectComponent<T = unknown>
   readonly errors = input<readonly ValidationError.WithOptionalFieldTree[]>([]);
   readonly touched = model<boolean>(false);
   readonly required = input(false);
+
+  readonly showError = computed(() => this.invalid() && this.touched());
 
   readonly compareWith = input<(a: T, b: T) => boolean>((a, b) => a === b);
   readonly placeholder = input('Choose…');
