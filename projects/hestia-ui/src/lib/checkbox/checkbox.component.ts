@@ -30,7 +30,7 @@ import { FormCheckboxControl, ValidationError } from '@angular/forms/signals';
           (blur)="touched.set(true)"
           class="h-checkbox-native">
         @if (checked() && !indeterminate()) {
-          <svg lucideCheck [size]="11" [strokeWidth]="3" stroke="white" aria-hidden="true"></svg>
+          <svg lucideCheck class="h-checkbox-check" [size]="11" [strokeWidth]="3" aria-hidden="true"></svg>
         }
         @if (indeterminate()) {
           <span class="h-checkbox-dash" aria-hidden="true"></span>
@@ -58,13 +58,17 @@ import { FormCheckboxControl, ValidationError } from '@angular/forms/signals';
     .h-checkbox-box--checked, .h-checkbox-box--indeterminate {
       border-color: var(--h-primary); background: var(--h-primary);
     }
+    .h-checkbox-check {
+      color: var(--h-primary-foreground);
+      stroke: var(--h-primary-foreground);
+    }
     .h-checkbox-native {
       position: absolute; inset: 0; opacity: 0; cursor: inherit;
       width: 100%; height: 100%; margin: 0;
     }
     .h-checkbox-native:focus-visible + * { outline: 2px solid var(--h-ring); outline-offset: 2px; }
     .h-checkbox-box:has(.h-checkbox-native:focus-visible) { outline: 2px solid var(--h-ring); outline-offset: 2px; }
-    .h-checkbox-dash { width: 8px; height: 2px; background: white; }
+    .h-checkbox-dash { width: 8px; height: 2px; background: var(--h-primary-foreground); }
   `],
 })
 export class HCheckboxComponent implements FormCheckboxControl {
