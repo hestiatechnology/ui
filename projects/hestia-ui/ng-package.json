@@ -4,9 +4,6 @@
   "lib": {
     "entryFile": "src/public-api.ts"
   },
-  "allowedNonPeerDependencies": [
-    "@angular/aria"
-  ],
   "assets": [
     {
       "input": "src/lib/tokens",
