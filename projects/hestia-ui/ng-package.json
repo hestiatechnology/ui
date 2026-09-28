@@ -12,6 +12,11 @@
       "input": "src/lib/tokens",
       "glob": "design-tokens.css",
       "output": "./tokens"
+    },
+    {
+      "input": "src/lib/brand",
+      "glob": "*.svg",
+      "output": "./brand"
     }
   ]
 }

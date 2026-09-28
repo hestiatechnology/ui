@@ -17,6 +17,7 @@ const config: StorybookConfig = {
   },
   staticDirs: [
     { from: "../src/lib/icons", to: "/icons" },
+    { from: "../src/lib/brand", to: "/brand" },
   ],
 };
 export default config;

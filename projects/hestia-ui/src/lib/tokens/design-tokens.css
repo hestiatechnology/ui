@@ -108,11 +108,16 @@
   --h-text-2xl:  1.5rem;
   --h-text-3xl:  1.875rem;
   --h-text-4xl:  2.25rem;
+  --h-text-5xl:  3rem;
+  --h-text-6xl:  3.75rem;
+  --h-text-7xl:  5rem;
+  --h-text-8xl:  6rem;
 
   /* Eyebrow */
   --h-eyebrow-size:     12px;
   --h-eyebrow-weight:   700;
   --h-eyebrow-tracking: 0.18em;
+  --h-eyebrow-transform: uppercase;
   --h-eyebrow-color:    var(--h-primary);
 
   /* Motion — marketing: narrative; product: instant */
